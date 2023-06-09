@@ -6,7 +6,10 @@ from pathlib import Path
 import cbmcodecs2
 import click
 
-ARCHIVE_TYPES = ["at_gnrl", "at_rstr", "at_instl"]
+ARCHIVE_TYPES = ["General", "Restore", "Install"]
+AT_GENERAL = 0
+AT_RESTORE = 1
+AT_INSTALL = 2
 COMPRESS_TYPE = ["none", "RLE", "LZ"]
 
 # header sizes
@@ -17,7 +20,7 @@ codec = "petscii_c64en_lc"
 path = ""
 
 
-def extract(car, file_offset, base, path):
+def extract(car, file_offset, base, path, ignorerootentry=False):
     header = car[file_offset : file_offset + FILE_HEADER]
 
     # extract header info.
@@ -48,11 +51,11 @@ def extract(car, file_offset, base, path):
             newfile.write(data)
         return file_offset + FILE_HEADER + car_size
     else:
-        # how should we handle this special top level directory?
-        if "<-" not in car_name:
+        # The initial entry of an installer archive type is ignored.
+        if not ignorerootentry:
             path = path + car_name + "/"
         else:
-            print(f"Initial directory entry: \"{car_name}\". Not using.")
+            print(f'Install archive, initial entry note: "{car_name}".')
 
         # skip over file header (directories have just a header, no data)
         offset = file_offset + FILE_HEADER
@@ -64,16 +67,17 @@ def extract(car, file_offset, base, path):
 
 @click.command()
 @click.argument("archive", type=click.File("rb"), required=True)
-@click.option("--base", default="./", help="Extraction base target directory.")
-def main(archive, base):
-    # We read the archive header and then call extract()
-    # with the first file header.  It should be a 'D' type header.
+@click.option("--base", default=".", help="Extraction base target directory.")
+@click.option("--system", default="os", help="System directory name, defaults to 'os'.")
+def main(archive, base, system):
+    # We read the archive header and then call
+    # extract() with the first file header.
     # Read in the whole archive, they are small.
     contents = archive.read()
 
     # Parse the archive header
     car_type = contents[0]
-    car_magic = contents[1:11]
+    car_magic = contents[1:11].decode(codec)
     car_ver = contents[11]
     car_date = contents[12:17]
     car_yr = 1900 + contents[12]
@@ -87,39 +91,45 @@ def main(archive, base):
         car_note = car_note[:end]
     car_note = car_note.decode(codec)
 
-    # Installer archives extract into the system directory.
-    # The system directory should be an cli option.
+    # We don't handle non C64 CAR files.
+    if car_magic != "C64Archive":
+        print(f"ERROR: bad magic: {car_magic}.")
+        sys.exit(1)
+
+    # We currently only handle version 2.
+    if car_ver != 2:
+        print(f"ERROR: unsupported archive version: {car_var}.")
+        sys.exit(1)
+
+    # Make sure directories end with a slash.
     if not base.endswith("/"):
         base += "/"
-    if car_type == 2:
-        base = base + "os/"
+    if not system.endswith("/"):
+        system += "/"
+
+    # Installer archives extract into the system directory.
+    if car_type == AT_INSTALL:
+        base = base + system
+        ignorerootentry = True
+    else:
+        ignorerootentry = False
 
     # Print out some archive info.
     if car_type <= len(ARCHIVE_TYPES):
         print(f"Archive type: {ARCHIVE_TYPES[car_type]}")
+    else:
+        print(f"Archive type: unknown? (please report)")
+    print(f"Archive vers: {car_ver}")
     print(f"Archive note: {car_note}")
     print(f"Archive date: {car_yr}-{car_mon}-{car_day} {car_hr}:{car_min}")
 
-    # Skip the archive header to find the initial directory.
+    # Skip the archive header to find the initial entry.
     foffset = ARCHIVE_HEADER
 
-    car_type2 = contents[foffset + 0]
-    file_type = chr(car_type2)
-    car_lock = contents[foffset + 1]
-    car_size = contents[foffset + 2 : foffset + 5]
-    car_sizeint = int.from_bytes(contents[foffset + 2 : foffset + 5], "little")
-    car_name = contents[foffset + 5 : foffset + 20]
-    car_comp = contents[foffset + 21]
-
-    end = car_name.find(0xA0)
-    if end > 0:
-        car_name = car_name[:end]
-    car_name = car_name.decode(codec)
-    if file_type == "D":
-        result = extract(contents, foffset, base, path)
-    else:
-        print("Initial file header is not a directory? Archive error?")
-        sys.exit(1)
+    # Call extract with the initial entry. It will
+    # recursively extract all files / directories.
+    result = extract(contents, foffset, base, path, ignorerootentry)
+    sys.exit(0)
 
 
 if __name__ == "__main__":
