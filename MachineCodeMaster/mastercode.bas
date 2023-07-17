@@ -1,6 +1,6 @@
 
 
-;code master ==0801==
+;mastercode ==0801==
 10000 rem******************************
 10020 rem general initialisation
 10030 rem******************************
@@ -28,7 +28,7 @@
 10265 if x<15 then for y = x to 15 : print : next
 10270 print "command ( 0 -" x-1 " ) : ";: input t
 10300 if t<0 or t>x then 10100
-10305 if t=0 then print "{clr}{down}{down}{down}{down}                 {rvon}bye{rvof}{down}{down}{down}{down}" : close 1: end
+10305 if t=0 then print "{clr}{down}{down}{down}{down}                  {rvon}bye{rvof}{down}{down}{down}{down}" : close 1: end
 10310 on t gosub 13100,13300,13500,14300,14100,15800,24800,20000
 10320 goto 10100
 11000 rem******************************
