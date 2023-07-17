@@ -15,3 +15,18 @@ It provides:
 ## Usage
 
 
+## Type-In Issues
+
+There are a few lines that don't match the book checksum tables.  Many of these are related to print statements where it is somewhat tricky to get the formatting perfect.  The lines all appear correct and probably could be corrected via trial and error.
+
+Mismatches:
+P.12  10031 should be 164 not 116   # This appears swapped with 10032. Otherwise the line appears correct.
+P.12  10032 should be 116 not 164   # This appears swapped with 10031. Otherwise the line appears correct.
+P.13  10230 should be 192 not 182   # Probably issue in print layout.  Otherwise the line appears correct.
+P.25  14320 should be 84 not 174    # The line appears correct.
+P.42  24820 should be 125 not 251   # Probably issue in print layout.  Otherwise the line appears correct.
+P.61  20090 should be 244 not 63    # Probably issue in print layout.  Otherwise the line appears correct.
+P.66  26407 should be 227 not 42    # Probably issue in print layout.  Otherwise the line appears correct.
+P.74  28020 should be 12 not 63     # The line appears correct.
+
+
