@@ -31,7 +31,7 @@ def extract(car, file_offset, base, path, ignorerootentry=False):
     car_size = int.from_bytes(header[2:5], "little")
 
     # the file/directory name is terminated with 0xa0
-    car_name = header[5:20]
+    car_name = header[5:21]
     end = car_name.find(0xA0)
     if end > 0:
         car_name = car_name[:end]
