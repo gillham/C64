@@ -1,0 +1,1 @@
+“ 10       PRT 20       SYM 30       ORG $C057 40       WRD FAST-1.SLOW-1 45       ORG $C4A3 50       SLOW LDY #0 60       BYT $2C 70       FAST LDY #4 80       LDX #0 90       LBL000 LDA $E3AF.Y 100       STA $80.X 110       INX 120       INY 130       CPY #$B 140       BCC LBL000 150       RTSEND

@@ -14,6 +14,26 @@ It provides:
 
 ## Usage
 
+## BASIC Extender
+
+Assembly order:
+```
+mcpatch.asm
+undead.asm
+subex.asm
+rkill.asm
+getwrd.asm
+doke.asm
+plot.asm
+delete.asm
+bsave.asm
+bload.asm
+move.asm
+fill.asm
+restore.asm
+function.asm
+fast.asm
+```
 
 ## Type-In Issues
 

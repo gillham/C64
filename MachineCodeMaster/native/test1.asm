@@ -1,0 +1,1 @@
+“ 10       PRT 20       SYM 30       ORG 2054 50       LBL000 LDA 1 60       AND #254 70       STA 1 80       RTS 90       LDY #255 100       INY 120       LBL001 JSR LBL002 130       LDX 257.Y 140       JSR LBL000 150       TXA 160       STA 257.Y 170       INY 180       BNE LBL001 190       LBL002 LDA 1 200       ORA #1 210       STA 1 220       RTSEND

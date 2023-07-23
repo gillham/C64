@@ -1,0 +1,1 @@
+“ 10       PRT 20       SYM 30       ORG $C05F 40       WRD SUBEX-1 50       ORG $C1FD 60       SUBEX LDA #$FF 70       STA $4A 80       JSR $A38A 90       TXS 100       CMP #$8D 110       BNE RETERR 120       PLA 130       PLA 140       PLA 150       PLA 160       PLA 170       RTS 180       RETERR JMP $ABE0 190       ENDEND

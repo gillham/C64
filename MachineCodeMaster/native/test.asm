@@ -1,0 +1,1 @@
+“ 10       PRT 20       SYM 30       ORG $C000 40       START INC $D020 50       RTS 60       ENDEND

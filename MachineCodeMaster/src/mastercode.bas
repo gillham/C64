@@ -568,7 +568,7 @@
 26402 rem******************************
 26405 print "{home}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}                                        " ;
 26406 print "                                       " ;
-26407 "{home}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}" ;: gosub 28100
+26407 print "{home}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}{down}" ;: gosub 28100
 26410 pass = 1 : exit = false : ptr = 2
 26420 gosub 28850
 26430 if not err then 26540

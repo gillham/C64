@@ -1,0 +1,1 @@
+“ 10       PRT 20       SYM 30       ORG $C12C 40       ; ROUTINE TO GET 16 BIT UNSIGNED INTEGER FROM BASIC INTO $14 & $15 50       GETWRD JSR $AD8A 60       JMP $B7F7 70       ENDEND
