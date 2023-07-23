@@ -52,8 +52,6 @@ P.42  24820 should be 125 not 251   # Probably issue in print layout.  Otherwise
 
 P.61  20090 should be 244 not 63    # Probably issue in print layout.  Otherwise the line appears correct.
 
-P.66  26407 should be 227 not 42    # Probably issue in print layout.  Otherwise the line appears correct.
-
 P.74  28020 should be 12 not 63     # The line appears correct.
 
 
