@@ -6,7 +6,7 @@
 10030 rem******************************
 10031 base = 16
 10032 if len(ptr$)+len(e$)<>255 then clr : gosub 19000
-10035 dev = 1
+10035 dev = 8
 10040 deffn hex(x) = (x and 15)+48-((x and 15)>9)*7
 10050 deffn dec(x) = x-48+(x>57)*7
 10060 false = 0 : true = -1
