@@ -330,7 +330,7 @@
 20260 next q
 20270 print : print " total errors in file ---" ec : print
 20280 if sy then gosub 26900
-20290 if peek(152) <> 0 then print#2 : close2 : goto 20300
+20290 if peek(650) <> 0 then print#2 : close2 : goto 20300
 20295 get t$ : if t$="" then 20295
 20300 return
 23000 rem******************************
