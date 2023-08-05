@@ -447,7 +447,7 @@
 24410 gosub 24200 : if err then 24460
 24420 print "{clr}" : gosub 23500 : if fp<spor fp=0 then 24460
 24430 for t1 = sp to fp : t = asc(mid$(ptr$,t1,1)) : gosub 23400 : next : print
-24455 if peek(152)=0 then get t$ : if t$="" then 24455
+24455 if peek(650)=0 then get t$ : if t$="" then 24455
 24460 return
 24500 rem******************************
 24501 rem delete line(s)
