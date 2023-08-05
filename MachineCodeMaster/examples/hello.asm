@@ -1,0 +1,1 @@
+“ 10       SYM 20       ORG $8000 30       CHROUT = $FFD2 40       LDX #0 50       LOOP LDA STRING.X 60       CMP #0 70       BEQ DONE 80       JSR CHROUT 90       INX 100       JMP LOOP 110       DONE RTS 120       STRING BYT 72.69.76.76.79.32 130       BYT 87.79.82.76.68.33.0 140       ENDEND
