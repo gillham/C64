@@ -14,6 +14,17 @@ It provides:
 
 ## Usage
 
+### Loading
+Commodore 64:
+```
+LOAD"MASTERCODE",8
+RUN
+```
+
+Commander X16:
+```
+x16emu -run -prg mastercode-x16.prg
+```
 ## BASIC Extender
 
 Assembly order:
@@ -40,6 +51,7 @@ fast.asm
 There are a few lines that don't match the book checksum tables.  Many of these are related to print statements where it is somewhat tricky to get the formatting perfect.  The lines all appear correct and probably could be corrected via trial and error.
 
 Mismatches:
+
 P.12  10031 should be 164 not 116   # This appears swapped with 10032. Otherwise the line appears correct.
 
 P.12  10032 should be 116 not 164   # This appears swapped with 10031. Otherwise the line appears correct.
