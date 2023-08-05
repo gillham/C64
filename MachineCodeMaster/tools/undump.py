@@ -7,7 +7,7 @@ import click
 
 
 @click.command()
-@click.argument("file", type=click.File("rb"), required=True)
+@click.argument("file", type=click.File("r"), required=True)
 @click.option("--output", default="aout.prg", help="Output file name.")
 def main(file, output):
     """

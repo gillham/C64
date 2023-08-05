@@ -17,7 +17,9 @@ def main(prg, output):
     one decimal number per line. The first two lines are
     the load address and the address of the last byte of the file.
     Following that is each byte in the file as a decimal number
-    one line at a time.
+    one line at a time. There is a leading & trailing space and
+    a carriage return only as the line ending.  Plus and extra
+    carriage return at the end of the file.
     """
 
     data = prg.read()
@@ -25,18 +27,20 @@ def main(prg, output):
     # don't count load address (first two bytes)
     size = len(data[2:])
     start = data[1] * 256 + data[0]
-    end = start + size
+    end = start + size - 1
 
     print(f"Opening {output} for writing...", file=sys.stderr)
     print(f"Decimal starting address: {start}", file=sys.stderr)
     print(f"Decimal   ending address: {end} ({size} bytes)", file=sys.stderr)
 
     with open(output, "wt", encoding="ascii") as outfile:
-        print(start, file=outfile)
-        print(end, file=outfile)
+        print(f" {start} ", file=outfile, end="\r")
+        print(f" {end} ", file=outfile, end="\r")
         # skip load address (first two bytes)
         for line in data[2:]:
-            print(str(line).zfill(3), file=outfile)
+            #print(" ", str(line).zfill(3), file=outfile, end="\r")
+            print(f" {line} ", file=outfile, end="\r")
+        print("", file=outfile, end="\r")
 
 
 if __name__ == "__main__":
