@@ -1,0 +1,5 @@
+# binary objects
+*.o
+
+# working directory
+work/
