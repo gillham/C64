@@ -4,10 +4,10 @@
 ;  cl65 -o checksum-c64.prg -t c64 -C c64-asm.cfg --start-addr 0xcf00 checksum-c64.s
 ;****************************
 
-linnum  := $14      ; and $D5
-lowtr   := $5F      ; and $C2
+linnum  := $14      ; and $16
+lowtr   := $5F      ; and $60
 result  := $FB      ; checksum returned here.
-argline := $FC      ; and $4d, argument passed in linnum (returns next line)
+argline := $FC      ; and $FD, argument passed in linnum (returns next line)
 tmp4e   := $FE      ; used for basic end of program ('00 00' link address) check
 fndlin  := $A613    ; Might need to be adjusted for each new ROM release
 
