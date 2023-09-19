@@ -1,0 +1,22 @@
+
+mckill
+
+00:11:31.2 -- parse all lines
+00:28:22.9 -- generate all code?
+
+standard:
+
+00:11:40.0 -- parse all lines. (approx, maybe wait until 'ADD. DATA SOURCE CODE' appears?)
+00:30:19.0 -- (probably a lot less as I wasn't paying attention...)
+
+
+Warp mode:
+
+standard:
+00:02:07.6 -- to 'ADD.' point.
+00:05:08.4 -- to printing symbol table
+
+mckill:
+00:02:04.9 -- to 'ADD.' point.
+00:05:04.0 -- to printing symbol table
+

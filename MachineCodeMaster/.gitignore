@@ -3,3 +3,6 @@
 
 # working directory
 work/
+
+# vice default printer output
+print.dump
