@@ -547,7 +547,7 @@ WC2D8:
 WC2E7:
       lsr                               
       tax                               
-      lda  DATAREF002,x                 
+      lda  MODE,x                       
       bcs  WC2F2                        
       lsr                               
       lsr                               
@@ -561,7 +561,7 @@ WC2F6:
       lda  #$00                         
 WC2FA:
       tax                               
-      lda  DATAREF003,x                 
+      lda  MODE2,x                      
       sta  STACKVAR_0169                ; CPU stack
       and  #$03                         
       sta  STACKVAR_0160                ; CPU stack
@@ -603,9 +603,9 @@ DISLOOP_C327:
 
 DISREADDATA_C337:
       tay                               
-      lda  OPCODETABLE1,y               
+      lda  MNEML,y                      
       sta  STACKVAR_0165                ; CPU stack
-      lda  OPCODETABLE2,y               
+      lda  MNEMR,y                      
       sta  STACKVAR_0166                ; CPU stack
 DISLOOP_C344:
       lda  #$00                         
@@ -654,7 +654,7 @@ BRKZEROEMPTY_C36A:
       brk                               
       brk                               
       brk                               
-WC382:
+CALLIRQHANDLER:
       lda  ZPVAR_CC                     ; Flash state: 0=flashing
       bne  WC38F                        
       ldx  #$01                         
@@ -827,9 +827,9 @@ LOOKUPOPCODE_C4A6:
       ldx  STACKVAR_0169                ; CPU stack
       stx  STACKVAR_0166                ; CPU stack
       tax                               
-      lda  OPCODETABLE2,x               
+      lda  MNEMR,x                      
       jsr  MAYBPRSOPCODE_C578           
-      lda  OPCODETABLE1,x               
+      lda  MNEML,x                      
       jsr  MAYBPRSOPCODE_C578           
       ldx  #$06                         
 WC4C6:
@@ -1060,7 +1060,7 @@ WC657:
       bcc  WC630                        
       ldx  SAVESTATUS_0154              ; CPU stack
       txs                               
-      lda  FUNCVECTADDRHI               
+      lda  TEXTMONEXT-1                 
       pha                               
       lda  FUNCVECTADDR                 
       pha                               
@@ -1078,7 +1078,7 @@ WC66D:
       sta  ZP1STADDR_C1                 ; I/O starting address
       stx  ZP1STADDR_C2                 ; I/O starting address
       jsr  PRINTSPACE                   
-      jsr  WCCEF                        
+      jsr  PRTDISLINE_CCEF              
 LOOPWAITGETIN:
       jsr  GETIN                        ; Routine: Take the char from keyboard buffer
       beq  LOOPWAITGETIN                
@@ -1218,7 +1218,7 @@ WC79A:
       lda  (ZP1STADDR_C1),y             ; I/O starting address
       jsr  WC2D8                        
       tax                               
-      lda  OPCODETABLE1,x               
+      lda  MNEML,x                      
       bne  WC7BA                        
       jsr  PRTSOMETHING_C0F8            
 WC7B7:
@@ -1902,35 +1902,35 @@ PRINTHOME:
 
 MAYBEFINDLEFTPAREN:
       cpy  #$28                         ; Compare Y to '(' left parenthesis.
-      bne  WCC38                        
+      bne  KEEPLOOK_CC38                
       sec                               
       rts                               
 
-WCC38:
+KEEPLOOK_CC38:
       jsr  MAYBESCREEN2PETSCII          
       cmp  #$20                         
       beq  MAYBEFINDLEFTPAREN           
       dey                               
-      jsr  WCC62                        
+      jsr  MAYBEGETHEXDGT_CC62          
       tax                               
-      jsr  WCC62                        
+      jsr  MAYBEGETHEXDGT_CC62          
       sta  ZP1STADDR_C1                 ; I/O starting address
       stx  ZP1STADDR_C2                 ; I/O starting address
       lda  #$FF                         
       sta  STACKVAR_0175                ; CPU stack
       sta  ZPVAR_CC                     ; Flash state: 0=flashing
       lda  ZPVAR_CF                     ; Flag: Last cursore state (Flash/fixed)
-      beq  WCC60                        
+      beq  SKIPCURSOR_CC60              
       lda  ZPVAR_CE                     ; Char under the cursor
       ldy  $D3                          ; Column of cursor on the current line
       sta  ($D1),y                      ; Pointer: current screen line address
       lda  #$00                         
       sta  ZPVAR_CF                     ; Flag: Last cursore state (Flash/fixed)
-WCC60:
+SKIPCURSOR_CC60:
       clc                               
       rts                               
 
-WCC62:
+MAYBEGETHEXDGT_CC62:
       jsr  MAYBESCREEN2PETSCII          
       jsr  MAYBELOW4BITS_C8B3           
       asl                               
@@ -2024,7 +2024,7 @@ PRINTDIGIT_CCE5:
       bpl  HEXTODECLOOP_CCCD            
       rts                               
 
-WCCEF:
+PRTDISLINE_CCEF:
       jsr  PRTADDRHEX_C82D              
       jsr  PRINTSPACE                   
       jsr  MAYBPATCHDIS_CBEF            
@@ -2049,11 +2049,11 @@ CMDEXAMINE:
       jsr  INDIRECTCHRIN                
       ldx  #$7F                         ; Used with N flag to indicate op requested.
       cmp  #$43                         ; Compare 'C' for examine/edit char.
-      beq  WCD1F                        ; If 'C' skip over 'S' check.
+      beq  EXAMINE_VALID                ; If 'C' skip over 'S' check.
       inx                               ; $80 will set N flag and indicate example sprite op.
       cmp  #$53                         ; Compare 'S' for examine sprite.
       bne  SYNTAXERROR_CD0E             ; No valid sub-command. Print syntax error.
-WCD1F:
+EXAMINE_VALID:
       stx  NEGATIVEFLAGVAR              ; CPU stack
       jsr  GET1STADDRCMDL_C42D          
 LOOP_CD25:
@@ -2255,7 +2255,7 @@ EMPTYZERO_CE66:
 DATAREF001:
       .byte $01, $00, $0A, $00, $64, $00, $E8, $03 
       .byte $10, $27                    
-DATAREF002:
+MODE:
       .byte $40, $02, $45, $03, $D0, $08, $40, $09 
       .byte $30, $22, $45, $33, $D0, $08, $40, $09 
       .byte $40, $02, $45, $33, $D0, $08, $40, $09 
@@ -2265,14 +2265,18 @@ DATAREF002:
       .byte $10, $22, $44, $33, $D0, $08, $40, $09 
       .byte $10, $22, $44, $33, $D0, $08, $40, $09 
       .byte $62, $13, $78, $A9          
-DATAREF003:
+MODE2:
       .byte $00, $21, $81, $82, $00, $00, $59, $4D 
       .byte $91, $92, $86, $4A, $85     
 INSNMODEPUNCT1:
-      .byte $9D, $2C, $29, $2C, $23, $28
+      .byte $9D
+CHAR1:
+      .byte $2C, $29, $2C, $23, $28     
 INSNMODEPUNCT2:
-      .byte $24, $59, $00, $58, $24, $24, $00 
-OPCODETABLE1:
+      .byte $24
+CHAR2:
+      .byte $59, $00, $58, $24, $24, $00
+MNEML:
       .byte $1C, $8A, $1C, $23, $5D, $8B, $1B, $A1 
       .byte $9D, $8A, $1D, $23, $9D, $8B, $1D, $A1 
       .byte $00, $29, $19, $AE, $69, $A8, $19, $23 
@@ -2281,7 +2285,7 @@ OPCODETABLE1:
       .byte $AE, $AE, $A8, $AD, $29, $00, $7C, $00 
       .byte $15, $9C, $6D, $9C, $A5, $69, $29, $53 
       .byte $84, $13, $34, $11, $A5, $69, $23, $A0 
-OPCODETABLE2:
+MNEMR:
       .byte $D8, $62, $5A, $48, $26, $62, $94, $88 
       .byte $54, $44, $C8, $54, $68, $44, $E8, $94 
       .byte $00, $B4, $08, $84, $74, $B4, $28, $6E 
@@ -2309,18 +2313,16 @@ CMDVECTORTABLE:
       .byte <CMDLOADSAVE, >CMDLOADSAVE, <CMDTRANSFER, >CMDTRANSFER, <CMDWALK, >CMDWALK, <CMDEXIT, >CMDEXIT 
       .byte <CMDCOMMA, >CMDCOMMA, <CMDCOLON, >CMDCOLON, <CMDSEMICOLON, >CMDSEMICOLON, <CMDHASH, >CMDHASH 
       .byte <CMDDOLLAR, >CMDDOLLAR, <CMDEXAMINE, >CMDEXAMINE, <CMDLEFTBRACKET, >CMDLEFTBRACKET, <CMDRIGHTBRACKET, >CMDRIGHTBRACKET 
-      .byte <W0000, >W0000              
+      .byte $00, $00                    
 LOADADD:
       .byte <ENTRY, >ENTRY
 IRQHNDRADD:
-      .byte <WC382, >WC382
+      .byte <CALLIRQHANDLER, >CALLIRQHANDLER
 BRKHNDRADD:
       .byte <BRKHANDLER, >BRKHANDLER
 IRQHND2ADDRVECT:
       .byte <IRQHANDLER, >IRQHANDLER
-FUNCVECTADDR:
-      .byte $BA
-FUNCVECTADDRHI:
-      .byte $C5
+FUNCVECTADDR:                           ; Should be <FUNCTVECT-1, >FUNCTVECT-1 instead.
+      .word $C5BA
 TEXTMONEXT:
-      .byte $4D, $4F, $4E, $45, $58, $54
+      .byte $4D, $4F, $4E, $45, $58, $54; Can't be string as upper/lower PETSCII issue.
