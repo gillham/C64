@@ -66,4 +66,11 @@ P.61  20090 should be 244 not 63    # Probably issue in print layout.  Otherwise
 
 P.74  28020 should be 12 not 63     # The line appears correct.
 
+## Performance
+
+Mastercode is quite slow since it is written in BASIC.  It works though which is fairly impressive.
+Also included is a version (called 'mcode' on the disk or just 'mcode.prg' in the repository) compiled with [MoSpeed by Egon Olsen](https://github.com/EgonOlsen71/basicv2/).
+It significantly improves the speed of the assembler.  Assembling the 'mcpatch.asm' file is 28+ minutes with BASIC but just over 2 minutes compiled!
+
+The compiled version has been tested to assemble the BASIC extender, but does need additional testing/verification against the BASIC version and with various options.
 
