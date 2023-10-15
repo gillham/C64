@@ -74,3 +74,10 @@ It significantly improves the speed of the assembler.  Assembling the 'mcpatch.a
 
 The compiled version has been tested to assemble the BASIC extender, but does need additional testing/verification against the BASIC version and with various options.
 
+To compile it yourself (with mospseed.sh and basicv2.jar) use:
+```bash
+sh mospeed.sh -compactlevel=3 -platform=c64 -bigram=true -varend=49152 -target=mcode.prg src/mcode.bas
+```
+
+This makes as much memory as possible available to the program while leaving the $C000 range empty so the BASIC extender from the book can be assembled to memory.
+
