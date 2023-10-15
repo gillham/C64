@@ -12,6 +12,7 @@ c1541 -format "master code,01" d64 mastercode.d64
 c1541 -attach mastercode.d64 -write mastercode.prg mastercode
 c1541 -attach mastercode.d64 -write "basicloader.prg" "basicloader"
 c1541 -attach mastercode.d64 -write "basicextender.seq" "basicextender",s
+c1541 -attach mastercode.d64 -write mcode.prg mcode
 
 for f in $ASMFILES
 do
