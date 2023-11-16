@@ -21,7 +21,7 @@ CODEC = cbmcodecs2.petscii_codecs["petscii-c64en-lc"].name
 PATH = ""
 
 
-def extract(car, file_offset, base, path, ignorerootentry=False):
+def extract(car, file_offset, base, path, wrap, ignorerootentry=False):
     """Perform the actual extraction.  Called recursively."""
     header = car[file_offset : file_offset + FILE_HEADER]
 
@@ -35,17 +35,39 @@ def extract(car, file_offset, base, path, ignorerootentry=False):
     end = car_name.find(0xA0)
     if end > 0:
         car_name = car_name[:end]
+
+    # These are always used but empty they are a NOP.
+    # They will be filled if wrapping is requested.
+    # Which will change the file extension and embed
+    # the header.
+    wrap_header = bytes()
+    wrap_extension = ""
+    # If file wrapping is requested we will use the original C64 PETSCII
+    # filename from the archive for the embedded header. Before decoding ascii.
+    if wrap:
+        embedded_pad = bytes()
+        # File name is 16 bytes and a 0x00 terminator. (aka 17 bytes)
+        for _ in range(17 - len(car_name)):
+            embedded_pad += b"\x00"
+        # Set last byte (REL file record length) to zero for now.
+        wrap_header = b"C64File" + b"\x00" + car_name + embedded_pad + b"\x00"
+        wrap_extension = "." + file_type + "00"
+
+    # Get ASCII compatible filename
     car_name = car_name.decode(CODEC)
     car_comp = header[21]
 
     if file_type != "D":
-        filepath = base + path + car_name
+        filepath = base + path + car_name + wrap_extension
 
         # Create any directories needed.
         Path(base + path).mkdir(parents=True, exist_ok=True)
 
         # write out the file..
-        data = car[file_offset + FILE_HEADER : file_offset + FILE_HEADER + car_size]
+        data = (
+            wrap_header
+            + car[file_offset + FILE_HEADER : file_offset + FILE_HEADER + car_size]
+        )
         print(f"Extracting {filepath} ({len(data)} bytes)")
         if car_comp != 0:
             print(f"Not extracting {filepath}. Compressed: ({COMPRESS_TYPE[car_comp]})")
@@ -63,7 +85,7 @@ def extract(car, file_offset, base, path, ignorerootentry=False):
     # skip over file header (directories have just a header, no data)
     offset = file_offset + FILE_HEADER
     for _ in range(0, car_size):
-        offset = extract(car, offset, base, path)
+        offset = extract(car, offset, base, path, wrap)
     # offset points to the next file_header
     return offset
 
@@ -72,7 +94,8 @@ def extract(car, file_offset, base, path, ignorerootentry=False):
 @click.argument("archive", type=click.File("rb"), required=True)
 @click.option("--base", default=".", help="Extraction base target directory.")
 @click.option("--system", default="os", help="System directory name, defaults to 'os'.")
-def main(archive, base, system):
+@click.option("--wrap", is_flag=True, help="Wrap files in P00/S00/U00/R00.")
+def main(archive, base, system, wrap):
     """Parse arguments and examine the archive header."""
     # We read the archive header and then call
     # extract() with the first file header.
@@ -129,7 +152,7 @@ def main(archive, base, system):
 
     # Call extract with the initial entry. It will
     # recursively extract all files / directories.
-    extract(contents, foffset, base, PATH, ignorerootentry)
+    extract(contents, foffset, base, PATH, wrap, ignorerootentry)
     sys.exit(0)
 
 
