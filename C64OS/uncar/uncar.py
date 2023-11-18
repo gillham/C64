@@ -70,9 +70,6 @@ def extract(car, file_offset, base, path, wrap, listing, ignorerootentry=False):
             crc32 = binascii.crc32(data)
             print(f"{crc32:08x} {file_type} {len(data)} {filepath.lstrip('./')}")
         else:
-            # Create any directories needed.
-            Path(base + path).mkdir(parents=True, exist_ok=True)
-
             print(f"Extracting {filepath} ({len(data)} bytes)")
             if car_comp != 0:
                 print(
@@ -86,6 +83,10 @@ def extract(car, file_offset, base, path, wrap, listing, ignorerootentry=False):
     # The initial entry of an installer archive type is ignored.
     if not ignorerootentry:
         path = path + car_name + "/"
+        if not listing:
+            # Create path if it doesn't exist.
+            print(f"Creating directory {path}")
+            Path(base + path).mkdir(parents=True, exist_ok=True)
     else:
         print(f'Install archive, initial entry note: "{car_name}".')
 
