@@ -1,6 +1,7 @@
-#!/usr/bin/env python3
+#!/home/gillham/.local/share/virtualenvs/c64/bin/python
 """ Extraction tool for C64 Archives from C64OS. """
 # import os
+import binascii
 import sys
 from pathlib import Path
 import cbmcodecs2
@@ -21,7 +22,7 @@ CODEC = cbmcodecs2.petscii_codecs["petscii-c64en-lc"].name
 PATH = ""
 
 
-def extract(car, file_offset, base, path, wrap, ignorerootentry=False):
+def extract(car, file_offset, base, path, wrap, listing, ignorerootentry=False):
     """Perform the actual extraction.  Called recursively."""
     header = car[file_offset : file_offset + FILE_HEADER]
 
@@ -60,19 +61,25 @@ def extract(car, file_offset, base, path, wrap, ignorerootentry=False):
     if file_type != "D":
         filepath = base + path + car_name + wrap_extension
 
-        # Create any directories needed.
-        Path(base + path).mkdir(parents=True, exist_ok=True)
-
         # write out the file..
         data = (
             wrap_header
             + car[file_offset + FILE_HEADER : file_offset + FILE_HEADER + car_size]
         )
-        print(f"Extracting {filepath} ({len(data)} bytes)")
-        if car_comp != 0:
-            print(f"Not extracting {filepath}. Compressed: ({COMPRESS_TYPE[car_comp]})")
-        with open(filepath, "wb") as newfile:
-            newfile.write(data)
+        if listing:
+            crc32 = binascii.crc32(data)
+            print(f"{crc32:08x} {file_type} {len(data)} {filepath.lstrip('./')}")
+        else:
+            # Create any directories needed.
+            Path(base + path).mkdir(parents=True, exist_ok=True)
+
+            print(f"Extracting {filepath} ({len(data)} bytes)")
+            if car_comp != 0:
+                print(
+                    f"Not extracting {filepath}. Compressed: ({COMPRESS_TYPE[car_comp]})"
+                )
+            with open(filepath, "wb") as newfile:
+                newfile.write(data)
         return file_offset + FILE_HEADER + car_size
 
     # Handle directory entries.
@@ -85,7 +92,7 @@ def extract(car, file_offset, base, path, wrap, ignorerootentry=False):
     # skip over file header (directories have just a header, no data)
     offset = file_offset + FILE_HEADER
     for _ in range(0, car_size):
-        offset = extract(car, offset, base, path, wrap)
+        offset = extract(car, offset, base, path, wrap, listing)
     # offset points to the next file_header
     return offset
 
@@ -93,9 +100,12 @@ def extract(car, file_offset, base, path, wrap, ignorerootentry=False):
 @click.command()
 @click.argument("archive", type=click.File("rb"), required=True)
 @click.option("--base", default=".", help="Extraction base target directory.")
+@click.option(
+    "--list", "listing", is_flag=True, help="Generate a list of files & CRC32."
+)
 @click.option("--system", default="os", help="System directory name, defaults to 'os'.")
 @click.option("--wrap", is_flag=True, help="Wrap files in P00/S00/U00/R00.")
-def main(archive, base, system, wrap):
+def main(archive, base, listing, system, wrap):
     """Parse arguments and examine the archive header."""
     # We read the archive header and then call
     # extract() with the first file header.
@@ -152,7 +162,7 @@ def main(archive, base, system, wrap):
 
     # Call extract with the initial entry. It will
     # recursively extract all files / directories.
-    extract(contents, foffset, base, PATH, wrap, ignorerootentry)
+    extract(contents, foffset, base, PATH, wrap, listing, ignorerootentry)
     sys.exit(0)
 
 
