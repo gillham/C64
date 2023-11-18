@@ -1,4 +1,4 @@
-#!/home/gillham/.local/share/virtualenvs/c64/bin/python
+#!/usr/bin/env python3
 """ Extraction tool for C64 Archives from C64OS. """
 # import os
 import binascii
