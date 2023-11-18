@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """ Extraction tool for C64 Archives from C64OS. """
-# import os
 import binascii
 import sys
 from pathlib import Path
@@ -17,9 +16,20 @@ COMPRESS_TYPE = ["none", "RLE", "LZ"]
 ARCHIVE_HEADER = 48
 FILE_HEADER = 22
 
-CODEC = "petscii_c64en_lc"
+# CODEC = "petscii_c64en_lc"
 CODEC = cbmcodecs2.petscii_codecs["petscii-c64en-lc"].name
 PATH = ""
+
+
+def pet2ascii(petscii):
+    """Convert PETSCII string to ASCII with some substitutions."""
+    # First decode PETSCII
+    ascii_string = petscii.decode(CODEC)
+    # directly replace "known" PETSCII substitutions.
+    ascii_string = ascii_string.replace(chr(9601), "_")
+    # Encode to ASCII and back to strip out any remaining non-ASCII characters.
+    ascii_string = ascii_string.encode("ascii", "ignore").decode()
+    return ascii_string
 
 
 def extract(car, file_offset, base, path, wrap, listing, ignorerootentry=False):
@@ -55,7 +65,7 @@ def extract(car, file_offset, base, path, wrap, listing, ignorerootentry=False):
         wrap_extension = "." + file_type + "00"
 
     # Get ASCII compatible filename
-    car_name = car_name.decode(CODEC)
+    car_name = pet2ascii(car_name)
     car_comp = header[21]
 
     if file_type != "D":
@@ -115,7 +125,7 @@ def main(archive, base, listing, system, wrap):
 
     # Parse the archive header
     car_type = contents[0]
-    car_magic = contents[1:11].decode(CODEC)
+    car_magic = pet2ascii(contents[1:11])
     car_ver = contents[11]
     car_yr = 1900 + contents[12]
     car_date = f"{car_yr}-{contents[13]:0>2}-{contents[14]:0>2}"
@@ -124,7 +134,7 @@ def main(archive, base, listing, system, wrap):
     end = car_note.find(0x00)
     if end > 0:
         car_note = car_note[:end]
-    car_note = car_note.decode(CODEC)
+    car_note = pet2ascii(car_note)
 
     # We don't handle non C64 CAR files.
     if car_magic != "C64Archive":
