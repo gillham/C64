@@ -3,7 +3,6 @@
 import binascii
 import sys
 from pathlib import Path
-import cbmcodecs2
 import click
 
 ARCHIVE_TYPES = ["General", "Restore", "Install"]
@@ -16,19 +15,29 @@ COMPRESS_TYPE = ["none", "RLE", "LZ"]
 ARCHIVE_HEADER = 48
 FILE_HEADER = 22
 
-# CODEC = "petscii_c64en_lc"
-CODEC = cbmcodecs2.petscii_codecs["petscii-c64en-lc"].name
 PATH = ""
+
+# pet2ascii characters to remap
+REMAP = {0xA4: "_"}
 
 
 def pet2ascii(petscii):
     """Convert PETSCII string to ASCII with some substitutions."""
-    # First decode PETSCII
-    ascii_string = petscii.decode(CODEC)
-    # directly replace "known" PETSCII substitutions.
-    ascii_string = ascii_string.replace(chr(9601), "_")
-    # Encode to ASCII and back to strip out any remaining non-ASCII characters.
-    ascii_string = ascii_string.encode("ascii", "ignore").decode()
+    ascii_string = ""
+    # based on the algorithm sd2iec uses for FAT32 names.
+    for char in petscii:
+        if (128 + 64) < char < (128 + 91):
+            char -= 128
+        elif (96 - 32) < char < (123 - 32):
+            char += 32
+        elif (192 - 128) < char < (219 - 128):
+            char += 128
+        elif char == 255:
+            char = "~"
+        # remap some special characters
+        if char in REMAP:
+            char = ord(REMAP[char])
+        ascii_string += chr(char)
     return ascii_string
 
 
