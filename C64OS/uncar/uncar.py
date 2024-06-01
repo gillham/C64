@@ -4,7 +4,9 @@ import binascii
 import sys
 from pathlib import Path
 import click
+import zlib
 
+ARCHIVE_VERSIONS = [2, 3]
 ARCHIVE_TYPES = ["General", "Restore", "Install"]
 AT_GENERAL = 0
 AT_RESTORE = 1
@@ -41,7 +43,9 @@ def pet2ascii(petscii):
     return ascii_string
 
 
-def extract(car, file_offset, base, path, wrap, listing, ignorerootentry=False):
+def extract(
+    car, file_offset, base, path, wrap, listing, ignorerootentry=False, version=2
+):
     """Perform the actual extraction.  Called recursively."""
     header = car[file_offset : file_offset + FILE_HEADER]
 
@@ -111,9 +115,23 @@ def extract(car, file_offset, base, path, wrap, listing, ignorerootentry=False):
 
     # skip over file header (directories have just a header, no data)
     offset = file_offset + FILE_HEADER
+
+    # Call extract for each item in the archive (car_size) and use the returned offset
+    # for each subsequent file (or directory)
     for _ in range(0, car_size):
-        offset = extract(car, offset, base, path, wrap, listing)
-    # offset points to the next file_header
+        offset = extract(car, offset, base, path, wrap, listing, version=version)
+    # offset points to the next file_header until we reach the end
+    # with v3 archives it points to the checksum after the last file/directory entry.
+    if version == 3:
+        if offset == len(car) - 4:
+            file_cksum = int.from_bytes(car[offset:], "little")
+            data_cksum = zlib.crc32(car[:-4])
+            if file_cksum == data_cksum:
+                print(f"INFO: GOOD Checksum: {hex(file_cksum)}")
+            else:
+                print(
+                    f"ERROR: BAD crc32: embedded: {hex(file_cksum)} vs calculated: {hex(data_cksum)}"
+                )
     return offset
 
 
@@ -150,8 +168,8 @@ def main(archive, base, listing, system, wrap):
         print(f"ERROR: bad magic: {car_magic}.")
         sys.exit(1)
 
-    # We currently only handle version 2.
-    if car_ver != 2:
+    # We currently only handle version 2 & 3.
+    if car_ver not in ARCHIVE_VERSIONS:
         print(f"ERROR: unsupported archive version: {car_ver}.")
         sys.exit(1)
 
@@ -182,7 +200,7 @@ def main(archive, base, listing, system, wrap):
 
     # Call extract with the initial entry. It will
     # recursively extract all files / directories.
-    extract(contents, foffset, base, PATH, wrap, listing, ignorerootentry)
+    extract(contents, foffset, base, PATH, wrap, listing, ignorerootentry, car_ver)
     sys.exit(0)
 
 
