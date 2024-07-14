@@ -1,10 +1,12 @@
-#!/usr/bin/env python3
-""" Extraction tool for C64 Archives from C64OS. """
+#!/usr/bin/env python
+""" Extraction tool for C64 Archives from C64OS. Requires Python3 """
 import binascii
+import os
 import sys
-from pathlib import Path
-import click
 import zlib
+from pathlib import Path
+
+import click
 
 ARCHIVE_VERSIONS = [2, 3]
 ARCHIVE_TYPES = ["General", "Restore", "Install"]
@@ -26,7 +28,7 @@ REMAP = {0xA4: "_"}
 def pet2ascii(petscii):
     """Convert PETSCII string to ASCII with some substitutions."""
     ascii_string = ""
-    # based on the algorithm sd2iec uses for FAT32 names.
+    # based on the algorithm SD2IEC uses for FAT32 names.
     for char in petscii:
         if (128 + 64) < char < (128 + 91):
             char -= 128
@@ -44,10 +46,19 @@ def pet2ascii(petscii):
 
 
 def extract(
-    car, file_offset, base, path, wrap, listing, ignorerootentry=False, version=2
+    car,
+    file_offset,
+    base,
+    path,
+    wrap,
+    listing,
+    ignorerootentry=False,
+    scratch=False,
+    version=2,
 ):
     """Perform the actual extraction.  Called recursively."""
-    header = car[file_offset : file_offset + FILE_HEADER]
+    file_start = file_offset + FILE_HEADER
+    header = car[file_offset:file_start]
 
     # extract header info.
     file_type = chr(header[0])
@@ -82,30 +93,42 @@ def extract(
     car_comp = header[21]
 
     if file_type != "D":
-        filepath = base + path + car_name + wrap_extension
+        filepath = safe_path(base + path + car_name + wrap_extension)
 
-        # write out the file..
-        data = (
-            wrap_header
-            + car[file_offset + FILE_HEADER : file_offset + FILE_HEADER + car_size]
-        )
-        if listing:
-            crc32 = binascii.crc32(data)
-            print(f"{crc32:08x} {file_type} {len(data)} {filepath.lstrip('./')}")
+        if file_type == "-":
+            if listing:
+                print(f"Archive marks file for scratching: {filepath}")
+            else:
+                if scratch:
+                    print(f"Scratching:", end="")
+                    try:
+                        os.remove(filepath)
+                        print(f" {filepath}")
+                    except OSError as error:
+                        print(f"{error}")
+                else:
+                    print(f"WARN: NOT scratching: {filepath}")
         else:
-            print(f"Extracting {filepath} ({len(data)} bytes)")
-            if car_comp != 0:
-                print(
-                    f"Not extracting {filepath}. Compressed: ({COMPRESS_TYPE[car_comp]})"
-                )
-            with open(filepath, "wb") as newfile:
-                newfile.write(data)
+            # write out the file.
+            data = wrap_header + car[file_start : file_start + car_size]
+            if listing:
+                crc32 = binascii.crc32(data)
+                print(f"{crc32:08x} {file_type} {len(data)} {filepath.lstrip('./')}")
+            else:
+                print(f"Extracting {filepath} ({len(data)} bytes)")
+                if car_comp != 0:
+                    print(
+                        f"Not extracting {filepath}. Compressed: ({COMPRESS_TYPE[car_comp]})"
+                    )
+                with open(filepath, "wb") as newfile:
+                    newfile.write(data)
         return file_offset + FILE_HEADER + car_size
 
     # Handle directory entries.
     # The initial entry of an installer archive type is ignored.
     if not ignorerootentry:
-        path = path + car_name + "/"
+        # add trailing '/' after call or it will be stripped
+        path = safe_path(path + car_name) + "/"
         if not listing:
             # Create path if it doesn't exist.
             print(f"Creating directory {path}")
@@ -119,7 +142,9 @@ def extract(
     # Call extract for each item in the archive (car_size) and use the returned offset
     # for each subsequent file (or directory)
     for _ in range(0, car_size):
-        offset = extract(car, offset, base, path, wrap, listing, version=version)
+        offset = extract(
+            car, offset, base, path, wrap, listing, scratch=scratch, version=version
+        )
     # offset points to the next file_header until we reach the end
     # with v3 archives it points to the checksum after the last file/directory entry.
     if version == 3:
@@ -135,15 +160,35 @@ def extract(
     return offset
 
 
+def safe_path(filepath):
+    temp = os.path.normpath(filepath)
+    if temp[0].isalnum():
+        return temp
+
+    # hidden files/directories (start with .) are ok.
+    if temp[0] == '.' and temp[1].isalnum():
+        return temp
+
+    # skip over all '.' and '/' path manipulation characters
+    try:
+        temp_index = temp.find(next(filter(str.isalpha, temp)))
+    except StopIteration:
+        return ""
+    print(f"WARNING: BOGUS path found {temp}")
+    print(f"WARNING: truncating leading non-alphanumerics")
+    return temp[temp_index:]
+
+
 @click.command()
 @click.argument("archive", type=click.File("rb"), required=True)
 @click.option("--base", default=".", help="Extraction base target directory.")
 @click.option(
     "--list", "listing", is_flag=True, help="Generate a list of files & CRC32."
 )
+@click.option("--scratch", is_flag=True, help="Delete files marked as scratch.")
 @click.option("--system", default="os", help="System directory name, defaults to 'os'.")
 @click.option("--wrap", is_flag=True, help="Wrap files in P00/S00/U00/R00.")
-def main(archive, base, listing, system, wrap):
+def main(archive, base, listing, scratch, system, wrap):
     """Parse arguments and examine the archive header."""
     # We read the archive header and then call
     # extract() with the first file header.
@@ -200,7 +245,9 @@ def main(archive, base, listing, system, wrap):
 
     # Call extract with the initial entry. It will
     # recursively extract all files / directories.
-    extract(contents, foffset, base, PATH, wrap, listing, ignorerootentry, car_ver)
+    extract(
+        contents, foffset, base, PATH, wrap, listing, ignorerootentry, scratch, car_ver
+    )
     sys.exit(0)
 
 
