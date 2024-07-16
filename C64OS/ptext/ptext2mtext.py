@@ -327,6 +327,19 @@ def main():
         output = os.path.curdir + os.path.sep
     print(f"Writing to directory: {output}")
 
+    if not os.path.exists(output):
+        if os.path.isfile(output.strip(os.path.sep)):
+            print(
+                f"Existing file, remove or change output: {output.strip(os.path.sep)}"
+            )
+            sys.exit(1)
+        print(f"Creating output directory: {output}")
+        try:
+            os.mkdir(output)
+        except NotADirectoryError as error:
+            print(f"ERROR: {error}")
+            sys.exit(1)
+
     # read the input file as a list
     try:
         with open(inputfile, "r") as inf:
