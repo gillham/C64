@@ -1,0 +1,4 @@
+# PyCharm files
+.idea/
+# macOS Finder files.
+.DS_Store

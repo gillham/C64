@@ -1,0 +1,7 @@
+# development files
+hd-*.txt
+test*.md
+render*.md
+go.sh
+output/
+sample*

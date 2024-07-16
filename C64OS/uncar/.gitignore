@@ -1,3 +1,5 @@
+# development files
 *.car
 os/
 base/
+go.sh
