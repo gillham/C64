@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""This converts MText binary files to PText Markdown-ish files."""
 
 import argparse
 import os
@@ -24,37 +25,36 @@ END_SPAN = ""
 #    0xE0: (str, r"$\textcolor{red}{\textsf{Color didint work .}}$ black"),
 
 MTEXT = {
-    0x02: (str, "{link_path}", ""),
-    0x03: (str, "{link_stop}", ""),
-    0xE0: (emit_color, "black", END_SPAN),
-    0xE1: (emit_color, "white", END_SPAN),
-    0xE2: (emit_color, "red", END_SPAN),
-    0xE3: (emit_color, "cyan", END_SPAN),
-    0xE4: (emit_color, "purple", END_SPAN),
-    0xE5: (emit_color, "green", END_SPAN),
-    0xE6: (emit_color, "blue", END_SPAN),
-    0xE7: (emit_color, "yellow", END_SPAN),
-    0xE8: (emit_color, "orange", END_SPAN),
-    0xE9: (emit_color, "brown", END_SPAN),
-    0xEA: (emit_color, "lightred", END_SPAN),
-    0xEB: (emit_color, "darkgray", END_SPAN),
-    0xEC: (emit_color, "mediumgray", END_SPAN),
-    0xED: (emit_color, "lightgreen", END_SPAN),
-    0xEE: (emit_color, "lightblue", END_SPAN),
-    0xEF: (emit_color, "lightgray", END_SPAN),
-    # normal
-    0xF0: (str, "", ""),
-    # strong (bold?)
-    0xF1: (str, "**", "**"),
-    # emphatic (italics?)
-    0xF2: (str, "*", "*"),
-    0xF3: (str, "{link_code}", ""),
-    0xF4: (str, '<div align="left">', END_DIV),
-    0xF5: (str, '<div align="right">', END_DIV),
-    0xF6: (str, '<div align="center">', END_DIV),
-    0xF7: (str, '<div align="justify">', END_DIV),
+    # link text / path delimiter
+    0x02: (str, " ", ""),
+    # link end/stop marker
+    0x03: (str, ">", ""),
+    0xE0: (str, "<c:black>", ""),
+    0xE1: (str, "<c:white>", ""),
+    0xE2: (str, "<c:red>", ""),
+    0xE3: (str, "<c:cyan>", ""),
+    0xE4: (str, "<c:purple>", ""),
+    0xE5: (str, "<c:green>", ""),
+    0xE6: (str, "<c:blue>", ""),
+    0xE7: (str, "<c:yellow>", ""),
+    0xE8: (str, "<c:orange>", ""),
+    0xE9: (str, "<c:brown>", ""),
+    0xEA: (str, "<c:light red>", ""),
+    0xEB: (str, "<c:dark gray>", ""),
+    0xEC: (str, "<c:medium gray>", ""),
+    0xED: (str, "<c:light green>", ""),
+    0xEE: (str, "<c:light blue>", ""),
+    0xEF: (str, "<c:light gray>", ""),
+    0xF0: (str, "<t:normal>", ""),
+    0xF1: (str, "<t:strong>", ""),
+    0xF2: (str, "<t:emphatic>", ""),
+    0xF3: (str, "<l:", ""),
+    0xF4: (str, "<j:left>", ""),
+    0xF5: (str, "<j:right>", ""),
+    0xF6: (str, "<j:center>", ""),
+    0xF7: (str, "<j:full>", ""),
     # horizontal rule
-    0xF8: (str, "---", ""),
+    0xF8: (str, "<h:", ""),
 }
 
 # pet2ascii characters to remap
@@ -92,6 +92,11 @@ def file_read(filename):
 
 
 def file_write(filename, data):
+    """
+    Write data to a file in binary or text mode depending on the type.
+    We do not join() with extra linefeeds, we expect the content to be
+    ready to go.
+    """
     print(f"Writing file...{filename}")
     try:
         if isinstance(data, bytes):
@@ -100,9 +105,9 @@ def file_write(filename, data):
             return True
         if isinstance(data, list):
             with open(filename, "w") as outf:
-                outf.write("\n".join(data))
+                outf.write("".join(data))
             return True
-        print(f"ERROR: Cannot write that")
+        print(f"ERROR: Cannot file_write:{type(data)}")
         return None
     except Exception as error:
         print(f"ERROR: {error}")
@@ -122,20 +127,14 @@ def scan_codes(binary):
             if byte in MTEXT:
                 # pop any end code for previous tag
                 if len(end_stack) > 0:
-                    # print(f"DEBUG: len(end_stack) {len(end_stack)}")
                     content += end_stack.pop()
                 funct = MTEXT.get(byte)[0]
                 param = MTEXT.get(byte)[1]
                 endmark = MTEXT.get(byte)[2]
-                # print(f"DEBUG: calling funct {funct} with param {param}")
                 content += funct(param)
                 # push end mark for this tag/code onto stack
                 end_stack.append(endmark)
         else:
-            # append linefeed twice (wrecks tables, but.. not used in MText)
-            # if byte == 0x0A or byte == 0x0D:
-            #    content += char
-            # append to content
             content += char
 
     return content
@@ -145,11 +144,6 @@ def render_all(block, arg_dict):
     if block in arg_dict:
         return arg_dict.get(block).to_bytes(1, "little")
     return None
-
-
-def render_link(block, links):
-    print(f"DEBUG: parse_link block: {block}")
-    return int(0xF3).to_bytes(1, "little")
 
 
 def main():
@@ -182,22 +176,19 @@ def main():
     toc_list = []
     for line in toc.splitlines():
         toc_list.append(pet2ascii(line))
-    #    print("toc_list:", toc_list)
 
     for file in toc_list:
         # should we ignore blank lines.
         if len(file) > 0:
-            output_data.append("# " + file)
+            output_data.append(f"# {file}\n")
             if not os.path.exists(inputdir + file):
                 continue
             data = file_read(inputdir + file)
             if len(data) > 0:
-
                 result = scan_codes(data)
-                # print(f"DEBUG: main result: {result}")
                 output_data.append(result)
         else:
-            output_data.append("# ")
+            output_data.append("# \n")
 
     file_write(output, output_data)
 
