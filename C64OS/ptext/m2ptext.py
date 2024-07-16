@@ -86,7 +86,7 @@ def file_write(filename, data):
 
     if isinstance(data, bytes):
         flag += "b"
-        encoding=None
+        encoding = None
 
     if isinstance(data, list):
         data = "".join(data)
