@@ -1,10 +1,14 @@
 # Introduction
-<j:center>Introduction<j:left>
+<j:center>Introduction
+
 App Launcher is one of two <t:emphatic>Homebase Applications<t:normal> built into C64 OS.
 
-You can use it to customize desktops configured with color coded aliases to Applications, Utilities and regular C64 Software.
+You can use it to customize desktops configured with color coded <l:aliases f:Aliases> to Applications, Utilities and regular C64 Software.
 
-Each desktop can have a backdrop, a hint color, and up to 32 aliases.
+Each <l:desktop f:Desktops> can have a backdrop, a hint color, and up to 32 aliases.
+
+Get started designing your own favorite desktops!
+
 # 
 # Desktops
 <j:center>Desktops<j:left>
