@@ -10,35 +10,35 @@ MTEXT_MAX = 0xF8
 
 MTEXT = {
     # link text / path delimiter
-    0x02: (str, " ", ""),
+    0x02: (str, " "),
     # link end/stop marker
-    0x03: (str, ">", ""),
-    0xE0: (str, "<c:black>", ""),
-    0xE1: (str, "<c:white>", ""),
-    0xE2: (str, "<c:red>", ""),
-    0xE3: (str, "<c:cyan>", ""),
-    0xE4: (str, "<c:purple>", ""),
-    0xE5: (str, "<c:green>", ""),
-    0xE6: (str, "<c:blue>", ""),
-    0xE7: (str, "<c:yellow>", ""),
-    0xE8: (str, "<c:orange>", ""),
-    0xE9: (str, "<c:brown>", ""),
-    0xEA: (str, "<c:light red>", ""),
-    0xEB: (str, "<c:dark gray>", ""),
-    0xEC: (str, "<c:medium gray>", ""),
-    0xED: (str, "<c:light green>", ""),
-    0xEE: (str, "<c:light blue>", ""),
-    0xEF: (str, "<c:light gray>", ""),
-    0xF0: (str, "<t:normal>", ""),
-    0xF1: (str, "<t:strong>", ""),
-    0xF2: (str, "<t:emphatic>", ""),
-    0xF3: (str, "<l:", ""),
-    0xF4: (str, "<j:left>", ""),
-    0xF5: (str, "<j:right>", ""),
-    0xF6: (str, "<j:center>", ""),
-    0xF7: (str, "<j:full>", ""),
+    0x03: (str, ">"),
+    0xE0: (str, "<c:black>"),
+    0xE1: (str, "<c:white>"),
+    0xE2: (str, "<c:red>"),
+    0xE3: (str, "<c:cyan>"),
+    0xE4: (str, "<c:purple>"),
+    0xE5: (str, "<c:green>"),
+    0xE6: (str, "<c:blue>"),
+    0xE7: (str, "<c:yellow>"),
+    0xE8: (str, "<c:orange>"),
+    0xE9: (str, "<c:brown>"),
+    0xEA: (str, "<c:light red>"),
+    0xEB: (str, "<c:dark gray>"),
+    0xEC: (str, "<c:medium gray>"),
+    0xED: (str, "<c:light green>"),
+    0xEE: (str, "<c:light blue>"),
+    0xEF: (str, "<c:light gray>"),
+    0xF0: (str, "<t:normal>"),
+    0xF1: (str, "<t:strong>"),
+    0xF2: (str, "<t:emphatic>"),
+    0xF3: (str, "<l:"),
+    0xF4: (str, "<j:left>"),
+    0xF5: (str, "<j:right>"),
+    0xF6: (str, "<j:center>"),
+    0xF7: (str, "<j:full>"),
     # horizontal rule
-    0xF8: (str, "<h:", ""),
+    0xF8: (str, "<h:"),
 }
 
 # pet2ascii characters to remap
@@ -105,7 +105,6 @@ def file_write(filename, data):
 def scan_codes(binary):
     """Scan petscii byte stream for MText codes."""
     content = ""
-    end_stack = []
 
     # convert binary petscii to ascii
     data = pet2ascii(binary)
@@ -114,15 +113,9 @@ def scan_codes(binary):
         byte = ord(char)
         if (MTEXT_MIN <= byte <= MTEXT_MAX) or (1 < byte < 4):
             if byte in MTEXT:
-                # pop any end code for previous tag
-                if len(end_stack) > 0:
-                    content += end_stack.pop()
                 funct = MTEXT.get(byte)[0]
                 param = MTEXT.get(byte)[1]
-                endmark = MTEXT.get(byte)[2]
                 content += funct(param)
-                # push end mark for this tag/code onto stack
-                end_stack.append(endmark)
         else:
             content += char
 
