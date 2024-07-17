@@ -4,63 +4,80 @@ NOTE: I'm referring to my plaintext representation of MText as 'PText', but it m
 
 These Python scripts convert between the C64 OS Help files in [MText format](https://www.c64os.com/post/textrendering). [More MText info](https://www.c64os.com/post/conversionservices)
 
-There are two main scripts; `ptext2mtext.py` and `mtext2ptext.py`.
+## Converting one file at a time.
+When converting individual files in PText or MText format to individual files of the opposite format, you use the following Python scripts:
 
-To generate MText you need a Markdown-esque plaintext file (or PText) with some control statements/codes.
-
-Here is a sample.md file:
+`p2mtext.py` -- Converts one PText file to MText, either writing to stdout or to a single file specified with the `-o filename` option. Since MText is a binary format you need to redirect to a file or pipe to something like `hexdump`:
+```bash
+$ python3 p2mtext.py sample.md | hexdump -vC
 ```
-# Introduction
+
+`m2ptext.py` -- Converts one MText file to PText, either writing to stdout or to a single file specified with the `-o filename` option. To just dump an MText ("Introduction" in this example) to your terminal you would run:
+```bash
+$ python3 m2ptext.py Introduction
+```
+
+When converting a single file to MText you need a plaintext file (or PText) with some control statements/codes.  Below is a basic example showing some codes in use.
+```
 <j:center>Introduction
 
-This section ends up in a file called Introduction
+This content gets converted to petscii and the control codes are converted to single byte binary codes. (aka MText)
 
 This is <t:strong>strong<t:normal> formatted text.
 This text has a <l:link f:Links> to a file called Links.
 
 <c:red>This text is red<c:black>
+```
+
+## Converting to/from C64 OS MText Help format
+When converting C64 OS Help source file in PText to a "help" directory of MText files including a table of contents, you use the two scripts below.  Of course you can convert one file at a time using the scripts mentioned above as well and generate the `toc.t` file manually.  These scripts are more useful if you want to add it as part of your Makefile or build environment.  You can easily edit a single plaintext file in pseudo Markdown using a normal text editor and have one single file will all of your C64 OS Help content.
+
+### Converting a PText file to a MText help directory
+
+`ptext2mtext.py` -- Converts one PText file to a "help" directory of MText files including a table of contents.  You specify the PText input filename and the output *directory* as each topic (delimited by Markdown header '#' symbols) will create a separate file in the output directory. The filename and directory name can be called whatever you want, but in the example below I'm using `help.md` as the PText source and the resulting C64 OS Help MText files will be written into the `help` directory.
+
+Example help.md file:
+```markdown
+# Topic1
+<j:center>This is topic one.
+This is <t:emphatic>empahitic (italics when supported)<t:normal> formatted text.
+This text has a <l:link f:Topic2> to Topic2 which is in another file.
+
 
 #
-# Links
-This second section would go into another file called Links.
+# Topic2
+<t:strong>Topic two has bold text!<t:normal>
 ```
-
-## ptext2mtext.py
-You would generate MText formatted help files by running the script like this:
 ```bash
-$ python3 ptext2mtext.py --input sample.md --output help
+$ python3 ptext2mtext.py --input help.md --output help
 ```
 
-In this case `sample.md` is a plaintext file written as PText.  The output `help` is a directory and will be created if it doesn't exist.
+Once this is run you will have three files in the help directory; `toc.t`, `Topic1`, and `Topic2`.
 
-The above sample should result in the following files in the help directory:
+The contents of `toc.t` should be:
 ```
-Introduction
-Links
-toc.t
-```
+Topic1
 
-The `toc.t` file is build from the sections (Markdown headers denoted with '#') and bare sections leave a blank line.
-
-So `toc.t` contents will be:
-```
-Introduction
-
-Links
+Topic2
 ```
 
-Note the blank line due to the '#' on a line by itself above '# Links' in the sample.
+The blank line between the two topics is from the bare '#' character in the sample file.  It provides a way to have an empty space in the C64 OS Help table of contents view.
 
-## mtext2ptext.py
-You can convert existing or freshly created MText back to PText by running `mtext2ptext.py` and providing the MText directory (`help` in the above example) as the input and a filename as the output.
+### Converting a MText help directory to a PText file
+
+`mtext2ptext.py` -- Converts a C64 OS Help directory of MText files, and a table of contents, to a single PText Markdown-esque file in plaintext.  You specifiy the input *directory* and the output *file* for this direction.  The script looks in the input directory ('help' from the example above) and reads the `toc.t` file.  Since in C64 OS Help directories each topic listed in the table of contents corresponds to a file of the same name, the script can find all the components to convert.  In the example below we convert the MText output generated above back to the original PText format.
 
 ```bash
-$ python mtext2ptext.py --input help --output converted.md
+$ python3 mtext2ptext.py --input help --output help2.md
 ```
 
-The resulting `converted.md` should match the original `sample.md` at this point as the rendering is reversible.
+Note I called the output file `help2.md` here because the original source file in the earlier example is `help.md` and you don't want to overwrite it.  Now you can compare `help.md` and `help2.md` and see how the conversion from PText -> MText -> PText went!  The resulting `help2.md` should match the original `help.md` at this point as the rendering is reversible.
+
+Please report any issues. Here or on Discord is fine.
 
 ## Codes
+The supported formatting codes are listed in the table below.
+
 
 | Code            | Meaning     | Code            | Meaning              |
 |-----------------|-------------|-----------------|----------------------|
