@@ -25,7 +25,7 @@ import sys
 CODES_REGEX = r"<(.)\:(\w+)?(\s?([/:\.]?)\w?)+\>"
 
 # For the paramater portion of a link.
-LINK_REGEX = r"([\w\s]+)\s(.):(.*)"
+LINK_REGEX = r"([\w\s]+)\s(..):(.*)"
 
 COLORS = {
     "black": 0xE0,
@@ -219,13 +219,13 @@ def parse_link(block, links, lookup_dict):
     Parse link codes.
     The following link prints the text 'word' and generates
     a link to 'File':
-        <l:word f:File>
+        <l:word fn:File>
 
-    This becomes: <LINK_CODE>word<LINK_PATH>f:File<LINK_STOP>
+    This becomes: <LINK_CODE>word<LINK_PATH>fn:File<LINK_STOP>
 
     This function processes the 'parameter' portion of the link.
     That is without the '<l:' on the left and the '>' on the right.
-    In the example above that would be: "word f:File"
+    In the example above that would be: "word fn:File"
 
     The link parameter is parsed with regex into three components.
     link_text -- What will be shown and is everything left of the ':'
@@ -236,7 +236,7 @@ def parse_link(block, links, lookup_dict):
     link_dest -- The destination of the link. For example a filename.
 
     It should really support:
-        <LINK_CODE>Multiple words here<LINK_PATH>f:File with space<LINK_STOP>
+        <LINK_CODE>Multiple words here<LINK_PATH>fn:File with space<LINK_STOP>
     """
 
     # Don't bother to check these.

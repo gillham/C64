@@ -79,24 +79,24 @@ Please report any issues. Here or on Discord is fine.
 The supported formatting codes are listed in the table below.
 
 
-| Code            | Meaning     | Code            | Meaning              |
-|-----------------|-------------|-----------------|----------------------|
-| <c:black>       | Black       | <t:normal>      | Normal Text          |
-| <c:white>       | White       | <t:strong>      | Strong Text          |
-| <c:red>         | Red         | <t:emphatic>    | Emphatic Text        |
-| <c:cyan>        | Cyan        | <l:text f:File> | Link Text            |
-| <c:purple>      | Purple      | <j:left>        | Left Justification   |
-| <c:green        | Green       | <j:right>       | Right Justification  |
-| <c:blue>        | Blue        | <j:center>      | Center Justification |
-| <c:yellow>      | Yellow      | <j:full>        | Full Justification   |
-| <c:orange>      | Orange      | <h:>            | Horizontal Rule      |
-| <c:brown        | Brown       | \$F9            | *reserved*           |
-| <c:light red>   | Light Red   | \$FA            | *reserved*           |
-| <c:dark grey>   | Dark Grey   | \$FB            | *reserved*           |
-| <c:medium grey> | Medium Grey | \$FC            | *reserved*           |
-| <c:light green> | Light Green | \$FD            | *reserved*           |
-| <c:light blue>  | Light Blue  | \$FE            | *reserved*           |
-| <c:light grey>  | Light Grey  | \$FF            | *reserved*           |
+| Code            | Meaning     | Code             | Meaning              |
+|-----------------|-------------|------------------|----------------------|
+| <c:black>       | Black       | <t:normal>       | Normal Text          |
+| <c:white>       | White       | <t:strong>       | Strong Text          |
+| <c:red>         | Red         | <t:emphatic>     | Emphatic Text        |
+| <c:cyan>        | Cyan        | <l:text fn:File> | Link Text            |
+| <c:purple>      | Purple      | <j:left>         | Left Justification   |
+| <c:green        | Green       | <j:right>        | Right Justification  |
+| <c:blue>        | Blue        | <j:center>       | Center Justification |
+| <c:yellow>      | Yellow      | <j:full>         | Full Justification   |
+| <c:orange>      | Orange      | <h:>             | Horizontal Rule      |
+| <c:brown        | Brown       | \$F9             | *reserved*           |
+| <c:light red>   | Light Red   | \$FA             | *reserved*           |
+| <c:dark grey>   | Dark Grey   | \$FB             | *reserved*           |
+| <c:medium grey> | Medium Grey | \$FC             | *reserved*           |
+| <c:light green> | Light Green | \$FD             | *reserved*           |
+| <c:light blue>  | Light Blue  | \$FE             | *reserved*           |
+| <c:light grey>  | Light Grey  | \$FF             | *reserved*           |
 
 
 You can use 'gray' spelling as well as 'grey' and you can use the first letter of the first word and no space.  So 'lred' for 'light red'.  Also you can use the shortest unique code and longer, up to the full code of course.
