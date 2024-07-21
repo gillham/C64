@@ -1,0 +1,6 @@
+<j:center>Introduction
+
+Hello!  Click <l:here fn:Ending>
+In BASIC x <> y means not equal to.
+Yes 1 < 2 is math
+<t:strong>Bye!
