@@ -79,9 +79,10 @@ main {
                             ; valid code written above
                             ; link_parse added link bits to output buffer
                             ; we skip over remainder of code text.
-                            ; add code length to i.  it will now point to
-                            ; character after end of code marker '>'.
-                            i += codelen
+                            ; add (code length -1) to i.  it will point to
+                            ; character after end of code marker '>' on the
+                            ; next iteration of the loop when i increments.
+                            i += codelen - 1
                             
                         } else {
                             ; code was invalid for some reason.
@@ -91,10 +92,11 @@ main {
                             mtextbuf[mtextptr] = ptextbuf[i]
                             mtextptr++
                         }
+                    } else {
+                        ; This '<' is not part of a code, copy to mtextbuf
+                        mtextbuf[mtextptr] = ptextbuf[i]
+                        mtextptr++
                     }
-                    ; This '<' is not part of a code, copy to mtextbuf
-                    mtextbuf[mtextptr] = ptextbuf[i]
-                    mtextptr++
                 } else {
                     ; copy to mtextbuf
                     mtextbuf[mtextptr] = ptextbuf[i]
