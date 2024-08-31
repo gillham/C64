@@ -28,7 +28,7 @@ java -jar prog8compiler-custom.jar -srcdirs include/ -target c64os main.p8
 I use VICE primarily and launch it with a d64 as device 8 and CMD HD as device 11.
 On the modern computer side I run a script that runs the compiler and then builds a fresh
 D64 each time.  I have `go.prg` that is a basic program that uses JiffyDOS commands to
-copy the freshly compiled main.o to the write spot and launches C64 OS.
+copy the freshly compiled main.o to the right spot and launches C64 OS.
 
 Creating the D64 image:
 ```bash

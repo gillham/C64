@@ -33,9 +33,6 @@ main {
         os.register(hdr.APP_FREEZE, appfrze)
         os.register(hdr.APP_THAW, appthaw)
 
-        ; must call initextern to fixup kernel jump table.
-        os.initextern()
-
         ; call screen.layerpush
         void os.layerpush(main.data.layer)
         ;Load Shared Libraries
