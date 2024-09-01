@@ -7,7 +7,6 @@
 %launcher none
 %zeropage dontuse
 %address $0900
-%option no_sysinit
 
 ; C64 OS imports
 %import hdr
