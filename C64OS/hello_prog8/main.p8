@@ -3,9 +3,7 @@
 ;
 
 ; *required* Prog8 options
-%output prg
 %launcher none
-%zeropage dontuse
 %address $0900
 
 ; C64 OS imports
