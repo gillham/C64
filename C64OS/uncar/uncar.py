@@ -86,7 +86,10 @@ def extract(
             embedded_pad += b"\x00"
         # Set last byte (REL file record length) to zero for now.
         wrap_header = b"C64File" + b"\x00" + car_name + embedded_pad + b"\x00"
-        wrap_extension = "." + file_type + "00"
+        if file_type == '-':
+            wrap_extension = ""
+        else:
+            wrap_extension = "." + file_type + "00"
 
     # Get ASCII compatible filename
     car_name = pet2ascii(car_name)
@@ -101,11 +104,21 @@ def extract(
             else:
                 if scratch:
                     print(f"Scratching:", end="")
-                    try:
-                        os.remove(filepath)
-                        print(f" {filepath}")
-                    except OSError as error:
-                        print(f"{error}")
+                    if wrap:
+                        scratch_p = filepath + ".P00"
+                        if not os.path.exists(scratch_p):
+                            scratch_p = filepath + ".S00"
+                        try:
+                            os.remove(scratch_p)
+                            print(f" {filepath}")
+                        except OSError as error:
+                            print(f"{error}")
+                    else:
+                        try:
+                            os.remove(filepath)
+                            print(f" {filepath}")
+                        except OSError as error:
+                            print(f"{error}")
                 else:
                     print(f"WARN: NOT scratching: {filepath}")
         else:
