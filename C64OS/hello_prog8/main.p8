@@ -3,11 +3,12 @@
 ;
 
 ; *required* Prog8 options
-%launcher none
+%output prg
+%launcher c64os
+%zeropage dontuse
 %address $0900
 
-; C64 OS imports
-%import hdr
+; C64 OS import
 %import os
 
 ;
@@ -120,7 +121,7 @@ main {
         os.setctx(main.data.drawctx)
 
         ; Set Draw Properties and Color
-        os.setdprops(hdr.d_crsr_h|hdr.d_petscr, hdr.clblue)
+        os.setdprops(hdr.d_crsr_h, hdr.clblue)
 
         ; Clear the Draw Context
         os.ctxclear($20)
@@ -133,7 +134,7 @@ main {
         print(hello)
 
         ; Print another message
-        os.setdprops(hdr.d_crsr_h|hdr.d_petscr, hdr.cblue)
+        os.setdprops(hdr.d_crsr_h, hdr.cblue)
         os.setlrc(6, false)
         os.setlrc(14, true)
         print(prog8)
