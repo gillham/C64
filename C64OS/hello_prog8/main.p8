@@ -16,7 +16,7 @@
 
 main {
     str hello = "Welcome to C64 OS!"
-    str prog8 = "(via Prog8!)"
+    str prog8 = c64os:"(via Prog8!)"
     ubyte msg_act = 0
     ubyte msg_cmd = 0
     bool msg_ok = false
