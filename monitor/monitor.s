@@ -5,7 +5,6 @@
 ;****************************
 
       .setcpu "6502x"
-
 W0000 = $00                       
 ZPVAR_AE = $AE                    
 ZPVAR_AF = $AF                    
@@ -116,7 +115,7 @@ SCREEN = $FFED
 PLOT = $FFF0                      
 IOBASE = $FFF3                    
 
-      .org $C000
+;      .org $C000
 
 ENTRY:
       jmp  START                        ; Normal SYS 49152 entry point.
@@ -233,7 +232,13 @@ CHECKFORMONEXT:
       bne  UNKNOWNCMD                   ; No extension installed so command is unknown.
       dex                               
       bpl  CHECKFORMONEXT               ; Look for next character in signature.
+.ifdef NOMONEXT
+      nop                               ; Monitor at $8000 doesn't (currently)
+      nop                               ; support extensions.
+      nop
+.else
       jmp  (MONEXTVECTOR)               ; There must be an extension so call it.
+.endif
 
 UNKNOWNCMD:
       pla                               
@@ -2322,7 +2327,12 @@ BRKHNDRADD:
       .byte <BRKHANDLER, >BRKHANDLER
 IRQHND2ADDRVECT:
       .byte <IRQHANDLER, >IRQHANDLER
-FUNCVECTADDR:                           ; Should be <FUNCTVECT-1, >FUNCTVECT-1 instead.
-      .word $C5BA
+FUNCVECTADDR:
+      .byte <FUNCTVECT-1, >FUNCTVECT
 TEXTMONEXT:
-      .byte $4D, $4F, $4E, $45, $58, $54; Can't be string as upper/lower PETSCII issue.
+; Special case for monitor built at $8000
+.if .defined(NOMONEXT)
+      .byte $00, 'o', 'n', 'e', 'x', 't'; Replace 'm' to not match with $2000/$C000 monitors
+.else
+      .byte 'm', 'o', 'n', 'e', 'x', 't'; Must be lowercase to get uppercase PETSCII
+.endif

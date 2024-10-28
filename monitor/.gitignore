@@ -4,3 +4,5 @@
 *.prg
 # VICE symbol / command files
 *.vice
+# assembler listing files
+*.list

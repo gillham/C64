@@ -18,19 +18,29 @@ else
 		MD5 = "md5"
 	endif
 endif
+CL65=cl65 -g -t c64 -C c64-asm.cfg
 
-PROGS	= monitorc.prg monext.prg
+PROGS	= monitor2.prg monitor8.prg monitorc.prg monext.prg
 
 all: $(PROGS) cksum
 
+monitor2.prg: monitor.s
+	$(CL65) --listing $(@:.prg=).list -Ln $(@:.prg=).vice -o $(@) --start-addr 0x2000 $<
+
+monitor8.prg: monitor.s
+	$(CL65) --asm-define NOMONEXT --listing $(@:.prg=).list -Ln $(@:.prg=).vice -o $(@) --start-addr 0x8000 $<
+
 monitorc.prg: monitor.s
-	cl65 -g -Ln monitorc.vice -o monitorc.prg -t c64 -C c64-asm.cfg --start-addr 0xc000 monitor.s
+	$(CL65) --listing $(@:.prg=).list -Ln $(@:.prg=).vice -o $(@) --start-addr 0xc000 $<
 
 monext.prg: monext.s
 	cl65 -g -Ln monext.vice -o monext.prg -t c64 -C c64-asm.cfg --start-addr 0x8f00 monext.s
 
 clean:
-	rm -f monitorc.prg monitorc.o monext.prg monext.o
+	rm -f monitor2.prg monitor2.o monitor2.list monitor2.vice
+	rm -f monitor8.prg monitor8.o monitor8.list monitor8.vice
+	rm -f monitorc.prg monitorc.o monitorc.list monitorc.vice
+	rm -f monext.prg monext.o
 
 cksum:
 	@echo ""
