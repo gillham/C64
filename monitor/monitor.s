@@ -2328,7 +2328,7 @@ BRKHNDRADD:
 IRQHND2ADDRVECT:
       .byte <IRQHANDLER, >IRQHANDLER
 FUNCVECTADDR:
-      .byte <FUNCTVECT-1, >FUNCTVECT
+      .byte <(FUNCTVECT-1), >(FUNCTVECT-1)
 TEXTMONEXT:
 ; Special case for monitor built at $8000
 .if .defined(NOMONEXT)
