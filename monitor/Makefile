@@ -37,13 +37,13 @@ monext.prg: monext.s
 	cl65 -g -Ln monext.vice -o monext.prg -t c64 -C c64-asm.cfg --start-addr 0x8f00 monext.s
 
 clean:
-	rm -f monitor2.prg monitor2.o monitor2.list monitor2.vice
-	rm -f monitor8.prg monitor8.o monitor8.list monitor8.vice
-	rm -f monitorc.prg monitorc.o monitorc.list monitorc.vice
-	rm -f monext.prg monext.o
+	rm -f monitor2.prg monitor2.list monitor2.vice
+	rm -f monitor8.prg monitor8.list monitor8.vice
+	rm -f monitorc.prg monitorc.list monitorc.vice
+	rm -f monext.prg monext.o monext.vice monitor.o
 
 cksum:
 	@echo ""
 	@echo "Generating checksums....(you should confirm the checksums below match)"
-	@$(MD5) Monitor_C000.prg monitorc.prg $(MD5OPT)
+	@$(MD5) dist/Monitor_C000.prg monitorc.prg $(MD5OPT)
 
