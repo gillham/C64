@@ -1,0 +1,6 @@
+# build directory
+build/
+# media (vice screen recording)
+media/
+# Disk images / files for testing.
+test/

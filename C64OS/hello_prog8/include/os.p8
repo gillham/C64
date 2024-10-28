@@ -1894,7 +1894,7 @@ inline asmsub maketab(ubyte arg0 @A) -> bool @Pc {
         jsr p8b_os.p8l_l_maketab
     }}
 }
-inline asmsub malloc(ubyte arg0 @A, uword arg1 @XY) -> bool @Pc {
+inline asmsub malloc(ubyte arg0 @A, uword arg1 @XY) -> uword @XY, bool @Pc {
     %asm {{
         jsr p8b_os.p8l_l_malloc
     }}
