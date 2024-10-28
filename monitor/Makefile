@@ -1,6 +1,23 @@
 #
 # Simplistic Makefile for the monitor and extension.
 #
+#
+
+# find the correct md5 checksum tool
+MD5	:=
+MD5OPT	:=
+ifeq ($(OS),Windows_NT)
+	MD5 = "certutil -hashfile"
+	MD5OPT = "MD5"
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+		MD5 = "md5sum"
+	endif
+	ifeq ($(UNAME_S),Darwin)
+		MD5 = "md5"
+	endif
+endif
 
 PROGS	= monitorc.prg monext.prg
 
@@ -18,6 +35,5 @@ clean:
 cksum:
 	@echo ""
 	@echo "Generating checksums....(you should confirm the checksums below match)"
-	@md5sum Monitor_C000.prg monitorc.prg
-
+	@$(MD5) Monitor_C000.prg monitorc.prg $(MD5OPT)
 

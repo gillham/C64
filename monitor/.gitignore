@@ -1,2 +1,6 @@
 # binary objects
 *.o
+# binary prg files
+*.prg
+# VICE symbol / command files
+*.vice
