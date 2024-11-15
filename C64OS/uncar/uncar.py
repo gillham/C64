@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 """ Extraction tool for C64 Archives from C64OS. Requires Python3 """
+import argparse
 import binascii
 import os
 import sys
 import zlib
 from pathlib import Path
-
-import click
 
 ARCHIVE_VERSIONS = [2, 3]
 ARCHIVE_TYPES = ["General", "Restore", "Install"]
@@ -86,7 +85,7 @@ def extract(
             embedded_pad += b"\x00"
         # Set last byte (REL file record length) to zero for now.
         wrap_header = b"C64File" + b"\x00" + car_name + embedded_pad + b"\x00"
-        if file_type == '-':
+        if file_type == "-":
             wrap_extension = ""
         else:
             wrap_extension = "." + file_type + "00"
@@ -170,6 +169,8 @@ def extract(
                 print(
                     f"ERROR: BAD crc32: embedded: {hex(file_cksum)} vs calculated: {hex(data_cksum)}"
                 )
+            # Mark 4 bytes of CRC32 as handled.
+            offset += 4
     return offset
 
 
@@ -179,7 +180,7 @@ def safe_path(filepath):
         return temp
 
     # hidden files/directories (start with .) are ok.
-    if temp[0] == '.' and temp[1].isalnum():
+    if temp[0] == "." and temp[1].isalnum():
         return temp
 
     # skip over all '.' and '/' path manipulation characters
@@ -192,21 +193,39 @@ def safe_path(filepath):
     return temp[temp_index:]
 
 
-@click.command()
-@click.argument("archive", type=click.File("rb"), required=True)
-@click.option("--base", default=".", help="Extraction base target directory.")
-@click.option(
-    "--list", "listing", is_flag=True, help="Generate a list of files & CRC32."
-)
-@click.option("--scratch", is_flag=True, help="Delete files marked as scratch.")
-@click.option("--system", default="os", help="System directory name, defaults to 'os'.")
-@click.option("--wrap", is_flag=True, help="Wrap files in P00/S00/U00/R00.")
-def main(archive, base, listing, scratch, system, wrap):
+def main():
     """Parse arguments and examine the archive header."""
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("archive", help="input archive")
+    parser.add_argument(
+        "-b", "--base", default=".", help="Extraction base target directory."
+    )
+    parser.add_argument(
+        "-l", "--list", action="store_true", help="Generate a list of files & CRC32."
+    )
+    parser.add_argument(
+        "--scratch", action="store_true", help="Delete files if requested by archive."
+    )
+    parser.add_argument(
+        "-s", "--system", default="os", help="System directory name, defaults to 'os'."
+    )
+    parser.add_argument(
+        "-w", "--wrap", action="store_true", help="Wrap files in P00/S00/U00/R00."
+    )
+    args = parser.parse_args()
+
+    base = args.base
+    listing = args.list
+    scratch = args.scratch
+    system = args.system
+    wrap = args.wrap
+
     # We read the archive header and then call
     # extract() with the first file header.
     # Read in the whole archive, they are small.
-    contents = archive.read()
+    with open(args.archive, "rb") as archive:
+        contents = archive.read()
 
     # Parse the archive header
     car_type = contents[0]
