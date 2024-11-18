@@ -49,7 +49,7 @@ This can create a fresh `os` system directory on an SD card in about 3 minutes. 
 
 NOTE: future C64 OS updates may depend on installing updates using the `Installer` Utility so this method should be used with caution.  Generally this method is useful for developers or testers that need a specific version or want to test something on a "clean" installation.
 
-``bash
+```bash
 python uncar.py --wrap restore.car
 python uncar.py --wrap 1.01.update.car
 python uncar.py --wrap 1.02.update.car
