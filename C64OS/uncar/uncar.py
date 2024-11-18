@@ -224,8 +224,16 @@ def main():
     # We read the archive header and then call
     # extract() with the first file header.
     # Read in the whole archive, they are small.
-    with open(args.archive, "rb") as archive:
-        contents = archive.read()
+    try:
+        with open(args.archive, "rb") as archive:
+            contents = archive.read()
+    except (FileNotFoundError, IsADirectoryError, PermissionError) as error:
+        print(f"ERROR: {error}", file=sys.stderr)
+        sys.exit(1)
+
+    if len(contents) < (ARCHIVE_HEADER + FILE_HEADER):
+        print(f"ERROR: Truncated archive file.", file=sys.stderr)
+        sys.exit(1)
 
     # Parse the archive header
     car_type = contents[0]
@@ -277,9 +285,21 @@ def main():
 
     # Call extract with the initial entry. It will
     # recursively extract all files / directories.
-    extract(
-        contents, foffset, base, PATH, wrap, listing, ignorerootentry, scratch, car_ver
-    )
+    try:
+        extract(
+            contents,
+            foffset,
+            base,
+            PATH,
+            wrap,
+            listing,
+            ignorerootentry,
+            scratch,
+            car_ver,
+        )
+    except Exception as error:
+        print(f"ERROR: {error}", file=sys.stderr)
+        sys.exit(1)
     sys.exit(0)
 
 
