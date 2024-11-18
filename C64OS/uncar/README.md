@@ -41,6 +41,25 @@ There are optional arguments for `uncar.py`:
  - `--system` overrides the C64 OS System Directory.  Defaults to `os` and is *only* `os` with `restore.car` extraction.
  - `--wrap` Wrap each file as extracted with an SD2IEC compatible header and file extension.  This allows preserving file types like PRG or SEQ and PETSCII filenames.
 
+# Advanced Usage
+
+It is possible to use `uncar.py` to create a fully updated C64 OS SD card by extracting the CAR files in order starting with `restore.car` and using the `--wrap` flag.
+
+This can create a fresh `os` system directory on an SD card in about 3 minutes. You should rename the existing `os` directory to something like `os.back` prior to extracting all of the CAR files.
+
+NOTE: future C64 OS updates may depend on installing updates using the `Installer` Utility so this method should be used with caution.  Generally this method is useful for developers or testers that need a specific version or want to test something on a "clean" installation.
+
+``bash
+python uncar.py --wrap restore.car
+python uncar.py --wrap 1.01.update.car
+python uncar.py --wrap 1.02.update.car
+python uncar.py --wrap 1.03.update.car
+python uncar.py --wrap 1.04.upd1.03.car
+python uncar.py --wrap 1.05.update.car
+python uncar.py --wrap 1.06.update.car
+python uncar.py --wrap 1.06.patch1.car
+```
+
 # Extra
 [C64 Archive specification](https://raw.githubusercontent.com/OpCoders-Inc/c64os-dev/refs/heads/main/include/v1.06/os/s/c64archive.t)
 
