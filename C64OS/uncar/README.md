@@ -42,5 +42,5 @@ There are optional arguments for `uncar.py`:
  - `--wrap` Wrap each file as extracted with an SD2IEC compatible header and file extension.  This allows preserving file types like PRG or SEQ and PETSCII filenames.
 
 # Extra
-[C64 Archiver specification](https://raw.githubusercontent.com/OpCoders-Inc/c64os-dev/main/os/s/c64archive.t)
+[C64 Archive specification](https://raw.githubusercontent.com/OpCoders-Inc/c64os-dev/refs/heads/main/include/v1.06/os/s/c64archive.t)
 
