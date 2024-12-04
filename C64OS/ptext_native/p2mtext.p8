@@ -1,5 +1,5 @@
 %import diskio
-%import string
+%import strings
 %import textio
 %zeropage basicsafe
 
@@ -46,9 +46,9 @@ main {
         void txt.input_chars(output)
         txt.nl()
 
-        if not string.endswith(output, ",s") {
+        if not strings.endswith(output, ",s") {
             ; append ,s to make it a SEQ...
-            void string.append(output, ",s")
+            void strings.append(output, ",s")
         }
         txt.nl()
         txt.print("Will save to:")
@@ -126,7 +126,7 @@ main {
 
         ; validate first character of code is a letter. (ignoring case)
         ; scan_code() will check if it is actually a valid code.
-        if not string.isletter(ptextbuf[index+1]) {
+        if not strings.isletter(ptextbuf[index+1]) {
             return 0
         }
 
@@ -161,15 +161,15 @@ main {
         ubyte i = 0
 
         ; make a copy of our full link code
-        string.left(code_ptr, length, temp)
+        strings.left(code_ptr, length, temp)
 
         ; make our copy all lowercase (only used for parsing)
-        void string.lower(temp)
+        void strings.lower(temp)
 
         ; start after '<l:' and end before '>'
         for i in 3 to length-2 {
             ; Currently using '<space>fn:' to eat whitespace in mtext
-            if string.startswith(&temp+i, mtext.LINK_FILE) {
+            if strings.startswith(&temp+i, mtext.LINK_FILE) {
                 ; copy LINK_PATH byte to output buffer
                 main.mtextbuf[main.start.mtextptr] = mtext.LINK_PATH
                 main.start.mtextptr++
@@ -230,20 +230,20 @@ main {
         ; for links we just return the link code and it
         ; gets special handling due to variable length
         ; and multiple codes separating fields.
-        if string.lowerchar(main.ptextbuf[index+1]) == 'l' {
+        if strings.lowerchar(main.ptextbuf[index+1]) == 'l' {
             return mtext.LINK_CODE
         }
 
         ; everything else is a direct lookup.
         ; copy the code out to a temp string so it is easy
-        ; to make lowercase and compare string to string.
-        string.left(code_ptr, length, temp)
+        ; to make lowercase and compare string to strings.
+        strings.left(code_ptr, length, temp)
 
         ; make sure all of the code is lowercase
-        void string.lower(temp)
+        void strings.lower(temp)
 
         for i in 0 to len(mtext.codemin)-1 {
-            if string.startswith(temp, mtext.codemin[i]) {
+            if strings.startswith(temp, mtext.codemin[i]) {
                 ; return byte from mtext.codebyte that is
                 ; in the same index position as the text 
                 ; code match from mtext.codemin.

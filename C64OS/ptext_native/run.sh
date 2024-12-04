@@ -8,6 +8,11 @@ c1541 -attach disk_mtext.d64 -write p2mtext.prg p2mtext,p
 DRIVE08="-8 disk_mtext.d64 -drive8type 1542"
 DRIVE10="-fs10 share -device10 1 -iecdevice10 -virtualdev10"
 
+# JiffyDOS
+KERNAL="-kernal jiffykernal"
+DOS="-dos1541 jiffy1541II -dos1541II jiffy1541II -dos1571 jiffy1571 -dos1581 jiffy1581"
+ROM="${KERNAL} ${DOS}"
+
 #
 # extra config
 #
@@ -15,7 +20,7 @@ KEYMAP="-keymap 1"
 MODEL="-model ntsc"
 MOUSE="-controlport1device 3"
 REU="-reu -reusize 512"
-EXTRA="${KEYMAP} ${MODEL} ${MOUSE} ${REU}"
+EXTRA="${KEYMAP} ${MODEL} ${MOUSE} ${REU} ${ROM}"
 
 
 #
