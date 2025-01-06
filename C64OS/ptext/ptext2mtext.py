@@ -22,7 +22,7 @@ import re
 import sys
 
 # with '/' or ':' allowed in link
-CODES_REGEX = r"<(.)\:(\w+)?(\s?([/:\.]?)\w?)+\>"
+CODES_REGEX = r"<(.)\:(\$?\w+)?(\s?([/:\.]?)\w?)+\>"
 
 # For the paramater portion of a link.
 LINK_REGEX = r"([\w\s]+)\s(..):(.*)"
@@ -214,6 +214,24 @@ def parse_all(block, arg_dict, lookup_dict):
     return None
 
 
+def parse_byte(block, arg_dict, lookup_dict):
+    """
+    Parse a byte code
+    """
+    # Don't bother to check these.
+    if len(block) == 0:
+        return b""
+    try:
+        if block.startswith('$'):
+            return bytes.fromhex(block[1:])
+        return int(block).to_bytes(1,'little')
+    except Exception:
+        return b""
+
+
+    print(f"DEBUG: block: {block}")
+    pass
+
 def parse_link(block, links, lookup_dict):
     """
     Parse link codes.
@@ -299,6 +317,7 @@ def write_toc(filename, toc_list):
 # The key is the code.
 # The value is (parsing_function,  lookup_table, substring_lookup_table)
 CODES = {
+    "b": (parse_byte, "byte", {}),
     "c": (parse_all, COLORS, build_lookup(COLORS)),
     "h": (parse_all, HRULE, {}),
     "j": (parse_all, ALIGN, build_lookup(ALIGN)),
