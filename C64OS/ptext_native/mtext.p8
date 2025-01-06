@@ -7,7 +7,9 @@ mtext {
     const ubyte LINK_PATH = $02
     const ubyte LINK_STOP = $03
     str LINK_FILE = " fn:"
+     ; must match with codebyte below
     str[] codemin = [
+        "<b:",
         "<c:bla",
         "<c:w",
         "<c:r",
@@ -41,7 +43,10 @@ mtext {
         "<h:"
     ]
 
+    ; must match with codemin above
     ubyte[] codebyte = [
+        ; b:xx or b:$xx (both two digit hex) placeholder
+        $00,
         ; c:black
         $E0,
         ; c:white

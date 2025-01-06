@@ -234,6 +234,12 @@ main {
             return mtext.LINK_CODE
         }
 
+        ; for bytes (<b:xx>) we return the two or three characters after the ':'
+        ; converted to a ubyte. (<b:a2> or <b:$a2> should work)
+        if strings.lowerchar(main.ptextbuf[index+1]) == 'b' {
+            return conv.hex2uword(main.ptextbuf + index + 3) as ubyte
+        }
+
         ; everything else is a direct lookup.
         ; copy the code out to a temp string so it is easy
         ; to make lowercase and compare string to strings.
