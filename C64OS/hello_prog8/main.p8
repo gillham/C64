@@ -3,8 +3,6 @@
 ;
 
 ; *required* Prog8 options
-%output prg
-%launcher c64os
 %zeropage dontuse
 %address $0900
 
@@ -17,7 +15,7 @@
 
 main {
     str hello = "Welcome to C64 OS!"
-    str prog8 = c64os:"(via Prog8!)"
+    str prog8 = "(via Prog8!)"
     ubyte msg_act = 0
     ubyte msg_cmd = 0
     bool msg_ok = false
@@ -182,7 +180,7 @@ main {
     ; handle quit from menu
     sub mnucmd() -> bool {
         if msg_act == '!' {
-            os.quitapp()
+            void os.quitapp()
         }
 
         ; quitapp exits so if we get here we didn't handle msg

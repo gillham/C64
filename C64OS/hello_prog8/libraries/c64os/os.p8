@@ -1,29 +1,16 @@
-hdr {
-;%option no_symbol_prefixing
-;%option ignore_unused
-;%option force_output
+%option ignore_unused
 
+hdr {
 const ubyte APP_INIT = 0
 const ubyte APP_MSG = 2
 const ubyte APP_QUIT = 4
 const ubyte APP_FREEZE = 6
 const ubyte APP_THAW = 8
-
-const ubyte a_lft = %00000001
-const ubyte a_rgt = %00000010
-const uword absbot = tkobjsz+13
-const uword absrght = tkobjsz+21
 const uword acptr = $ffa5
-const uword act_meth = tkviewsz+2
-const uword act_tgt = tkviewsz+3
 const ubyte actcode = 2
 const ubyte actionsize = 4
-const uword addchild_ = tcobjsz+30
 const uword addfav = 18
-const uword addfav_ = tcviewsz+6
 const uword addrcnt = 21
-const uword addrcnt_ = tcviewsz+9
-const uword adjust_ = tcviewsz+6
 const uword alert_ = 0
 const uword appbase = $0900
 const uword appendto_ = 69
@@ -31,7 +18,6 @@ const uword appfileref = $0338
 const ubyte appfrze = 6
 const ubyte appinit = 0
 const ubyte appmcmd = 2
-const uword appmode = tkviewsz
 const ubyte appquit = 4
 const uword appreubk = $0282
 const ubyte appthaw = 8
@@ -48,23 +34,27 @@ const uword bankmap = $1b00
 const uword bankordr = $1ae0
 const uword basicerr = $08f0
 const uword bcd2int_ = $0012
-const uword bcolor = tkobjsz+32
 const uword berrcode = $03b9
+const uword bindnhd_ = 6
 const uword bkalloc_ = 9
 const uword bkfree_ = 6
 const uword bmapmem = $e000
-const uword bnext = tkctrlsz+4
 const ubyte bnk_empt = $fd
 const ubyte bnk_free = $fe
 const ubyte bnk_full = $fc
 const ubyte bnk_nota = $ff
 const uword boundschk_ = 12
-const ubyte bt_chk = 1
-const ubyte bt_cyc = 2
-const ubyte bt_mnu = 3
-const ubyte bt_psh = 4
-const ubyte bt_rad = 0
-const uword btype = tkctrlsz
+const ubyte brc_115 = $0009
+const ubyte brc_12 = $0001
+const ubyte brc_144 = $0005
+const ubyte brc_192 = $0006
+const ubyte brc_230 = $000a
+const ubyte brc_24 = $0002
+const ubyte brc_3 = $0000
+const ubyte brc_384 = $0007
+const ubyte brc_48 = $0003
+const ubyte brc_576 = $0008
+const ubyte brc_96 = $0004
 const ubyte busychar = $00e6
 const ubyte c_bckgnd = $0001
 const ubyte c_border = $0000
@@ -80,7 +70,6 @@ const uword c_dtype = $0246
 const ubyte c_emftxt = $0008
 const ubyte c_fpanel = $0002
 const ubyte c_ftitle = $0003
-const uword c_left = tkscrollsz+2
 const ubyte c_mnubar = $0004
 const ubyte c_mnusel = $0005
 const ubyte c_scrlbg = $000d
@@ -101,10 +90,6 @@ const ubyte car_size = 2
 const ubyte car_type = 0
 const ubyte car_ver = 11
 const ubyte cbgmask = $f0
-const uword cbk_clik = tkviewsz+6
-const uword cbk_ctsz = tkviewsz+2
-const uword cbk_dclk = tkviewsz+8
-const uword cbk_keyp = tkviewsz+4
 const ubyte cblack = $00
 const ubyte cblue = $06
 const ubyte cbmkey = %00000010
@@ -112,14 +97,7 @@ const ubyte cbrown = $09
 const uword cclose_ = 36
 const ubyte ccyan = $03
 const ubyte cdgrey = $0b
-const ubyte cf_cont = 2
-const ubyte cf_deflt = 32
-const ubyte cf_disab = 128
-const ubyte cf_hilit = 16
-const ubyte cf_rvrs = 1
-const ubyte cf_state = 64
 const ubyte cfgmask = $0f
-const uword cflags = tkviewsz+5
 const ubyte cgf_frcnt = $0004
 const ubyte cgf_frdel = $0005
 const ubyte cgf_fscls = $0009
@@ -144,7 +122,6 @@ const ubyte chbrown = $90
 const ubyte chcyan = $30
 const ubyte chdgrey = $b0
 const ubyte chgreen = $50
-const uword child = tkobjsz+4
 const ubyte childptr = 2
 const uword chkin = $ffc6
 const uword chkout = $ffc9
@@ -164,6 +141,9 @@ const ubyte chwhite = $10
 const ubyte chyellow = $70
 const uword cia1 = $dc00
 const uword cia2 = $dd00
+const uword cia_icr = $dd0d
+const uword cia_rxcr = $dd0f
+const uword cia_txcr = $dd0e
 const uword cint = $ff81
 const uword ciout = $ffa8
 const uword clall = $ffe7
@@ -176,9 +156,8 @@ const ubyte clgreen = $0d
 const ubyte clgrey = $0f
 const uword clipin_ = 21
 const uword clipout_ = 24
+const uword closcnps_ = 18
 const uword close = $ffc3
-const ubyte clps_hor = %10000000
-const ubyte clps_ver = %00000001
 const uword clrchn = $ffcc
 const ubyte clred = $0a
 const ubyte cmdchan = $0f
@@ -189,32 +168,67 @@ const ubyte cmp_16 = 1
 const ubyte cmp_8 = 2
 const ubyte cmp_date = 3
 const ubyte cmp_nstr = 0
+const ubyte cnp_pass = 2
+const ubyte cnp_user = 0
+const uword cnpctrl_ = $0018
+const ubyte cnphost = 6
+const uword cnplibpg = $0244
+const ubyte cnppass = 9
+const ubyte cnpport = 7
+const uword cnpsack_ = 36
+const uword cnpsclr_ = 27
+const uword cnpsget_ = 33
+const uword cnpsin_ = 30
+const uword cnpsout_ = 21
+const uword cnpsput_ = 24
+const uword cnpsrvr_ = $0015
+const ubyte cnpuser = 8
 const ubyte codeptr = 6
 const uword colbuf = $d800
-const uword colclik = tkscrollsz+4
-const ubyte colcoord = $61
 const uword colhbuf = $0300
-const uword colinfo = tkscrollsz+6
-const uword collapse = tkviewsz+5
 const uword colmbuf = $0302
 const uword colmem = $d800
-const uword colsdef = tkscrollsz
+const uword confbaud_ = $000f
 const uword confcmp_ = 0
 const uword confcopy_ = $0006
 const uword confgfx_ = 9
 const uword config_ = $e012
 const uword confirq_ = 3
 const uword confsize_ = $e014
-const uword contsz_ = tcobjsz+39
 const uword copen_ = 27
 const uword copybufs_ = 39
 const ubyte corange = $08
+const ubyte cp_csum = 3
+const ubyte cp_data = 4
+const ubyte cp_dsiz = 2
+const ubyte cp_port = 1
+const ubyte cp_type = 0
 const ubyte cptr = $26
 const ubyte cpurple = $04
 const uword cpuusage = $0217
 const ubyte crc = $22
 const uword cread_ = 30
 const ubyte cred = $02
+const ubyte csc_clos = 2
+const ubyte csc_data = 4
+const ubyte csc_fail = 1
+const ubyte csc_open = 0
+const ubyte csc_tclr = 5
+const ubyte csc_time = 3
+const ubyte csf_clng = %00000010
+const ubyte csf_open = %10000000
+const ubyte csf_opng = %00000001
+const ubyte csf_txng = %00000100
+const ubyte csk_flgs = 4
+const ubyte csk_name = 0
+const ubyte csk_rbuf = 10
+const ubyte csk_rsiz = 8
+const ubyte csk_rsum = 9
+const ubyte csk_size = 11
+const ubyte csk_stat = 2
+const ubyte csk_tbuf = 7
+const ubyte csk_tsiz = 5
+const ubyte csk_tsum = 6
 const ubyte ct_3icon = 7
 const ubyte ct_4bit = 6
 const ubyte ct_aiff = 1
@@ -256,18 +270,14 @@ const ubyte ct_wave = 2
 const ubyte ct_weburl = 4
 const ubyte ct_xml = 13
 const ubyte ct_zip = 0
-const uword ctntaidx = tkviewsz
-const uword ctntview = tkviewsz
 const ubyte ctrlkey = %00000100
 const uword ctx2scr_ = 24
 const uword ctxclear_ = 18
 const uword ctxdraw_ = 21
-const uword curdev = tkviewsz+3
 const uword current = $0381
 const ubyte currentdv = $ba
 const ubyte currentlf = $b8
 const ubyte currentsa = $b9
-const uword curtab = tkviewsz
 const ubyte cwhite = $01
 const uword cwrite_ = 33
 const ubyte cyellow = $07
@@ -300,6 +310,8 @@ const ubyte d_size = $000b
 const ubyte d_width = $0005
 const uword d_year = $03b3
 const uword datadir = $dd03
+const uword dataget_ = 12
+const uword dataput_ = 15
 const uword datareg = $dd01
 const uword datetos_ = 3
 const uword dayname_ = 24
@@ -309,18 +321,15 @@ const uword dblclktm = $0288
 const uword deactiv_ = 9
 const uword defpg = $0383
 const uword defpgcnt = $0384
-const uword delegate = tkviewsz+13
-const uword delete_ = 7
 const ubyte deptr = $0022
 const uword deqkcmd_ = 21
 const uword deqkprnt_ = 27
 const uword deqmouse_ = 15
-const uword detectiec = $2a00
+const uword detectiec = $3a00
 const uword detectrec = $6400
 const ubyte dev1541 = 41
 const ubyte dev1571 = 71
 const uword dev1581 = 81
-const uword devclik = tkviewsz+5
 const ubyte devcmdfd = $80+2
 const ubyte devcmdhd = $80+3
 const ubyte devcmdrd = $80+5
@@ -331,7 +340,6 @@ const ubyte devnot = 0
 const ubyte devp1541 = $c0+11
 const uword devroot_ = 15
 const ubyte devsdiec = $80+6
-const uword devshide = tkviewsz+1
 const ubyte devultim = $c0+10
 const ubyte devvice = 10
 const ubyte df_afkey = %00001000
@@ -342,24 +350,17 @@ const ubyte df_ibnds = %01000000
 const ubyte df_opaqu = %00000100
 const ubyte df_sized = %00000010
 const ubyte df_visib = %10000000
-const uword dflags = tkobjsz+30
-const ubyte didblur = 6
-const ubyte didchng = 2
-const ubyte didfoc = 4
 const uword div16_ = 3
+const uword div3216_ = 18
+const ubyte divcarry = $68
 const uword divi = $bb12
 const uword divi10 = $bafe
 const ubyte dividnd = $63
 const ubyte divisor = $61
 const ubyte divrond = $67
 const ubyte divrslt = $63
-const uword dokeyeqv_ = tcobjsz+3
+const ubyte divtemp = $67
 const ubyte dosave = 24
-const uword dosave_ = tcviewsz+12
-const uword dp_date = tkviewsz+4
-const uword dp_year = tkviewsz
-const uword dprtcyc_ = tcviewsz
-const uword draw_ = tcobjsz+45
 const uword drawctx_ = $e00e
 const uword drivemap = $0334
 const ubyte dti_auth = $0004
@@ -388,12 +389,8 @@ const uword evttime = $02ff
 const ubyte excaddr = $0e
 const uword exception = $03df
 const ubyte excindex = $c7
-const ubyte f_asc = %01000000
 const uword f_name = $0203
 const uword f_prefix = $0200
-const ubyte f_rev = %10000000
-const ubyte f_sel = %00000010
-const ubyte f_wrap = %00000001
 const ubyte fac = $61
 const uword facarg = $bc0c
 const uword facint32 = $bc9b
@@ -437,10 +434,6 @@ const ubyte fj_sdir = $0005
 const ubyte fj_sfref = $0004
 const ubyte fj_type = $0000
 const ubyte fj_vcb = $0007
-const uword fm_dsize = tkviewsz+2
-const uword fm_dtype = tkviewsz
-const uword fm_fdir = tkviewsz+4
-const uword fm_stype = tkviewsz+1
 const ubyte fnamelen = $b7
 const ubyte fnameptr = $bb
 const ubyte fo_dfref = $0006
@@ -477,7 +470,7 @@ const ubyte freflfn = 2
 const ubyte frefname = 5
 const ubyte frefpart = 1
 const ubyte frefpath = 22
-const ubyte frefptr = $009b
+const ubyte frefptr = $00d1
 const uword frefsize = 256
 const uword frisodt_ = $0006
 const uword frisotm_ = $000c
@@ -500,28 +493,21 @@ const ubyte gcolhptr = 1
 const ubyte gcolmptr = 3
 const uword getargs_ = 6
 const uword getcrc_ = 21
-const uword getdate_ = tcviewsz+6
 const uword getdirp_ = 0
 const uword getext = 3
 const uword getin = $ffe4
 const uword getmethod_ = 51
 const uword getprop16_ = 39
 const uword getsfref_ = 21
-const uword gettab_ = tcviewsz
-const uword gettime_ = tcviewsz+6
+const uword gettime_ = $000f
 const uword gfxlibpg = $08ca
 const uword gopath_ = 18
 const ubyte gvidmode = 0
 const ubyte headersize = 2
-const uword height = tkobjsz+15
 const uword height_ = $5b
 const uword hidemouse_ = 6
 const uword hight = yb
 const uword himemuse = $03fe
-const uword hitcol = tkobjsz+35
-const uword hitrow = tkobjsz+33
-const uword hittest_ = tcobjsz+48
-const uword hltab = tkviewsz+12
 const ubyte hmembitm = $0040
 const ubyte hmembuff = $0002
 const ubyte hmemfree = $0000
@@ -529,10 +515,7 @@ const ubyte hmemmult = $0080
 const ubyte hmemutil = $0001
 const uword homebase = $02e9
 const ubyte hopen = 1
-const uword hsbar = tkviewsz+2
 const ubyte hwidth = 0
-const uword ianchor = tkctrlsz+3
-const uword icflgs = tkctrlsz
 const ubyte icn_3disk = $16
 const ubyte icn_5disk = $15
 const ubyte icn_ball = $2c
@@ -602,37 +585,23 @@ const ubyte icn_uparr = $02
 const ubyte icn_usb = $21
 const ubyte icn_vgrip = $12
 const ubyte icn_wifi = $1f
-const uword icolidx = idelegs+3
-const uword ictnt = tkctrlsz+1
-const uword idelegs = tkctrlsz+4
 const uword idrvpg = $0801
-const uword idxchng_ = tcviewsz
-const ubyte if_isbut = 1
-const uword iindex = tkctrlsz+2
-const uword ilenmax = tkctrlsz+1
-const uword ilntab = idelegs+5
-const uword imcolidx = idelegs+4
 const uword imgconf = $0006
 const uword imginfo = $0003
 const uword imgload = $0009
-const uword init_ = 4
+const ubyte inibaud = 1
 const uword initcrc_ = 9
 const uword r_initextern = $02fc
 const uword initextern_ = 27
 const uword initmouse_ = 0
-const uword inset = tkviewsz+6
 const uword instanceof_ = 54
 const uword int16fac = $b395
 const uword int16min = $b1a6
 const uword int8fac = $bc3c
 const uword iobase = $fff3
-const uword irowidx = idelegs+2
-const ubyte isa = 0
 const uword isdescof_ = 60
 const uword isdigit_ = 21
 const uword isleap_ = 18
-const uword istrlen = tkctrlsz
-const uword itemclik = tkviewsz+7
 const ubyte jbut_dn = %00000010
 const ubyte jbut_f1 = %00010000
 const ubyte jbut_f2 = %00100000
@@ -648,12 +617,18 @@ const ubyte jiffyhi = $00a0
 const ubyte jiffylo = $00a2
 const ubyte jiffymi = $00a1
 const ubyte jmpvec = $0055
+const uword joinwifi_ = $0012
 const uword jport1 = $0304
 const uword jport2 = $0305
 const uword jport3 = $0306
 const uword jport4 = $0307
+const uword kbuffer = $0277
+const ubyte kbufptr = $c6
+const uword kcbufidx = $0311
+const uword kcbufkmd = $07fd
+const uword kcbufpet = $07fa
+const uword kdrvpg = $0805
 const uword keymods = $028d
-const uword keypress_ = tcobjsz+6
 const uword killmouse_ = 3
 const uword l_code = $0354
 const uword l_dev = $0355
@@ -662,13 +637,14 @@ const uword l_sec = $037e
 const uword l_stat = $0356
 const uword l_trk = $037b
 const ubyte lastsplt = $40
+const ubyte laydirtx = $9f
+const ubyte layeridx = $96
 const uword layerpop_ = 9
 const uword layerpush_ = 6
 const ubyte lbutmask = %00010000
 const ubyte lclick = 4
 const ubyte ldclik = 5
 const uword ldfavs = 6
-const uword lditems_ = tcviewsz+3
 const ubyte ldown = 1
 const uword ldrcnts = 9
 const ubyte lfil = $0100-(2*8)
@@ -679,7 +655,6 @@ const uword libinfo = $08b6
 const uword liblocs = $08c0
 const ubyte linp = $0100-(2*2)
 const uword listen = $ffb1
-const uword listmode = tkviewsz+2
 const ubyte lmat = $0100-(2*4)
 const ubyte lmem = $0100-(2*1)
 const ubyte lmnu = $0100-(2*6)
@@ -689,19 +664,19 @@ const uword loadclr_ = 33
 const ubyte loaddef = $01
 const uword loadicns_ = 36
 const uword loadlib_ = 42
+const uword loadnhd_ = $000c
 const ubyte loadop = $00
 const ubyte loadrel = $00
 const uword loadreloc_ = 39
+const uword loadset_ = $0006
 const uword loadtune_ = $0006
 const uword loadutil_ = 30
 const uword loopbrkvec = $0336
-const uword lpad = tkctrlsz+3
 const ubyte lptr = $52
 const ubyte lscr = $0100-(2*5)
 const ubyte lser = $0100-(2*7)
 const ubyte lshftkey = %00000001
 const ubyte lstr = $0100-(2*3)
-const ubyte ltbptr = $65
 const ubyte ltim = $00ec
 const ubyte ltkt = $0100-(2*9)
 const ubyte ltrack = 2
@@ -710,14 +685,14 @@ const ubyte magicadr = $00
 const uword maketab_ = 6
 const uword malloc_ = 12
 const ubyte mapapp = $ff
-const uword mapdevs_ = tcviewsz
 const ubyte mapfree = $00
 const uword mappgfst = $08a1
 const ubyte mappglst = $09
 const ubyte mapsys = $01
 const ubyte maputil = $02
 const uword markredraw_ = 3
-const uword maxval = tkctrlsz+7
+const ubyte maxbaud = 2
+const uword mbufidx = $0310
 const ubyte mbutmask = %00000010
 const ubyte mc_chrs = 13
 const ubyte mc_col = 2
@@ -738,6 +713,7 @@ const ubyte mc_menq = 1
 const ubyte mc_mnu = 0
 const ubyte mc_mous = 6
 const ubyte mc_mptr = 9
+const ubyte mc_ntwrk = 24
 const ubyte mc_null = $ff
 const ubyte mc_reua = 22
 const ubyte mc_rflg = 10
@@ -782,12 +758,10 @@ const uword memutil = $08de
 const uword metapage = $ff3f
 const ubyte mf_bdchk = %01000000
 const ubyte mf_resiz = %00000010
-const uword mflags = tkobjsz+31
 const ubyte mhfree = 0
 const ubyte mhlen = 1
 const ubyte mhsize = 3
 const uword minus = $b853
-const uword minval = tkctrlsz+6
 const ubyte mm_load = $0002
 const ubyte mm_start = $0001
 const ubyte mm_stop = $0000
@@ -820,7 +794,9 @@ const ubyte mouseon = %00000001
 const ubyte mousepre = %00100000
 const uword mouseptr = $028f
 const uword mouserc_ = 9
+const uword mousesiz = $08cb
 const ubyte mousetrk = %00000010
+const uword mouskeys_ = 0
 const ubyte move = 0
 const uword msgapp_ = $0009
 const uword msgutil_ = $000c
@@ -838,30 +814,36 @@ const uword mus1col = $02fb
 const ubyte mus_cbm = %00100000
 const ubyte mus_ctrl = %01000000
 const ubyte mus_shft = %00010000
-const uword musalt_ = tcobjsz+27
 const ubyte musbtns = $f2
-const uword musclik_ = tcobjsz+18
-const uword musdclik_ = tcobjsz+21
-const uword musdown_ = tcobjsz+9
+const uword musbuff = $07f4
+const uword musbufx = $07e8
+const uword musbufy = $07ee
 const uword musflgs = $03fd
-const uword musmovd_ = tcobjsz+12
-const uword musup_ = tcobjsz+15
 const ubyte musxpos = $41
 const ubyte musypos = $43
+const uword ndrvpg = $0804
 const uword neg1_2 = $b9e0
+const uword netstat = $0245
+const ubyte nettimer = $02
 const ubyte nextptr = 0
-const uword nextresp = tkobjsz
-const uword nublns = tkctrlsz+5
-const uword nuboff = tkctrlsz+7
-const uword nubsz = tkctrlsz+3
-const uword offbot = tkobjsz+11
-const uword offleft = tkobjsz+17
-const uword offrght = tkobjsz+19
-const uword offtop = tkobjsz+9
+const ubyte nhddrvr = 3
+const uword nhdpause_ = 27
+const ubyte nhdpgsz = 0
+const uword nhdresum_ = 30
+const uword nmictrl = $02a1
+const ubyte ns_cpcf = %00010000
+const ubyte ns_cpup = %00100000
+const ubyte ns_nhcf = %00000001
+const ubyte ns_nhsp = %00000010
+const ubyte ns_onlin = %00111111
+const ubyte ns_trcf = %00000100
+const ubyte ns_trup = %00001000
 const ubyte oj_type = 0
 const ubyte oj_vcb = 4
 const uword opaqancs_ = 63
 const uword open = $ffc0
+const uword opencnps_ = 15
+const uword opensock_ = 24
 const uword opnappmcmd = $03fa
 const uword opnappmdhi = $03fc
 const uword opnappmdlo = $03fb
@@ -870,15 +852,10 @@ const uword opnfrefreu = $2000
 const uword opnutilmcmd = $03fa
 const uword opnutilmdhi = $03fc
 const uword opnutilmdlo = $03fb
-const uword orient = tkviewsz
-const uword pagesz = tkctrlsz+9
-const uword parent = tkobjsz+2
+const uword palflag = $02a6
 const uword partroot_ = 12
 const uword pathadd_ = 6
-const uword pathclik = tkviewsz+2
-const uword pathdep = tkviewsz
 const uword pathup_ = 9
-const uword pbmode = tkviewsz+1
 const uword pet2asc_ = 9
 const uword pet2scr_ = 12
 const ubyte petvalue = 1
@@ -915,6 +892,7 @@ const uword plot = $fff0
 const uword plus = $b86a
 const ubyte pnode = $2f
 const uword polldevices_ = 30
+const uword pollget_ = 9
 const uword pos1 = $b9bc
 const uword pos10 = $baf9
 const uword pos1_4 = $e2ea
@@ -926,15 +904,24 @@ const uword power = $bf7b
 const uword prep_rw_ = $0006
 const ubyte prepload = $000e
 const uword presort_ = $0000
+const uword printstr = $ab1e
 const uword procgfx_ = 6
 const ubyte product = $65
 const ubyte pt_41 = $0007
 const ubyte pt_71 = $0008
 const ubyte pt_81 = $0009
+const ubyte pt_ack = 'a'
+const ubyte pt_alive = '-'
 const ubyte pt_cfs = $000b
+const ubyte pt_close = 'c'
 const ubyte pt_cpm = $000a
+const ubyte pt_data = 'd'
+const ubyte pt_nak = 'n'
 const ubyte pt_nat = $0006
+const ubyte pt_open = 'o'
+const ubyte pt_serv = 's'
 const ubyte pt_sys = $000c
+const ubyte pt_time = 't'
 const uword ptrthis_ = 42
 const uword pullctx_ = 3
 const ubyte purebyte = $ff
@@ -942,6 +929,7 @@ const uword pushctx_ = 0
 const uword quitapp_ = 33
 const uword ramtas = $ff87
 const uword raw_rts = $02b2
+const ubyte rbuf_cnt = $b4
 const ubyte rbutmask = %00000001
 const ubyte rc_ctr = %10010000
 const ubyte rc_rtc = %10010001
@@ -963,6 +951,7 @@ const uword readkprnt_ = 24
 const uword readmouse_ = 12
 const uword readreg_ = $0009
 const uword readregs = $03c3
+const uword readset_ = $0009
 const uword readst = $ffb7
 const uword readutils = $2100
 const uword realloc_ = 3
@@ -978,7 +967,6 @@ const ubyte rec_rhi = $06
 const ubyte rec_rlo = $04
 const ubyte rec_rmi = $05
 const ubyte rec_stat = $00
-const uword recalc_ = tcctrlsz+3
 const uword recontext_ = 9
 const uword recshunt = $022a
 const uword redirect = $08f4
@@ -986,15 +974,12 @@ const uword redirectvec = $08f9
 const uword redraw_ = 27
 const uword redrawflgs = $03ff
 const uword redrwtod_ = 15
-const uword reflect_ = tcctrlsz
 const ubyte regstore = $c8
 const ubyte reindex = 3
 const ubyte remandr = $65
 const ubyte renagfx = $0002
 const uword renamef_ = $000f
-const uword reorient_ = tcviewsz
 const uword reset_ = $0003
-const uword resize_ = tcobjsz+36
 const uword restor = $ff8a
 const ubyte ret_nok = 1
 const ubyte ret_ok = 0
@@ -1005,6 +990,9 @@ const uword reuconf_ = 24
 const uword reufrzbk = $0286
 const uword reupage = $0283
 const ubyte rgraphix = $0004
+const ubyte ribuf = $f7
+const uword ridbe = $029b
+const uword ridbs = $029c
 const ubyte rm_ankb = %00000010
 const ubyte rm_ankl = %00000100
 const ubyte rm_ankr = %00001000
@@ -1012,40 +1000,50 @@ const ubyte rm_ankt = %00000001
 const ubyte rm_rschd = %10000000
 const ubyte rmenubar = $0080
 const ubyte rmodal = $0008
-const uword rmusdwn_ = tcobjsz+24
 const ubyte rnewgfx = $0001
+const ubyte robuf = $f9
+const uword rodbe = $029d
+const uword rodbs = $029e
 const uword rootpg = $0382
 const uword rootview = $03ba
-const ubyte rowcoord = $63
+const ubyte rs232cts = $40
+const ubyte rs232dcd = $10
+const ubyte rs232dsr = $80
+const uword rs232in = $dd01
+const uword rs232out = $dd00
+const ubyte rs232ri = $08
+const ubyte rs232rtr = $02
+const ubyte rs232rx = $01
+const uword rs232sig = $dd01
+const ubyte rs232tx = $04
+const ubyte rsbyte = $9e
 const ubyte rsh_bank = $05
 const ubyte rsh_cadr = $01
 const ubyte rsh_cmd = $00
 const ubyte rsh_radr = $03
 const ubyte rsh_size = $06
 const ubyte rshftkey = %00001000
-const uword rsmask = tkobjsz+25
 const ubyte rstatbar = $0010
 const uword rtcdrvrreu = $2100
 const ubyte rtrack = 7
-const uword rtvalu = tkviewsz+6
-const uword ru_avail = tkviewsz+1
-const uword ru_selbk = tkviewsz+2
-const uword ru_selpg = tkviewsz
-const uword ru_used = tkviewsz
 const ubyte rup = 8
 const ubyte rvs_mask = %10000000
-const uword s_left = tkobjsz+28
-const uword s_top = tkobjsz+26
+const ubyte rxbitcnt = $bd
+const ubyte rxbyte = $ab
+const uword rxtmrhi = $dd07
+const uword rxtmrlo = $dd06
 const uword save = $ffd8
-const uword schild = tkviewsz+3
+const uword scanmovs_ = $0000
+const uword scnjbtns_ = $0003
+const uword scnkbtns_ = 3
 const uword scnkey = $ff9f
+const uword scnpbtns_ = $0003
 const uword scratchf_ = $0012
 const uword scrbuf = $0400
 const uword screen = $ffed
 const ubyte screen_cols = 40
 const ubyte screen_rows = 25
 const uword scrlayer_ = $e00c
-const uword scrlns = tkctrlsz+1
 const uword scrlwhls = $0287
 const uword scrmem = $dc00
 const uword scrrow_ = 30
@@ -1054,48 +1052,29 @@ const uword second = $ff93
 const uword seebas_ = 15
 const uword seeioker = $02ac
 const uword seeram = $02a7
-const uword seltab_ = tcviewsz+6
-const uword sendact_ = tcviewsz+3
-const uword sender = tkviewsz
-const uword setbar_ = tcviewsz+3
-const uword setbyt_ = tcviewsz+6
+const uword sessbgn_ = 9
+const uword sessend_ = 12
 const uword setclass_ = 45
-const uword setctnt_ = tcviewsz
 const uword setctx_ = 6
-const uword setdate_ = tcviewsz+3
-const uword setdel_ = tcviewsz+3
 const uword setdprops_ = 15
-const uword setdsize_ = tcviewsz+3
-const uword setdtype_ = tcviewsz
-const uword setfdir_ = tcviewsz+6
-const uword setfirst_ = tcobjsz
 const uword setflags_ = 12
-const uword setflt_ = tcviewsz+12
 const uword setgfx_ = 18
+const uword sethand_ = 6
 const uword setlfs = $ffba
 const uword setlrc_ = 12
 const uword setmsg = $ff90
 const uword setnam = $ffbd
 const uword setname_ = 3
-const uword setoff_ = tcviewsz+9
-const uword setstate_ = tcctrlsz+3
-const uword setstr_ = tcviewsz+15
-const uword setstrf_ = setstrp_+3
-const uword setstrp_ = tcviewsz
+const uword setrate_ = 18
 const uword setsuper_ = 48
-const uword settgt_ = tcviewsz
 const uword settim = $ffdb
-const uword settime_ = tcviewsz+3
-const uword settitle_ = tcctrlsz
+const uword settime_ = 6
 const uword settkenv_ = 15
 const uword settmo = $ffa2
-const uword setwrd_ = tcviewsz+9
-const uword sfil = sstr-$0537
-const uword sibling = tkobjsz+6
+const uword sfil = sstr-$0546
 const uword sid = $d400
 const ubyte sinitreu = $000a
-const uword sinp = sser-$0574
-const uword size_ = 2
+const uword sinp = sser-$0350
 const ubyte sj_nlen = 7
 const ubyte sj_ovr = 6
 const ubyte sj_type = 0
@@ -1110,26 +1089,24 @@ const ubyte slsize = 9
 const uword sltb = $d000-(2*10)
 const ubyte slunload = $0080
 const ubyte slvwait = 50
-const uword smat = sinp-$0130
+const uword smat = sinp-$0175
 const uword smem = stim-$028a
-const uword smnu = sscr-$089d
-const ubyte so_hor = 0
-const ubyte so_ver = 1
+const uword smnu = sscr-$08aa
 const uword sort_ = $0003
 const ubyte spi_auth = $01
 const ubyte spi_copy = $02
 const ubyte spi_name = $00
 const uword spirqvec = $0334
 const ubyte split = $3f
-const uword spos = tkviewsz+1
 const uword spotcopy_ = $000c
 const ubyte sps_halt = $fe
 const ubyte sps_hold = $ff
 const ubyte sps_play = $fd
 const ubyte srestore = $000c
-const uword sscr = sfil-$069f
-const uword sser = sltb-$06fc
-const uword sstr = smem-$014b
+const uword sscr = sfil-$06ae
+const uword sser = sltb-$0716
+const uword ssidstat_ = 21
+const uword sstr = smem-$014d
 const uword stack = $0100
 const ubyte stat_app = 1
 const ubyte stat_drv = 0
@@ -1137,18 +1114,71 @@ const ubyte stat_fil = 2
 const uword statmode = $08ef
 const uword stattune_ = $0009
 const ubyte status = $90
-const uword stim = smat-$020c
-const uword stkt = smnu-$0548
+const uword stim = smat-$021b
+const uword stkt = smnu-$0557
 const uword stop = $ffe1
 const ubyte stralt = $63
 const uword strdel_ = 24
 const uword strfac = $bcf3
-const uword strflgs = tkviewsz+2
 const uword strins_ = 27
 const uword strlen_ = 0
-const uword strlgth = tkviewsz+3
 const ubyte strptr = $61
-const uword super_ = 0
+const uword sw = $de00
+const uword sw_cmd = sw+$02
+const uword sw_ctrl = sw+$03
+const uword sw_data = sw+$00
+const uword sw_stat = sw+$01
+const ubyte swb14400 = $0d
+const ubyte swb19200 = $0e
+const ubyte swb38400 = $0f
+const ubyte swb_100 = $01
+const ubyte swb_1200 = $07
+const ubyte swb_150 = $02
+const ubyte swb_220 = $03
+const ubyte swb_2400 = $08
+const ubyte swb_270 = $04
+const ubyte swb_300 = $05
+const ubyte swb_3600 = $09
+const ubyte swb_4800 = $0a
+const ubyte swb_600 = $06
+const ubyte swb_7200 = $0b
+const ubyte swb_9600 = $0c
+const ubyte swc_dtr = %00000001
+const ubyte swc_ech = %00010000
+const ubyte swc_irq = %00000010
+const ubyte swc_par = %00100000
+const ubyte swc_tc0 = %00000100
+const ubyte swc_tc1 = %00001000
+const ubyte swibuf = $f7
+const uword swidbe = $029b
+const uword swidbs = $029c
+const ubyte swn_rx = $bd
+const ubyte swn_rxtx = $b6
+const ubyte swobuf = $f9
+const uword swodbe = $029d
+const uword swodbs = $029e
+const ubyte swp_evn = %01000000
+const ubyte swp_mrk = %10000000
+const ubyte swp_odd = %00000000
+const ubyte swp_spc = %11000000
+const ubyte sws_dcd = %00100000
+const ubyte sws_dsr = %01000000
+const ubyte sws_fer = %00000010
+const ubyte sws_irq = %10000000
+const ubyte sws_oer = %00000100
+const ubyte sws_per = %00000001
+const ubyte sws_rrd = %00001000
+const ubyte sws_trd = %00010000
+const ubyte swt_tbrk = %00001100
+const ubyte swt_tmrh = %00000000
+const ubyte swt_tmrl = %00001000
+const ubyte swt_torl = %00000100
+const ubyte swx_brc = %00010000
+const ubyte swx_stp = %10000000
+const ubyte swx_w5b = %01100000
+const ubyte swx_w6b = %01000000
+const ubyte swx_w7b = %00100000
+const ubyte swx_w8b = %00000000
 const uword sysfref = $02c0
 const ubyte sysjmp = $0054
 const uword syskcmd_ = 24
@@ -1159,22 +1189,9 @@ const uword t_hour = $dc0b
 const uword t_mins = $dc0a
 const uword t_secs = $dc09
 const uword t_twelve = $03b6
-const uword tabcnt = tkviewsz+11
-const uword tabdef = tklistsz
-const ubyte tabstr = 0
-const uword tabsz = tkviewsz+1
-const uword tag = tkobjsz+8
 const uword talk = $ffb4
-const ubyte tc_algn = 7
-const ubyte tc_csiz = 4
-const ubyte tc_id = 2
-const ubyte tc_mnsz = 5
-const ubyte tc_mxsz = 6
-const ubyte tc_name = 0
-const ubyte tc_resz = 3
-const ubyte tc_size = 8
+const ubyte tbuf_cnt = $ab
 const ubyte tcancel = $0020
-const uword tcbuttonsz = tcctrlsz+6
 const uword tcc_btn = $d0fb
 const uword tcc_crt = $d0f0
 const uword tcc_dis = $d0fd
@@ -1190,17 +1207,8 @@ const uword tcc_sid = $d0f4
 const uword tcc_spi = $d0f1
 const uword tcc_tur = $d0f3
 const uword tcc_vic = $d0f2
-const uword tcctrlsz = tcviewsz+18
-const uword tcheight = tkviewsz+7
-const uword tclabelsz = tcviewsz+3
-const ubyte tcobjsz = 10
-const uword tcplacessz = tcviewsz+12
-const uword tcsbarsz = tcctrlsz+6
-const uword tcscrollsz = tcviewsz+12
-const uword tcsplitsz = tcviewsz+3
-const uword tctabsz = tcviewsz+9
-const uword tcviewsz = tcobjsz+51
-const uword tcwidth = tkviewsz+5
+const ubyte tcp_host = $0000
+const ubyte tcp_port = $0002
 const ubyte td_did = $0011
 const ubyte td_fc = $0021
 const ubyte td_filt = $003e
@@ -1236,66 +1244,23 @@ const ubyte tf_blur = %10000000
 const ubyte tf_dirty = %00000001
 const ubyte tf_keyh = %01000000
 const ubyte this = $2b
-const uword ti_callb = tkviewsz+8
-const uword ti_cnting = tkviewsz
-const uword ti_mode = tkviewsz+7
-const uword ti_reset = tkviewsz+4
-const uword ti_value = tkviewsz+1
 const uword timedwn_ = $0003
 const uword timeevt_ = $0006
 const uword timeque_ = $0000
 const ubyte timeridx = $0009
+const ubyte timerprs = $10
 const uword timutil = $08cd
 const ubyte tintrvl = $0040
-const uword tiset_ = tcviewsz
-const uword titick_ = tcviewsz+6
-const uword title = tkctrlsz+1
 const ubyte titleptr = 4
-const uword titoggle_ = tcviewsz+3
-const ubyte tkbutton = 7
-const uword tkbuttonsz = tkctrlsz+8
 const uword tkcolors = $0387
-const ubyte tkctrl = 6
-const uword tkctrlsz = tkviewsz+15
-const uword tkdatepicksz = tkviewsz+6
 const uword tkenv_ = $e010
 const ubyte tkenvptr = $ef
-const uword tkfilemetasz = tkviewsz+6
-const uword tkiconsz = tkctrlsz+3
-const uword tkinputsz = tkctrlsz+6
 const uword tkkcmd_ = 24
 const uword tkkprnt_ = 27
-const ubyte tklabel = 5
-const uword tklabelsz = tkviewsz+5
-const uword tklistsz = tkviewsz+10
 const uword tkmouse_ = 21
 const uword tknew_ = 36
-const ubyte tkobj = 0
-const ubyte tkobjsz = 2
-const uword tkpbarsz = tkviewsz+4
-const uword tkplacessz = tkviewsz+9
-const uword tkramusz = tkviewsz+1
-const uword tkreuusz = tkviewsz+3
 const uword tksa = $ff96
-const ubyte tksbar = 8
-const uword tksbarsz = tkctrlsz+11
-const ubyte tkscroll = 4
-const uword tkscrollsz = tkviewsz+7
-const ubyte tksplit = 2
-const uword tksplitsz = tkviewsz+6
-const uword tktablesz = tklistsz+2
-const ubyte tktabs = 3
-const uword tktabssz = tkviewsz+15
-const uword tktareasz = tkctrlsz+10
-const uword tktcolssz = tkscrollsz+8
-const uword tktextsz = tkviewsz+13
-const uword tktimepicksz = tkviewsz+6
-const uword tktimersz = tkviewsz+10
 const uword tkupdate_ = 18
-const ubyte tkview = 1
-const uword tkviewsz = tkobjsz+37
-const uword tlinemap = tkviewsz+3
-const uword tmapsize = tkviewsz+4
 const uword toglock_ = $0003
 const uword tohex_ = 12
 const uword toint_ = 9
@@ -1304,13 +1269,8 @@ const uword toisotm_ = $0009
 const uword tolower_ = 15
 const uword tostr_ = 6
 const uword toupper_ = 18
-const uword tp_24h = tkviewsz
-const uword tp_ampm = tkviewsz+5
-const uword tp_hr = tkviewsz+1
-const uword tp_min = tkviewsz+3
 const ubyte tpause = $0080
 const ubyte tprecis = $0004
-const uword tprtcyc_ = tcviewsz
 const ubyte tptr = $50
 const ubyte trealtm = $0002
 const ubyte treset = $0010
@@ -1344,12 +1304,6 @@ const ubyte ts_size = $0002
 const ubyte ts_time = $0010
 const ubyte ts_type = $0003
 const ubyte ts_utils = $0002
-const uword tsbutton = tsctrl-$02d7
-const uword tsctrl = tslabel-$01e7
-const uword tselend = tkviewsz+11
-const uword tselstrt = tkviewsz+9
-const uword tslabel = tsscroll-$0198
-const uword tsobj = stkt-$21
 const ubyte tspi_cde = $0010
 const ubyte tspi_cdf = $0020
 const ubyte tspi_mce = $0001
@@ -1357,18 +1311,16 @@ const ubyte tspi_mcr = $0003
 const ubyte tspi_mda = $0004
 const ubyte tspi_nmi = $0040
 const ubyte tspi_rom = $0008
-const uword tssbar = tsbutton-$0784
-const uword tsscroll = tstabs-$0318
-const uword tssplit = tsview-$03d3
-const uword tstabs = tssplit-$034f
 const ubyte tstat = $0003
-const uword tstrflgs = tkviewsz+2
-const uword tstrptr = tkviewsz
-const uword tsview = tsobj-$0699
 const ubyte ttime = $0000
 const ubyte ttrig = $0004
 const uword tuneinfo_ = $000c
 const ubyte tvalu = $0006
+const ubyte txbitcnt = $b4
+const ubyte txbyte = $b6
+const ubyte txnxtbit = $b5
+const uword txtmrhi = $dd05
+const uword txtmrlo = $dd04
 const ubyte txtptr = $7a
 const uword ua_ch1 = $df20
 const uword ua_ch2 = $df40
@@ -1439,9 +1391,7 @@ const uword umdefpg = $0385
 const uword umdefpgc = $0386
 const uword unldlib_ = 45
 const uword unlsn = $ffae
-const uword unparent_ = tcobjsz+33
 const uword untlk = $ffab
-const uword update_ = tcobjsz+42
 const uword updc16_ = 15
 const uword updc32_ = 18
 const uword updc8_ = 12
@@ -1454,8 +1404,6 @@ const ubyte utilmcmd = 2
 const ubyte utilquit = 4
 const ubyte utilthaw = 8
 const uword utiltimr = $0221
-const uword valtype = tkviewsz+9
-const uword value = tkviewsz+10
 const ubyte vat_bgnd = $0010
 const ubyte vat_fli4 = $0002
 const ubyte vat_fli8 = $0001
@@ -1470,20 +1418,16 @@ const uword vector = $ff8d
 const ubyte verifyop = $01
 const uword vic = $d000
 const uword viewwtag_ = 66
-const uword vsbar = tkviewsz+4
-const ubyte vt_byt = 1
-const ubyte vt_flt = 4
-const ubyte vt_str = 8
-const ubyte vt_wrd = 2
 const uword walk_ = 57
 const ubyte wdnmask = %00001000
 const ubyte wdown = 13
 const uword weeknum_ = 12
-const uword width = tkobjsz+23
+const uword width = xb
 const uword width_ = $59
-const ubyte willblur = 2
-const ubyte willfoc = 4
-const ubyte willins = 0
+const ubyte wifi_pass = $0002
+const ubyte wifi_ssid = $0000
+const ubyte wifinam = 4
+const ubyte wifipas = 5
 const ubyte workbank = $00
 const ubyte writebit = 0
 const uword writreg_ = $000c
@@ -1493,881 +1437,15 @@ const ubyte xa = 0
 const ubyte xb = 2
 const ubyte ya = 1
 const ubyte yb = 3
+const ubyte ystash = $97
 const uword zero = $ecb9
 }
-
 os {
-    ; function for registering callbacks
-    ; fills jump vector slots at the start of app memory.
-    sub register(ubyte slot, uword function) {
-        hdr.appbase[slot] = lsb(function)
-        hdr.appbase[slot+1] = msb(function)
-    }
-
-inline asmsub alert() {
-    %asm {{
-        jsr p8b_os.p8l_l_alert
-    }}
-}
-inline asmsub appendto(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_appendto
-    }}
-}
-inline asmsub asc2pet(ubyte arg0 @A) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_asc2pet
-    }}
-}
-inline asmsub bcd2int(ubyte arg0 @A) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_bcd2int
-    }}
-}
-inline asmsub bkalloc(ubyte arg0 @X) -> ubyte @Y, bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_bkalloc
-    }}
-}
-inline asmsub bkfree(ubyte arg0 @X, ubyte arg1 @Y) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_bkfree
-    }}
-}
-inline asmsub boundschk() -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_boundschk
-    }}
-}
-inline asmsub cclose(ubyte arg0 @X, ubyte arg1 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_cclose
-    }}
-}
-inline asmsub classlnk(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_classlnk
-    }}
-}
-inline asmsub classptr(ubyte arg0 @X) {
-    %asm {{
-        jsr p8b_os.p8l_l_classptr
-    }}
-}
-inline asmsub clipin(ubyte arg0 @A, uword arg1 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_clipin
-    }}
-}
-inline asmsub clipout(ubyte arg0 @A, uword arg1 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_clipout
-    }}
-}
-inline asmsub confcmp() {
-    %asm {{
-        jsr p8b_os.p8l_l_confcmp
-    }}
-}
-inline asmsub confcopy() -> ubyte @X, ubyte @Y {
-    %asm {{
-        jsr p8b_os.p8l_l_confcopy
-    }}
-}
-inline asmsub confgfx(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_confgfx
-    }}
-}
-inline asmsub config() {
-    %asm {{
-        jsr p8b_os.p8l_l_config
-    }}
-}
-inline asmsub confirq() {
-    %asm {{
-        jsr p8b_os.p8l_l_confirq
-    }}
-}
-inline asmsub confsize() {
-    %asm {{
-        jsr p8b_os.p8l_l_confsize
-    }}
-}
-inline asmsub copen(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_copen
-    }}
-}
-inline asmsub copybufs() {
-    %asm {{
-        jsr p8b_os.p8l_l_copybufs
-    }}
-}
-inline asmsub cread(ubyte arg0 @A, uword arg1 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_cread
-    }}
-}
-inline asmsub ctx2scr(ubyte arg0 @X, ubyte arg1 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_ctx2scr
-    }}
-}
-inline asmsub ctxclear(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_ctxclear
-    }}
-}
-inline asmsub ctxdraw(ubyte arg0 @A) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_ctxdraw
-    }}
-}
-inline asmsub cwrite(ubyte arg0 @A, uword arg1 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_cwrite
-    }}
-}
-inline asmsub datetos(ubyte arg0 @A) -> ubyte @X, ubyte @Y {
-    %asm {{
-        jsr p8b_os.p8l_l_datetos
-    }}
-}
-inline asmsub dayname(ubyte arg0 @X) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_dayname
-    }}
-}
-inline asmsub dayofyr(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_dayofyr
-    }}
-}
-inline asmsub daysinm(ubyte arg0 @X, ubyte arg1 @Y) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_daysinm
-    }}
-}
-inline asmsub deactiv() {
-    %asm {{
-        jsr p8b_os.p8l_l_deactiv
-    }}
-}
-inline asmsub deqkcmd() {
-    %asm {{
-        jsr p8b_os.p8l_l_deqkcmd
-    }}
-}
-inline asmsub deqkprnt() {
-    %asm {{
-        jsr p8b_os.p8l_l_deqkprnt
-    }}
-}
-inline asmsub deqmouse(bool arg0 @Pc) {
-    %asm {{
-        jsr p8b_os.p8l_l_deqmouse
-    }}
-}
-inline asmsub devroot(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_devroot
-    }}
-}
-inline asmsub div16(bool arg0 @Pc) {
-    %asm {{
-        jsr p8b_os.p8l_l_div16
-    }}
-}
-inline asmsub drawctx() {
-    %asm {{
-        jsr p8b_os.p8l_l_drawctx
-    }}
-}
-inline asmsub evtloop() {
-    %asm {{
-        jsr p8b_os.p8l_l_evtloop
-    }}
-}
-inline asmsub fclose(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_fclose
-    }}
-}
-inline asmsub ferror() -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_ferror
-    }}
-}
-inline asmsub filecopy() {
-    %asm {{
-        jsr p8b_os.p8l_l_filecopy
-    }}
-}
-inline asmsub finit(uword arg0 @XY) -> ubyte @A, ubyte @X, bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_finit
-    }}
-}
-inline asmsub firstdow(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_firstdow
-    }}
-}
-inline asmsub fopen(ubyte arg0 @A, uword arg1 @XY) -> ubyte @A, bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_fopen
-    }}
-}
-inline asmsub frclip(ubyte arg0 @A, bool arg1 @Pc) {
-    %asm {{
-        jsr p8b_os.p8l_l_frclip
-    }}
-}
-inline asmsub fread(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_fread
-    }}
-}
-inline asmsub free(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_free
-    }}
-}
-inline asmsub freedir(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_freedir
-    }}
-}
-inline asmsub frefcvt(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_frefcvt
-    }}
-}
-inline asmsub frisodt(uword arg0 @XY) -> ubyte @A, ubyte @X, ubyte @Y {
-    %asm {{
-        jsr p8b_os.p8l_l_frisodt
-    }}
-}
-inline asmsub frisotm(uword arg0 @XY) -> ubyte @X, ubyte @Y {
-    %asm {{
-        jsr p8b_os.p8l_l_frisotm
-    }}
-}
-inline asmsub fwrite(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_fwrite
-    }}
-}
-inline asmsub getargs(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_getargs
-    }}
-}
-inline asmsub getcrc(ubyte arg0 @A, bool arg1 @Pc) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_getcrc
-    }}
-}
-inline asmsub getdirp() -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_getdirp
-    }}
-}
-inline asmsub getmethod(ubyte arg0 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_getmethod
-    }}
-}
-inline asmsub getprop16(ubyte arg0 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_getprop16
-    }}
-}
-inline asmsub getsfref(ubyte arg0 @Y) -> ubyte @X, ubyte @Y {
-    %asm {{
-        jsr p8b_os.p8l_l_getsfref
-    }}
-}
-inline asmsub gettime() -> ubyte @X, ubyte @Y {
-    %asm {{
-        jsr p8b_os.p8l_l_gettime
-    }}
-}
-inline asmsub gopath(ubyte arg0 @A, ubyte arg1 @X) {
-    %asm {{
-        jsr p8b_os.p8l_l_gopath
-    }}
-}
-inline asmsub height() {
-    %asm {{
-        jsr p8b_os.p8l_l_height
-    }}
-}
-inline asmsub hidemouse() {
-    %asm {{
-        jsr p8b_os.p8l_l_hidemouse
-    }}
-}
-inline asmsub initcrc(ubyte arg0 @A) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_initcrc
-    }}
-}
-inline asmsub initmouse(bool arg0 @Pc) {
-    %asm {{
-        jsr p8b_os.p8l_l_initmouse
-    }}
-}
-inline asmsub instanceof(uword arg0 @XY) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_instanceof
-    }}
-}
-inline asmsub isdescof(uword arg0 @XY) -> ubyte @A, bool @Pz {
-    %asm {{
-        jsr p8b_os.p8l_l_isdescof
-    }}
-}
-inline asmsub isdigit(ubyte arg0 @A) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_isdigit
-    }}
-}
-inline asmsub isleap(ubyte arg0 @Y) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_isleap
-    }}
-}
-inline asmsub killmouse() -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_killmouse
-    }}
-}
-inline asmsub layerpop() -> bool @Pz {
-    %asm {{
-        jsr p8b_os.p8l_l_layerpop
-    }}
-}
-inline asmsub layerpush(uword arg0 @XY) -> ubyte @X, bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_layerpush
-    }}
-}
-inline asmsub loadapp(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_loadapp
-    }}
-}
-inline asmsub loadclr() {
-    %asm {{
-        jsr p8b_os.p8l_l_loadclr
-    }}
-}
-inline asmsub loadicns(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_loadicns
-    }}
-}
-inline asmsub loadlib(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_loadlib
-    }}
-}
-inline asmsub loadreloc(uword arg0 @XY) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_loadreloc
-    }}
-}
-inline asmsub loadtune(uword arg0 @XY) -> ubyte @A, ubyte @X, bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_loadtune
-    }}
-}
-inline asmsub loadutil(uword arg0 @XY) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_loadutil
-    }}
-}
-inline asmsub maketab(ubyte arg0 @A) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_maketab
-    }}
-}
-inline asmsub malloc(ubyte arg0 @A, uword arg1 @XY) -> uword @XY, bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_malloc
-    }}
-}
-inline asmsub markredraw(ubyte arg0 @X) {
-    %asm {{
-        jsr p8b_os.p8l_l_markredraw
-    }}
-}
-inline asmsub memcpy(ubyte arg0 @A, ubyte arg1 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_memcpy
-    }}
-}
-inline asmsub memfree() -> ubyte @X {
-    %asm {{
-        jsr p8b_os.p8l_l_memfree
-    }}
-}
-inline asmsub memncpy(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_memncpy
-    }}
-}
-inline asmsub memset(ubyte arg0 @A, ubyte arg1 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_memset
-    }}
-}
-inline asmsub mnthname(ubyte arg0 @X) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_mnthname
-    }}
-}
-inline asmsub mnudraw() {
-    %asm {{
-        jsr p8b_os.p8l_l_mnudraw
-    }}
-}
-inline asmsub mnukcmd() {
-    %asm {{
-        jsr p8b_os.p8l_l_mnukcmd
-    }}
-}
-inline asmsub mnumouse() {
-    %asm {{
-        jsr p8b_os.p8l_l_mnumouse
-    }}
-}
-inline asmsub mouserc(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) -> ubyte @A, ubyte @X, ubyte @Y {
-    %asm {{
-        jsr p8b_os.p8l_l_mouserc
-    }}
-}
-inline asmsub msgapp(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y, bool arg3 @Pc) {
-    %asm {{
-        jsr p8b_os.p8l_l_msgapp
-    }}
-}
-inline asmsub msgutil(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y, bool arg3 @Pc) {
-    %asm {{
-        jsr p8b_os.p8l_l_msgutil
-    }}
-}
-inline asmsub mul16() {
-    %asm {{
-        jsr p8b_os.p8l_l_mul16
-    }}
-}
-inline asmsub opaqancs() {
-    %asm {{
-        jsr p8b_os.p8l_l_opaqancs
-    }}
-}
-inline asmsub partroot(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_partroot
-    }}
-}
-inline asmsub pathadd(ubyte arg0 @A, uword arg1 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_pathadd
-    }}
-}
-inline asmsub pathup(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_pathup
-    }}
-}
-inline asmsub pet2asc(ubyte arg0 @A) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_pet2asc
-    }}
-}
-inline asmsub pet2scr(ubyte arg0 @A) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_pet2scr
-    }}
-}
-inline asmsub pgalloc(ubyte arg0 @A, ubyte arg1 @X) -> ubyte @Y, bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_pgalloc
-    }}
-}
-inline asmsub pgfetch(uword arg0 @XY) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_pgfetch
-    }}
-}
-inline asmsub pgfree(ubyte arg0 @X, ubyte arg1 @Y) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_pgfree
-    }}
-}
-inline asmsub pgmark(ubyte arg0 @X, ubyte arg1 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_pgmark
-    }}
-}
-inline asmsub pgstash(uword arg0 @XY) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_pgstash
-    }}
-}
-inline asmsub polldevices() {
-    %asm {{
-        jsr p8b_os.p8l_l_polldevices
-    }}
-}
-inline asmsub prep_rw(ubyte arg0 @A, uword arg1 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_prep_rw
-    }}
-}
-inline asmsub presort() {
-    %asm {{
-        jsr p8b_os.p8l_l_presort
-    }}
-}
-inline asmsub procgfx() {
-    %asm {{
-        jsr p8b_os.p8l_l_procgfx
-    }}
-}
-inline asmsub ptrthis(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_ptrthis
-    }}
-}
-inline asmsub pullctx() {
-    %asm {{
-        jsr p8b_os.p8l_l_pullctx
-    }}
-}
-inline asmsub pushctx() {
-    %asm {{
-        jsr p8b_os.p8l_l_pushctx
-    }}
-}
-inline asmsub quitapp() {
-    %asm {{
-        jsr p8b_os.p8l_l_quitapp
-    }}
-}
-inline asmsub readdir() -> ubyte @X, bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_readdir
-    }}
-}
-inline asmsub readkcmd() -> ubyte @A, ubyte @Y, bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_readkcmd
-    }}
-}
-inline asmsub readkprnt() -> ubyte @A, bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_readkprnt
-    }}
-}
-inline asmsub readmouse() -> ubyte @A, ubyte @X, ubyte @Y, bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_readmouse
-    }}
-}
-inline asmsub readreg(ubyte arg0 @A, ubyte arg1 @Y, bool arg2 @Pc) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_readreg
-    }}
-}
-inline asmsub realloc(ubyte arg0 @A, uword arg1 @XY) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_realloc
-    }}
-}
-inline asmsub recontext() {
-    %asm {{
-        jsr p8b_os.p8l_l_recontext
-    }}
-}
-inline asmsub redraw() {
-    %asm {{
-        jsr p8b_os.p8l_l_redraw
-    }}
-}
-inline asmsub redrwtod() {
-    %asm {{
-        jsr p8b_os.p8l_l_redrwtod
-    }}
-}
-inline asmsub renamef() {
-    %asm {{
-        jsr p8b_os.p8l_l_renamef
-    }}
-}
-inline asmsub reset() {
-    %asm {{
-        jsr p8b_os.p8l_l_reset
-    }}
-}
-inline asmsub reuconf(ubyte arg0 @A, uword arg1 @XY) -> ubyte @A, bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_reuconf
-    }}
-}
-inline asmsub scratchf() {
-    %asm {{
-        jsr p8b_os.p8l_l_scratchf
-    }}
-}
-inline asmsub scrlayer() {
-    %asm {{
-        jsr p8b_os.p8l_l_scrlayer
-    }}
-}
-inline asmsub scrrow(ubyte arg0 @A, uword arg1 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_scrrow
-    }}
-}
-inline asmsub seebas() {
-    %asm {{
-        jsr p8b_os.p8l_l_seebas
-    }}
-}
-inline asmsub setclass() {
-    %asm {{
-        jsr p8b_os.p8l_l_setclass
-    }}
-}
-inline asmsub setctx(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_setctx
-    }}
-}
-inline asmsub setdprops(ubyte arg0 @X, ubyte arg1 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_setdprops
-    }}
-}
-inline asmsub setflags(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_setflags
-    }}
-}
-inline asmsub setgfx(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_setgfx
-    }}
-}
-inline asmsub setlrc(uword arg0 @XY, bool arg1 @Pc) {
-    %asm {{
-        jsr p8b_os.p8l_l_setlrc
-    }}
-}
-inline asmsub setname(ubyte arg0 @A, uword arg1 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_setname
-    }}
-}
-inline asmsub setsuper() {
-    %asm {{
-        jsr p8b_os.p8l_l_setsuper
-    }}
-}
-inline asmsub settime(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_settime
-    }}
-}
-inline asmsub settkenv(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_settkenv
-    }}
-}
-;inline asmsub sort() {
-;    %asm {{
-;        jsr p8b_os.p8l_l_sort
-;    }}
-;}
-inline asmsub spotcopy() {
-    %asm {{
-        jsr p8b_os.p8l_l_spotcopy
-    }}
-}
-inline asmsub stattune(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_stattune
-    }}
-}
-inline asmsub strdel(ubyte arg0 @A, ubyte arg1 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_strdel
-    }}
-}
-inline asmsub strins(ubyte arg0 @A, ubyte arg1 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_strins
-    }}
-}
-inline asmsub strlen(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_strlen
-    }}
-}
-inline asmsub syskcmd(ubyte arg0 @A, ubyte arg1 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_syskcmd
-    }}
-}
-inline asmsub timedwn() {
-    %asm {{
-        jsr p8b_os.p8l_l_timedwn
-    }}
-}
-inline asmsub timeevt() {
-    %asm {{
-        jsr p8b_os.p8l_l_timeevt
-    }}
-}
-inline asmsub timeque(uword arg0 @XY) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_timeque
-    }}
-}
-inline asmsub tkenv() {
-    %asm {{
-        jsr p8b_os.p8l_l_tkenv
-    }}
-}
-inline asmsub tkkcmd(uword arg0 @XY) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_tkkcmd
-    }}
-}
-inline asmsub tkkprnt(uword arg0 @XY) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_tkkprnt
-    }}
-}
-inline asmsub tkmouse(uword arg0 @XY) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_tkmouse
-    }}
-}
-inline asmsub tknew(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_tknew
-    }}
-}
-inline asmsub tkupdate(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_tkupdate
-    }}
-}
-inline asmsub toglock(uword arg0 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_toglock
-    }}
-}
-inline asmsub tohex(ubyte arg0 @A) -> ubyte @X, ubyte @Y {
-    %asm {{
-        jsr p8b_os.p8l_l_tohex
-    }}
-}
-inline asmsub toint(ubyte arg0 @A, uword arg1 @XY) {
-    %asm {{
-        jsr p8b_os.p8l_l_toint
-    }}
-}
-inline asmsub toisodt(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_toisodt
-    }}
-}
-inline asmsub toisotm(ubyte arg0 @X, ubyte arg1 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_toisotm
-    }}
-}
-inline asmsub tolower(ubyte arg0 @A) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_tolower
-    }}
-}
-inline asmsub tostr() {
-    %asm {{
-        jsr p8b_os.p8l_l_tostr
-    }}
-}
-inline asmsub toupper(ubyte arg0 @A) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_toupper
-    }}
-}
-inline asmsub try() {
-    %asm {{
-        jsr p8b_os.p8l_l_try
-    }}
-}
-inline asmsub tuneinfo(ubyte arg0 @X) {
-    %asm {{
-        jsr p8b_os.p8l_l_tuneinfo
-    }}
-}
-inline asmsub unldlib(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_unldlib
-    }}
-}
-inline asmsub updc16(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_updc16
-    }}
-}
-inline asmsub updc32(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_updc32
-    }}
-}
-inline asmsub updc8(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_updc8
-    }}
-}
-inline asmsub updstat() {
-    %asm {{
-        jsr p8b_os.p8l_l_updstat
-    }}
-}
-inline asmsub viewwtag(ubyte arg0 @A) {
-    %asm {{
-        jsr p8b_os.p8l_l_viewwtag
-    }}
-}
-inline asmsub walk(ubyte arg0 @A) -> bool @Pc {
-    %asm {{
-        jsr p8b_os.p8l_l_walk
-    }}
-}
-inline asmsub weeknum(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) {
-    %asm {{
-        jsr p8b_os.p8l_l_weeknum
-    }}
-}
-inline asmsub width() {
-    %asm {{
-        jsr p8b_os.p8l_l_width
-    }}
-}
-inline asmsub writreg(ubyte arg0 @A, ubyte arg1 @Y) -> ubyte @A {
-    %asm {{
-        jsr p8b_os.p8l_l_writreg
-    }}
+; function for registering callbacks
+; fills jump vector slots at the start of app memory
+sub register(ubyte slot, uword function) {
+    hdr.appbase[slot] = lsb(function)
+    hdr.appbase[slot+1] = msb(function)
 }
 inline asmsub initextern() clobbers(A,X,Y) {
     %asm {{
@@ -2377,586 +1455,948 @@ inline asmsub initextern() clobbers(A,X,Y) {
     }}
 }
 l_externs:
-l_alert:
-    %asm {{
-        .byte p8b_hdr.p8c_lser
-        .word p8b_hdr.p8c_alert_
-    }}
-l_appendto:
-    %asm {{
-        .byte p8b_hdr.p8c_ltkt
-        .word p8b_hdr.p8c_appendto_
-    }}
-l_asc2pet:
-    %asm {{
-        .byte p8b_hdr.p8c_lstr
-        .word p8b_hdr.p8c_asc2pet_
-    }}
-l_bkalloc:
-    %asm {{
-        .byte p8b_hdr.p8c_lmem
-        .word p8b_hdr.p8c_bkalloc_
-    }}
-l_bkfree:
-    %asm {{
-        .byte p8b_hdr.p8c_lmem
-        .word p8b_hdr.p8c_bkfree_
-    }}
-l_boundschk:
-    %asm {{
-        .byte p8b_hdr.p8c_ltkt
-        .word p8b_hdr.p8c_boundschk_
-    }}
-l_cclose:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_cclose_
-    }}
-l_classlnk:
-    %asm {{
-        .byte p8b_hdr.p8c_ltkt
-        .word p8b_hdr.p8c_classlnk_
-    }}
-l_classptr:
-    %asm {{
-        .byte p8b_hdr.p8c_ltkt
-        .word p8b_hdr.p8c_classptr_
-    }}
-l_clipin:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_clipin_
-    }}
-l_clipout:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_clipout_
-    }}
-l_confirq:
-    %asm {{
-        .byte p8b_hdr.p8c_lser
-        .word p8b_hdr.p8c_confirq_
-    }}
-l_copen:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_copen_
-    }}
-l_copybufs:
-    %asm {{
-        .byte p8b_hdr.p8c_lscr
-        .word p8b_hdr.p8c_copybufs_
-    }}
-l_cread:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_cread_
-    }}
-l_ctx2scr:
-    %asm {{
-        .byte p8b_hdr.p8c_lscr
-        .word p8b_hdr.p8c_ctx2scr_
-    }}
-l_ctxclear:
-    %asm {{
-        .byte p8b_hdr.p8c_lscr
-        .word p8b_hdr.p8c_ctxclear_
-    }}
-l_ctxdraw:
-    %asm {{
-        .byte p8b_hdr.p8c_lscr
-        .word p8b_hdr.p8c_ctxdraw_
-    }}
-l_cwrite:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_cwrite_
-    }}
-l_deactiv:
-    %asm {{
-        .byte p8b_hdr.p8c_lmnu
-        .word p8b_hdr.p8c_deactiv_
-    }}
-l_deqkcmd:
-    %asm {{
-        .byte p8b_hdr.p8c_linp
-        .word p8b_hdr.p8c_deqkcmd_
-    }}
-l_deqkprnt:
-    %asm {{
-        .byte p8b_hdr.p8c_linp
-        .word p8b_hdr.p8c_deqkprnt_
-    }}
-l_deqmouse:
-    %asm {{
-        .byte p8b_hdr.p8c_linp
-        .word p8b_hdr.p8c_deqmouse_
-    }}
-l_div16:
-    %asm {{
-        .byte p8b_hdr.p8c_lmat
-        .word p8b_hdr.p8c_div16_
-    }}
-l_evtloop:
-    %asm {{
-        .byte p8b_hdr.p8c_lscr
-        .word p8b_hdr.p8c_evtloop_
-    }}
-l_fclose:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_fclose_
-    }}
-l_ferror:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_ferror_
-    }}
-l_finit:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_finit_
-    }}
-l_fopen:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_fopen_
-    }}
-l_fread:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_fread_
-    }}
-l_free:
-    %asm {{
-        .byte p8b_hdr.p8c_lmem
-        .word p8b_hdr.p8c_free_
-    }}
-l_frefcvt:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_frefcvt_
-    }}
-l_fwrite:
-    %asm {{
-        .byte p8b_hdr.p8c_lfil
-        .word p8b_hdr.p8c_fwrite_
-    }}
-l_getargs:
-    %asm {{
-        .byte p8b_hdr.p8c_lser
-        .word p8b_hdr.p8c_getargs_
-    }}
-l_getmethod:
-    %asm {{
-        .byte p8b_hdr.p8c_ltkt
-        .word p8b_hdr.p8c_getmethod_
-    }}
-l_getprop16:
-    %asm {{
-        .byte p8b_hdr.p8c_ltkt
-        .word p8b_hdr.p8c_getprop16_
-    }}
-l_getsfref:
-    %asm {{
-        .byte p8b_hdr.p8c_lser
-        .word p8b_hdr.p8c_getsfref_
-    }}
-l_hidemouse:
-    %asm {{
-        .byte p8b_hdr.p8c_linp
-        .word p8b_hdr.p8c_hidemouse_
-    }}
-l_initmouse:
-    %asm {{
-        .byte p8b_hdr.p8c_linp
-        .word p8b_hdr.p8c_initmouse_
-    }}
-l_instanceof:
-    %asm {{
-        .byte p8b_hdr.p8c_ltkt
-        .word p8b_hdr.p8c_instanceof_
-    }}
-l_isdescof:
-    %asm {{
-        .byte p8b_hdr.p8c_ltkt
-        .word p8b_hdr.p8c_isdescof_
-    }}
-l_isdigit:
-    %asm {{
-        .byte p8b_hdr.p8c_lstr
-        .word p8b_hdr.p8c_isdigit_
-    }}
-l_killmouse:
-    %asm {{
-        .byte p8b_hdr.p8c_linp
-        .word p8b_hdr.p8c_killmouse_
-    }}
-l_layerpop:
-    %asm {{
-        .byte p8b_hdr.p8c_lscr
-        .word p8b_hdr.p8c_layerpop_
-    }}
-l_layerpush:
-    %asm {{
-        .byte p8b_hdr.p8c_lscr
-        .word p8b_hdr.p8c_layerpush_
-    }}
-l_loadapp:
-    %asm {{
-        .byte p8b_hdr.p8c_lser
-        .word p8b_hdr.p8c_loadapp_
-    }}
-l_loadclr:
-    %asm {{
-        .byte p8b_hdr.p8c_lscr
-        .word p8b_hdr.p8c_loadclr_
-    }}
-l_loadicns:
-    %asm {{
-        .byte p8b_hdr.p8c_lscr
-        .word p8b_hdr.p8c_loadicns_
-    }}
-l_loadlib:
-    %asm {{
-        .byte p8b_hdr.p8c_lser
-        .word p8b_hdr.p8c_loadlib_
-    }}
-l_loadreloc:
-    %asm {{
-        .byte p8b_hdr.p8c_lser
-        .word p8b_hdr.p8c_loadreloc_
-    }}
-l_loadutil:
-    %asm {{
-        .byte p8b_hdr.p8c_lser
-        .word p8b_hdr.p8c_loadutil_
-    }}
-l_malloc:
-    %asm {{
-        .byte p8b_hdr.p8c_lmem
-        .word p8b_hdr.p8c_malloc_
-    }}
-l_markredraw:
-    %asm {{
-        .byte p8b_hdr.p8c_lscr
-        .word p8b_hdr.p8c_markredraw_
-    }}
-l_memcpy:
-    %asm {{
-        .byte p8b_hdr.p8c_lmem
-        .word p8b_hdr.p8c_memcpy_
-    }}
-l_memfree:
-    %asm {{
-        .byte p8b_hdr.p8c_lmem
-        .word p8b_hdr.p8c_memfree_
-    }}
-l_memncpy:
-    %asm {{
-        .byte p8b_hdr.p8c_lstr
-        .word p8b_hdr.p8c_memncpy_
-    }}
-l_memset:
-    %asm {{
-        .byte p8b_hdr.p8c_lmem
-        .word p8b_hdr.p8c_memset_
-    }}
-l_mnudraw:
-    %asm {{
-        .byte p8b_hdr.p8c_lmnu
-        .word p8b_hdr.p8c_mnudraw_
-    }}
-l_mnukcmd:
-    %asm {{
-        .byte p8b_hdr.p8c_lmnu
-        .word p8b_hdr.p8c_mnukcmd_
-    }}
-l_mnumouse:
-    %asm {{
-        .byte p8b_hdr.p8c_lmnu
-        .word p8b_hdr.p8c_mnumouse_
-    }}
-l_mouserc:
-    %asm {{
-        .byte p8b_hdr.p8c_linp
-        .word p8b_hdr.p8c_mouserc_
-    }}
-l_msgapp:
-    %asm {{
-        .byte p8b_hdr.p8c_ltim
-        .word p8b_hdr.p8c_msgapp_
-    }}
-l_msgutil:
-    %asm {{
-        .byte p8b_hdr.p8c_ltim
-        .word p8b_hdr.p8c_msgutil_
-    }}
-l_mul16:
-    %asm {{
-        .byte p8b_hdr.p8c_lmat
-        .word p8b_hdr.p8c_mul16_
-    }}
-l_opaqancs:
-    %asm {{
-        .byte p8b_hdr.p8c_ltkt
-        .word p8b_hdr.p8c_opaqancs_
-    }}
-l_pet2asc:
-    %asm {{
-        .byte p8b_hdr.p8c_lstr
-        .word p8b_hdr.p8c_pet2asc_
-    }}
-l_pet2scr:
-    %asm {{
-        .byte p8b_hdr.p8c_lstr
-        .word p8b_hdr.p8c_pet2scr_
-    }}
-l_pgalloc:
-    %asm {{
-        .byte p8b_hdr.p8c_lmem
-        .word p8b_hdr.p8c_pgalloc_
-    }}
-l_pgfetch:
-    %asm {{
-        .byte p8b_hdr.p8c_lmem
-        .word p8b_hdr.p8c_pgfetch_
-    }}
-l_pgfree:
-    %asm {{
-        .byte p8b_hdr.p8c_lmem
-        .word p8b_hdr.p8c_pgfree_
-    }}
+; special case as it is used by the syslib init_system code.
 l_pgmark:
     %asm {{
         .byte p8b_hdr.p8c_lmem
         .word p8b_hdr.p8c_pgmark_
     }}
-l_pgstash:
+asmsub alert() {
+    %asm {{
+        .byte p8b_hdr.p8c_lser
+        .word p8b_hdr.p8c_alert_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub appendto(uword arg0 @XY) {
+    %asm {{
+        .byte p8b_hdr.p8c_ltkt
+        .word p8b_hdr.p8c_appendto_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub asc2pet(ubyte arg0 @A) -> ubyte @A {
+    %asm {{
+        .byte p8b_hdr.p8c_lstr
+        .word p8b_hdr.p8c_asc2pet_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub bkalloc(ubyte arg0 @X) -> ubyte @Y, bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lmem
+        .word p8b_hdr.p8c_bkalloc_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub bkfree(ubyte arg0 @X, ubyte arg1 @Y) -> bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lmem
+        .word p8b_hdr.p8c_bkfree_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub boundschk() -> bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_ltkt
+        .word p8b_hdr.p8c_boundschk_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub cclose(ubyte arg0 @X, ubyte arg1 @Y) {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_cclose_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub classlnk(uword arg0 @XY) {
+    %asm {{
+        .byte p8b_hdr.p8c_ltkt
+        .word p8b_hdr.p8c_classlnk_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub classptr(ubyte arg0 @X) -> uword @XY {
+    %asm {{
+        .byte p8b_hdr.p8c_ltkt
+        .word p8b_hdr.p8c_classptr_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub clipin(ubyte arg0 @A, uword arg1 @XY) {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_clipin_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub clipout(ubyte arg0 @A, uword arg1 @XY) {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_clipout_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub confirq() {
+    %asm {{
+        .byte p8b_hdr.p8c_lser
+        .word p8b_hdr.p8c_confirq_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub copen(ubyte arg0 @A) -> uword @XY {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_copen_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub copybufs() {
+    %asm {{
+        .byte p8b_hdr.p8c_lscr
+        .word p8b_hdr.p8c_copybufs_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub cread(ubyte arg0 @A, uword arg1 @XY) {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_cread_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub ctx2scr(ubyte arg0 @X, ubyte arg1 @Y) {
+    %asm {{
+        .byte p8b_hdr.p8c_lscr
+        .word p8b_hdr.p8c_ctx2scr_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub ctxclear(ubyte arg0 @A) {
+    %asm {{
+        .byte p8b_hdr.p8c_lscr
+        .word p8b_hdr.p8c_ctxclear_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub ctxdraw(ubyte arg0 @A) -> bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lscr
+        .word p8b_hdr.p8c_ctxdraw_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub cwrite(ubyte arg0 @A, uword arg1 @XY) {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_cwrite_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub deactiv() {
+    %asm {{
+        .byte p8b_hdr.p8c_lmnu
+        .word p8b_hdr.p8c_deactiv_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub deqkcmd() {
+    %asm {{
+        .byte p8b_hdr.p8c_linp
+        .word p8b_hdr.p8c_deqkcmd_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub deqkprnt() {
+    %asm {{
+        .byte p8b_hdr.p8c_linp
+        .word p8b_hdr.p8c_deqkprnt_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub deqmouse(bool arg0 @Pc) {
+    %asm {{
+        .byte p8b_hdr.p8c_linp
+        .word p8b_hdr.p8c_deqmouse_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub div16(bool arg0 @Pc) {
+    %asm {{
+        .byte p8b_hdr.p8c_lmat
+        .word p8b_hdr.p8c_div16_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub div3216() {
+    %asm {{
+        .byte p8b_hdr.p8c_lmat
+        .word p8b_hdr.p8c_div3216_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub evtloop() {
+    %asm {{
+        .byte p8b_hdr.p8c_lscr
+        .word p8b_hdr.p8c_evtloop_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub fclose(uword arg0 @XY) {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_fclose_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub ferror() -> ubyte @A {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_ferror_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub finit(uword arg0 @XY) -> ubyte @A, ubyte @X, bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_finit_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub fopen(ubyte arg0 @A, uword arg1 @XY) -> ubyte @A, uword @XY, bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_fopen_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub fread(uword arg0 @XY) -> uword @XY {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_fread_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub free(uword arg0 @XY) {
+    %asm {{
+        .byte p8b_hdr.p8c_lmem
+        .word p8b_hdr.p8c_free_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub frefcvt(uword arg0 @XY) -> uword @XY {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_frefcvt_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub fwrite(uword arg0 @XY) -> uword @XY {
+    %asm {{
+        .byte p8b_hdr.p8c_lfil
+        .word p8b_hdr.p8c_fwrite_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub getargs(ubyte arg0 @A) {
+    %asm {{
+        .byte p8b_hdr.p8c_lser
+        .word p8b_hdr.p8c_getargs_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub getmethod(ubyte arg0 @Y) -> uword @XY {
+    %asm {{
+        .byte p8b_hdr.p8c_ltkt
+        .word p8b_hdr.p8c_getmethod_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub getprop16(ubyte arg0 @Y) -> uword @XY {
+    %asm {{
+        .byte p8b_hdr.p8c_ltkt
+        .word p8b_hdr.p8c_getprop16_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub getsfref(ubyte arg0 @Y) -> ubyte @X, ubyte @Y {
+    %asm {{
+        .byte p8b_hdr.p8c_lser
+        .word p8b_hdr.p8c_getsfref_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub hidemouse() {
+    %asm {{
+        .byte p8b_hdr.p8c_linp
+        .word p8b_hdr.p8c_hidemouse_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub initmouse(bool arg0 @Pc) {
+    %asm {{
+        .byte p8b_hdr.p8c_linp
+        .word p8b_hdr.p8c_initmouse_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub instanceof(uword arg0 @XY) -> bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_ltkt
+        .word p8b_hdr.p8c_instanceof_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub isdescof(uword arg0 @XY) -> ubyte @A, bool @Pz {
+    %asm {{
+        .byte p8b_hdr.p8c_ltkt
+        .word p8b_hdr.p8c_isdescof_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub isdigit(ubyte arg0 @A) -> bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lstr
+        .word p8b_hdr.p8c_isdigit_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub killmouse() -> bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_linp
+        .word p8b_hdr.p8c_killmouse_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub layerpop() -> bool @Pz {
+    %asm {{
+        .byte p8b_hdr.p8c_lscr
+        .word p8b_hdr.p8c_layerpop_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub layerpush(uword arg0 @XY) -> ubyte @X, bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lscr
+        .word p8b_hdr.p8c_layerpush_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub loadapp(uword arg0 @XY) {
+    %asm {{
+        .byte p8b_hdr.p8c_lser
+        .word p8b_hdr.p8c_loadapp_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub loadclr() {
+    %asm {{
+        .byte p8b_hdr.p8c_lscr
+        .word p8b_hdr.p8c_loadclr_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub loadicns(uword arg0 @XY) {
+    %asm {{
+        .byte p8b_hdr.p8c_lscr
+        .word p8b_hdr.p8c_loadicns_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub loadlib(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) -> ubyte @A {
+    %asm {{
+        .byte p8b_hdr.p8c_lser
+        .word p8b_hdr.p8c_loadlib_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub loadreloc(uword arg0 @XY) -> ubyte @A, bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lser
+        .word p8b_hdr.p8c_loadreloc_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub loadutil(uword arg0 @XY) -> bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lser
+        .word p8b_hdr.p8c_loadutil_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub malloc(ubyte arg0 @A, uword arg1 @XY) -> uword @XY, bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lmem
+        .word p8b_hdr.p8c_malloc_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub markredraw(ubyte arg0 @X) {
+    %asm {{
+        .byte p8b_hdr.p8c_lscr
+        .word p8b_hdr.p8c_markredraw_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub memcpy(ubyte arg0 @A, ubyte arg1 @Y) {
+    %asm {{
+        .byte p8b_hdr.p8c_lmem
+        .word p8b_hdr.p8c_memcpy_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub memfree() -> ubyte @X {
+    %asm {{
+        .byte p8b_hdr.p8c_lmem
+        .word p8b_hdr.p8c_memfree_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub memncpy(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) {
+    %asm {{
+        .byte p8b_hdr.p8c_lstr
+        .word p8b_hdr.p8c_memncpy_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub memset(ubyte arg0 @A, ubyte arg1 @Y) {
+    %asm {{
+        .byte p8b_hdr.p8c_lmem
+        .word p8b_hdr.p8c_memset_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub mnudraw() {
+    %asm {{
+        .byte p8b_hdr.p8c_lmnu
+        .word p8b_hdr.p8c_mnudraw_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub mnukcmd() {
+    %asm {{
+        .byte p8b_hdr.p8c_lmnu
+        .word p8b_hdr.p8c_mnukcmd_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub mnumouse() {
+    %asm {{
+        .byte p8b_hdr.p8c_lmnu
+        .word p8b_hdr.p8c_mnumouse_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub mouserc(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) -> ubyte @A, ubyte @X, ubyte @Y {
+    %asm {{
+        .byte p8b_hdr.p8c_linp
+        .word p8b_hdr.p8c_mouserc_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub msgapp(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y, bool arg3 @Pc) {
+    %asm {{
+        .byte p8b_hdr.p8c_ltim
+        .word p8b_hdr.p8c_msgapp_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub msgutil(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y, bool arg3 @Pc) {
+    %asm {{
+        .byte p8b_hdr.p8c_ltim
+        .word p8b_hdr.p8c_msgutil_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub mul16() {
+    %asm {{
+        .byte p8b_hdr.p8c_lmat
+        .word p8b_hdr.p8c_mul16_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub opaqancs() -> uword @XY {
+    %asm {{
+        .byte p8b_hdr.p8c_ltkt
+        .word p8b_hdr.p8c_opaqancs_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub pet2asc(ubyte arg0 @A) -> ubyte @A {
+    %asm {{
+        .byte p8b_hdr.p8c_lstr
+        .word p8b_hdr.p8c_pet2asc_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub pet2scr(ubyte arg0 @A) -> ubyte @A {
+    %asm {{
+        .byte p8b_hdr.p8c_lstr
+        .word p8b_hdr.p8c_pet2scr_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub pgalloc(ubyte arg0 @A, ubyte arg1 @X) -> ubyte @Y, bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lmem
+        .word p8b_hdr.p8c_pgalloc_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub pgfetch(uword arg0 @XY) -> bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lmem
+        .word p8b_hdr.p8c_pgfetch_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub pgfree(ubyte arg0 @X, ubyte arg1 @Y) -> bool @Pc {
+    %asm {{
+        .byte p8b_hdr.p8c_lmem
+        .word p8b_hdr.p8c_pgfree_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub pgmark(ubyte arg0 @X, ubyte arg1 @Y) {
+    %asm {{
+        .byte p8b_hdr.p8c_lmem
+        .word p8b_hdr.p8c_pgmark_
+        ; rts
+        ; !notreached!
+    }}
+}
+asmsub pgstash(uword arg0 @XY) -> bool @Pc {
     %asm {{
         .byte p8b_hdr.p8c_lmem
         .word p8b_hdr.p8c_pgstash_
+        ; rts
+        ; !notreached!
     }}
-l_polldevices:
+}
+asmsub polldevices() {
     %asm {{
         .byte p8b_hdr.p8c_linp
         .word p8b_hdr.p8c_polldevices_
+        ; rts
+        ; !notreached!
     }}
-l_ptrthis:
+}
+asmsub ptrthis(uword arg0 @XY) {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_ptrthis_
+        ; rts
+        ; !notreached!
     }}
-l_pullctx:
+}
+asmsub pullctx() {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_pullctx_
+        ; rts
+        ; !notreached!
     }}
-l_pushctx:
+}
+asmsub pushctx() {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_pushctx_
+        ; rts
+        ; !notreached!
     }}
-l_quitapp:
+}
+asmsub quitapp() -> uword @XY {
     %asm {{
         .byte p8b_hdr.p8c_lser
         .word p8b_hdr.p8c_quitapp_
+        ; rts
+        ; !notreached!
     }}
-l_readkcmd:
+}
+asmsub readkcmd() -> ubyte @A, ubyte @Y, bool @Pc {
     %asm {{
         .byte p8b_hdr.p8c_linp
         .word p8b_hdr.p8c_readkcmd_
+        ; rts
+        ; !notreached!
     }}
-l_readkprnt:
+}
+asmsub readkprnt() -> ubyte @A, bool @Pc {
     %asm {{
         .byte p8b_hdr.p8c_linp
         .word p8b_hdr.p8c_readkprnt_
+        ; rts
+        ; !notreached!
     }}
-l_readmouse:
+}
+asmsub readmouse() -> ubyte @A, ubyte @X, ubyte @Y, bool @Pc {
     %asm {{
         .byte p8b_hdr.p8c_linp
         .word p8b_hdr.p8c_readmouse_
+        ; rts
+        ; !notreached!
     }}
-l_realloc:
+}
+asmsub realloc(ubyte arg0 @A, uword arg1 @XY) -> uword @XY, bool @Pc {
     %asm {{
         .byte p8b_hdr.p8c_lmem
         .word p8b_hdr.p8c_realloc_
+        ; rts
+        ; !notreached!
     }}
-l_recontext:
+}
+asmsub recontext() {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_recontext_
+        ; rts
+        ; !notreached!
     }}
-l_redraw:
+}
+asmsub redraw() {
     %asm {{
         .byte p8b_hdr.p8c_lscr
         .word p8b_hdr.p8c_redraw_
+        ; rts
+        ; !notreached!
     }}
-l_redrwtod:
+}
+asmsub redrwtod() {
     %asm {{
         .byte p8b_hdr.p8c_lser
         .word p8b_hdr.p8c_redrwtod_
+        ; rts
+        ; !notreached!
     }}
-l_reuconf:
+}
+asmsub reuconf(ubyte arg0 @A, uword arg1 @XY) -> ubyte @A, bool @Pc {
     %asm {{
         .byte p8b_hdr.p8c_lmem
         .word p8b_hdr.p8c_reuconf_
+        ; rts
+        ; !notreached!
     }}
-l_scrrow:
+}
+asmsub scrrow(ubyte arg0 @A, uword arg1 @XY) -> uword @XY {
     %asm {{
         .byte p8b_hdr.p8c_lscr
         .word p8b_hdr.p8c_scrrow_
+        ; rts
+        ; !notreached!
     }}
-l_seebas:
+}
+asmsub seebas() {
     %asm {{
         .byte p8b_hdr.p8c_lmat
         .word p8b_hdr.p8c_seebas_
+        ; rts
+        ; !notreached!
     }}
-l_setclass:
+}
+asmsub setclass() {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_setclass_
+        ; rts
+        ; !notreached!
     }}
-l_setctx:
+}
+asmsub setctx(uword arg0 @XY) {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_setctx_
+        ; rts
+        ; !notreached!
     }}
-l_setdprops:
+}
+asmsub setdprops(ubyte arg0 @X, ubyte arg1 @Y) {
     %asm {{
         .byte p8b_hdr.p8c_lscr
         .word p8b_hdr.p8c_setdprops_
+        ; rts
+        ; !notreached!
     }}
-l_setflags:
+}
+asmsub setflags(ubyte arg0 @A) {
     %asm {{
         .byte p8b_hdr.p8c_lser
         .word p8b_hdr.p8c_setflags_
+        ; rts
+        ; !notreached!
     }}
-l_setgfx:
+}
+asmsub setgfx(uword arg0 @XY) {
     %asm {{
         .byte p8b_hdr.p8c_lser
         .word p8b_hdr.p8c_setgfx_
+        ; rts
+        ; !notreached!
     }}
-l_setlrc:
+}
+asmsub setlrc(uword arg0 @XY, bool arg1 @Pc) {
     %asm {{
         .byte p8b_hdr.p8c_lscr
         .word p8b_hdr.p8c_setlrc_
+        ; rts
+        ; !notreached!
     }}
-l_setsuper:
+}
+asmsub setsuper() {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_setsuper_
+        ; rts
+        ; !notreached!
     }}
-l_settkenv:
+}
+asmsub settkenv(uword arg0 @XY) {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_settkenv_
+        ; rts
+        ; !notreached!
     }}
-l_strdel:
+}
+asmsub strdel(ubyte arg0 @A, ubyte arg1 @Y) {
     %asm {{
         .byte p8b_hdr.p8c_lstr
         .word p8b_hdr.p8c_strdel_
+        ; rts
+        ; !notreached!
     }}
-l_strins:
+}
+asmsub strins(ubyte arg0 @A, ubyte arg1 @Y) {
     %asm {{
         .byte p8b_hdr.p8c_lstr
         .word p8b_hdr.p8c_strins_
+        ; rts
+        ; !notreached!
     }}
-l_strlen:
+}
+asmsub strlen(uword arg0 @XY) -> uword @XY {
     %asm {{
         .byte p8b_hdr.p8c_lstr
         .word p8b_hdr.p8c_strlen_
+        ; rts
+        ; !notreached!
     }}
-l_syskcmd:
+}
+asmsub syskcmd(ubyte arg0 @A, ubyte arg1 @Y) {
     %asm {{
         .byte p8b_hdr.p8c_lser
         .word p8b_hdr.p8c_syskcmd_
+        ; rts
+        ; !notreached!
     }}
-l_timedwn:
+}
+asmsub timedwn() {
     %asm {{
         .byte p8b_hdr.p8c_ltim
         .word p8b_hdr.p8c_timedwn_
+        ; rts
+        ; !notreached!
     }}
-l_timeevt:
+}
+asmsub timeevt() {
     %asm {{
         .byte p8b_hdr.p8c_ltim
         .word p8b_hdr.p8c_timeevt_
+        ; rts
+        ; !notreached!
     }}
-l_timeque:
+}
+asmsub timeque(uword arg0 @XY) -> bool @Pc {
     %asm {{
         .byte p8b_hdr.p8c_ltim
         .word p8b_hdr.p8c_timeque_
+        ; rts
+        ; !notreached!
     }}
-l_tkkcmd:
+}
+asmsub tkkcmd(uword arg0 @XY) -> bool @Pc {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_tkkcmd_
+        ; rts
+        ; !notreached!
     }}
-l_tkkprnt:
+}
+asmsub tkkprnt(uword arg0 @XY) -> bool @Pc {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_tkkprnt_
+        ; rts
+        ; !notreached!
     }}
-l_tkmouse:
+}
+asmsub tkmouse(uword arg0 @XY) -> bool @Pc {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_tkmouse_
+        ; rts
+        ; !notreached!
     }}
-l_tknew:
+}
+asmsub tknew(uword arg0 @XY) -> uword @XY {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_tknew_
+        ; rts
+        ; !notreached!
     }}
-l_tkupdate:
+}
+asmsub tkupdate(uword arg0 @XY) {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_tkupdate_
+        ; rts
+        ; !notreached!
     }}
-l_tohex:
+}
+asmsub tohex(ubyte arg0 @A) -> ubyte @X, ubyte @Y {
     %asm {{
         .byte p8b_hdr.p8c_lmat
         .word p8b_hdr.p8c_tohex_
+        ; rts
+        ; !notreached!
     }}
-l_toint:
+}
+asmsub toint(ubyte arg0 @A, uword arg1 @XY) {
     %asm {{
         .byte p8b_hdr.p8c_lmat
         .word p8b_hdr.p8c_toint_
+        ; rts
+        ; !notreached!
     }}
-l_tolower:
+}
+asmsub tolower(ubyte arg0 @A) -> ubyte @A {
     %asm {{
         .byte p8b_hdr.p8c_lstr
         .word p8b_hdr.p8c_tolower_
+        ; rts
+        ; !notreached!
     }}
-l_tostr:
+}
+asmsub tostr() -> uword @XY {
     %asm {{
         .byte p8b_hdr.p8c_lmat
         .word p8b_hdr.p8c_tostr_
+        ; rts
+        ; !notreached!
     }}
-l_toupper:
+}
+asmsub toupper(ubyte arg0 @A) -> ubyte @A {
     %asm {{
         .byte p8b_hdr.p8c_lstr
         .word p8b_hdr.p8c_toupper_
+        ; rts
+        ; !notreached!
     }}
-l_unldlib:
+}
+asmsub unldlib(ubyte arg0 @A, ubyte arg1 @X, ubyte arg2 @Y) {
     %asm {{
         .byte p8b_hdr.p8c_lser
         .word p8b_hdr.p8c_unldlib_
+        ; rts
+        ; !notreached!
     }}
-l_updstat:
+}
+asmsub updstat() {
     %asm {{
         .byte p8b_hdr.p8c_lser
         .word p8b_hdr.p8c_updstat_
+        ; rts
+        ; !notreached!
     }}
-l_viewwtag:
+}
+asmsub viewwtag(ubyte arg0 @A) {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_viewwtag_
+        ; rts
+        ; !notreached!
     }}
-l_walk:
+}
+asmsub walk(ubyte arg0 @A) -> bool @Pc {
     %asm {{
         .byte p8b_hdr.p8c_ltkt
         .word p8b_hdr.p8c_walk_
+        ; rts
+        ; !notreached!
     }}
+}
 l_terminator:
     %asm {{
         .byte $FF

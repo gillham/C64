@@ -2,8 +2,7 @@
 
 PCC="prog8c"
 
-
-${PCC} -asmlist -srcdirs include/ -sourcelines -target c64os -out build/ main.p8
+${PCC} -asmlist -sourcelines -target c64os.properties -out build/ main.p8
 
 # make a disk.
 MYDISK="test/hello.d64"
