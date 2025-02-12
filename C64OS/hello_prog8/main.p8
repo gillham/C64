@@ -2,10 +2,6 @@
 ; Minimal example application.
 ;
 
-; *required* Prog8 options
-%zeropage dontuse
-%address $0900
-
 ; C64 OS import
 %import os
 
@@ -14,8 +10,8 @@
 ;
 
 main {
-    str hello = "Welcome to C64 OS!"
-    str prog8 = "(via Prog8!)"
+    str hello = c64os:"Welcome to C64 OS!"
+    str prog8 = c64os:"(via Prog8!)"
     ubyte msg_act = 0
     ubyte msg_cmd = 0
     bool msg_ok = false
