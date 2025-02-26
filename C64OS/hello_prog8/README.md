@@ -3,13 +3,13 @@
 Here is a minimal C64 OS app written in Prog8. It is based on the Hello World example
 code written in assembler for Turbo Macro Pro.
 
-The include directory has files created by parsing the official C64 OS headers and then
+The libraries/c64os directory has `os.p8` created by parsing the official C64 OS headers and then
 generating Prog8 const definitions and asmsub wrappers for much of the C64 OS API.
 Only a few of the functions have been tested with a small program I am writing, so
 feedback would be appreciated.
 
-NOTE: Developing for C64 OS with Prog8 *requires* a custom build of the Prog8 compiler
-to support the 'c64os' target.  It will not work with the official releases.
+NOTE: Developing for C64 OS with Prog8 *requires* using a custom target via the `c64os.properties`
+file. This works with official Prog8 releases starting at v11.1
 Check with me on C64 OS Discord.
 
 ## Building
@@ -19,9 +19,18 @@ the needed file, run the command below.  This will generate `main.prg` which can
 to your C64 OS media as `main.o` in "applications/Hello Prog8" of your system folder.
 Typically that would mean "os/applications/Hello Prog8/main.o" is where it ends up.
 
+Compiling a Prog8 program can be done as below by running Java with the Prog8 jar file.
 ```bash
-java -jar prog8compiler-custom.jar -srcdirs include/ -target c64os main.p8
+java -jar prog8compiler-custom.jar -target ./c64os.properties main.p8
 ```
+
+If you install the `prog8c` script, or your Linux distribution does, you can call it as shown below.
+```bash
+prog8c -target ./c64os.properties main.p8
+
+```
+
+Either way you should end up with a `main.prg` as mentioned above.
 
 ## Developing with Prog8
 
