@@ -147,15 +147,15 @@ main {
 
     ; handle control keys
     sub handlerc() {
-        ;sys.set_carry()
-        sys.clear_carry()
+        sys.set_carry()
+        ;sys.clear_carry()
         return
     }
 
     ; handle normal printable keys
     sub handlerk() {
         ;sys.set_carry()
-        sys.clear_carry()
+        ;sys.clear_carry()
         return
     }
 
