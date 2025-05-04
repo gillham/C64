@@ -6,6 +6,14 @@ The source code is on the [c64 branch][1] of [my fork][2] of the [cx16assem repo
 
 Eventually there will be some [examples](examples) and [documentation](docs) available.  Currently these are just placeholders.
 
+The binary is `assembler.prg` in this repository.
+
+# c128assem
+
+Ok, I added a version for the Commodore 128 as well.  It needs more testing but has been able to compile the same large files tested with c64assem.  The binary is `assembler128.prg` in this repository.
+
+The source code is on the [c128 branch][6] of the repository mentioned above.
+
 # Usage
 
 This is a file based assembler and it can be loaded and run like any other C64 program. Note it is called `assembler.prg` in this repository, but you might want to rename it to just `assembler` on your C64 storage device as in the image below.
@@ -47,5 +55,5 @@ Feedback is appreciated and feel free to create issues or contact me via C64 OS 
 [3]: https://github.com/irmen/cx16assem
 [4]: https://github.com/gillham/prog8reu
 [5]: https://github.com/irmen/prog8
-
+[6]: https://github.com/gillham/cx16assem/tree/c128
 
