@@ -1,0 +1,36 @@
+colors {
+    const ubyte cfgmask         = $000f
+    const ubyte cbgmask         = $00f0
+    const ubyte cblack          = $0000
+    const ubyte cwhite          = $0001
+    const ubyte cred            = $0002
+    const ubyte ccyan           = $0003
+    const ubyte cpurple         = $0004
+    const ubyte cgreen          = $0005
+    const ubyte cblue           = $0006
+    const ubyte cyellow         = $0007
+    const ubyte corange         = $0008
+    const ubyte cbrown          = $0009
+    const ubyte clred           = $000a
+    const ubyte cdgrey          = $000b
+    const ubyte cmgrey          = $000c
+    const ubyte clgreen         = $000d
+    const ubyte clblue          = $000e
+    const ubyte clgrey          = $000f
+    const ubyte chblack         = $0000
+    const ubyte chwhite         = $0010
+    const ubyte chred           = $0020
+    const ubyte chcyan          = $0030
+    const ubyte chpurple        = $0040
+    const ubyte chgreen         = $0050
+    const ubyte chblue          = $0060
+    const ubyte chyellow        = $0070
+    const ubyte chorange        = $0080
+    const ubyte chbrown         = $0090
+    const ubyte chlred          = $00a0
+    const ubyte chdgrey         = $00b0
+    const ubyte chmgrey         = $00c0
+    const ubyte chlgreen        = $00d0
+    const ubyte chlblue         = $00e0
+    const ubyte chlgrey         = $00f0
+}

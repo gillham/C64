@@ -5,6 +5,14 @@
 ; C64 OS import
 %import os
 
+%import colors
+%import ctxdraw
+%import io
+%import lmem
+%import lscr
+%import lser
+%import ltkt
+
 ;
 ; C64 OS Hello World Application written in Prog8.
 ;
@@ -19,14 +27,14 @@ main {
 
     ; C64 OS App entry point.
      sub start() {
-        ; *must* register callbacks.
-        os.register(hdr.APP_MSG, appmcmd)
-        os.register(hdr.APP_QUIT, appquit)
-        os.register(hdr.APP_FREEZE, appfrze)
-        os.register(hdr.APP_THAW, appthaw)
+        ; *must* register callbacks. (app.appinit == start)
+        os.register(app.appmcmd, appmcmd)
+        os.register(app.appquit, appquit)
+        os.register(app.appfrze, appfrze)
+        os.register(app.appthaw, appthaw)
 
         ; call screen.layerpush
-        void os.layerpush(main.data.layer)
+        void lscr.layerpush(main.data.layer)
         ;Load Shared Libraries
         ;Load Custom TK Classes
         ;Load Custom Icons
@@ -45,12 +53,12 @@ main {
         ;"Menu Enquiry" and "Menu Cmd"
         ;message types must be handled
         ;to support menu actions.
-        if msg_cmd == hdr.mc_menq {
+        if msg_cmd == app.mc_menq {
             msg_ret = mnuenq()
             sys.clear_carry()
             return
         }
-        if msg_cmd == hdr.mc_mnu {
+        if msg_cmd == app.mc_mnu {
             msg_ok = mnucmd()
             if msg_ok {
                 sys.clear_carry()
@@ -97,11 +105,11 @@ main {
         }}
         drawctx:
         %asm {{
-            .word p8b_hdr.p8c_scrbuf      ;Char Origin
-            .word p8b_hdr.p8c_colbuf      ;Colr Origin
-            .byte p8b_hdr.p8c_screen_cols ;Buff Width
-            .byte p8b_hdr.p8c_screen_cols ;Draw Width
-            .byte p8b_hdr.p8c_screen_rows ;Draw Height
+            .word p8b_io.p8c_scrbuf      ;Char Origin
+            .word p8b_io.p8c_colbuf      ;Colr Origin
+            .byte p8b_lscr.p8c_screen_cols ;Buff Width
+            .byte p8b_lscr.p8c_screen_cols ;Draw Width
+            .byte p8b_lscr.p8c_screen_rows ;Draw Height
             .word 0           ;Offset Top
             .word 0           ;Offset Left
         }}
@@ -112,25 +120,25 @@ main {
     sub drawmain() {
 
         ; Configure the Draw Context
-        os.setctx(main.data.drawctx)
+        ltkt.setctx(main.data.drawctx)
 
         ; Set Draw Properties and Color
-        os.setdprops(hdr.d_crsr_h, hdr.clblue)
+        lscr.setdprops(ctxdraw.d_crsr_h, colors.clblue)
 
         ; Clear the Draw Context
-        os.ctxclear($20)
+        lscr.ctxclear($20)
 
         ; Configure draw position
-        os.setlrc(5, false)
-        os.setlrc(11, true)
+        lscr.setlrc(5, false)
+        lscr.setlrc(11, true)
 
         ; Print message
         print(hello)
 
         ; Print another message
-        os.setdprops(hdr.d_crsr_h, hdr.cblue)
-        os.setlrc(6, false)
-        os.setlrc(14, true)
+        lscr.setdprops(ctxdraw.d_crsr_h, colors.cblue)
+        lscr.setlrc(6, false)
+        lscr.setlrc(14, true)
         print(prog8)
 
         return
@@ -140,7 +148,7 @@ main {
     sub print(str msg) {
         ubyte i = 0
         while msg[i] != $00 {
-           void os.ctxdraw(msg[i])
+           void lscr.ctxdraw(msg[i])
            i++
         }
     }
@@ -176,7 +184,7 @@ main {
     ; handle quit from menu
     sub mnucmd() -> bool {
         if msg_act == '!' {
-            void os.quitapp()
+            void lser.quitapp()
         }
 
         ; quitapp exits so if we get here we didn't handle msg
