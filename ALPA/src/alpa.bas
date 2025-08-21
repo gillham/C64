@@ -221,12 +221,13 @@
  6160 ifk$<>"m"thenf=ze:goto6050
  6200 goto2020
  7000 rem
+ 7005 dev=peek(186)
  7010 rem ******* load
  7020 print"{clr}"
  7030 print"load program"
  7035 input"input filename";n$
  7037 ifn$=""then7035
- 7040 open1,1,0,n$
+ 7040 open1,dev,0,n$
  7041 t=0:ff=0
  7045 fori=1to200:cd$(i)="":j$(i)=""
  7046 t=t+1
@@ -257,11 +258,12 @@
  7130 nexti
  7140 goto2020
  8000 rem
+ 8005 dev=peek(186)
  8010 rem ******* save
  8020 input"enter name : ";n$
  8030 ifn$=""then8020
  8035 r$=","
- 8040 open1,1,1,n$
+ 8040 open1,dev,1,n$
  8050 fori=1to200
  8052 ifc$(i,1)="  "then8080
  8055 co$=c$(i,1)+c$(i,2)+c$(i,3)
