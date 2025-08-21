@@ -1,3 +1,19 @@
+%import colors
+%import conv2
+%import ctxdraw
+%import io
+%import lfil
+%import linp
+%import lmat
+%import lmem
+%import lmnu
+%import lscr
+%import lser
+%import lstr
+%import ltim
+%import ltkt
+%import os
+
 ;
 ; Minimal example application.
 ;

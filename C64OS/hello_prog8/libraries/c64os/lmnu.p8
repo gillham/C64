@@ -1,7 +1,7 @@
 ;
 ; Based on C64 OS os/s/menu.s
 ;
-lptr {
+lmnu {
     %option merge
 
     const ubyte lmnu_module = $0100-(2*6)

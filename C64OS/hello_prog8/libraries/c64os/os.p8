@@ -72,6 +72,7 @@ app {
 }
 
 os {
+%option force_output
     ; dispatch vector table offsets
     ; used with register()
     const ubyte APP_INIT = 0
