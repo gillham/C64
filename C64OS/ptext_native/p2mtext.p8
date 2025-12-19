@@ -2,6 +2,8 @@
 %import strings
 %import textio
 %zeropage basicsafe
+%zpreserved $9b,$9b
+%zpreserved $b0,$b1
 
 ; import the various MText code definitions.
 %import mtext
@@ -169,7 +171,7 @@ main {
         ; start after '<l:' and end before '>'
         for i in 3 to length-2 {
             ; Currently using '<space>fn:' to eat whitespace in mtext
-            if strings.startswith(&temp+i, mtext.LINK_FILE) {
+            if (@(&temp+i) == ' ' and @(&temp+i+1) != ' ' and (@(&temp+i+2) == ':'  or @(&temp+i+3) == ':')) {
                 ; copy LINK_PATH byte to output buffer
                 main.mtextbuf[main.start.mtextptr] = mtext.LINK_PATH
                 main.start.mtextptr++
