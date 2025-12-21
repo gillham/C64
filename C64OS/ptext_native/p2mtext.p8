@@ -109,6 +109,8 @@ main {
         ; Needs better error checking.
         void file_write()
         }
+        ; hack for JiffyDOS functions keys
+        @($9b) = $00
     }
 
     ; Returns size of code in bytes
