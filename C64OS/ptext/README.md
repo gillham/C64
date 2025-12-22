@@ -34,7 +34,7 @@ When converting C64 OS Help source file in PText to a "help" directory of MText 
 
 ### Converting a PText file to a MText help directory
 
-`ptext2mtext.py` -- Converts one PText file to a "help" directory of MText files including a table of contents.  You specify the PText input filename and the output *directory* as each topic (delimited by Markdown header '#' symbols) will create a separate file in the output directory. The filename and directory name can be called whatever you want, but in the example below I'm using `help.md` as the PText source and the resulting C64 OS Help MText files will be written into the `help` directory.
+`ptext2mtext_help.py` -- Converts one PText file to a "help" directory of MText files including a table of contents.  You specify the PText input filename and the output *directory* as each topic (delimited by Markdown header '#' symbols) will create a separate file in the output directory. The filename and directory name can be called whatever you want, but in the example below I'm using `help.md` as the PText source and the resulting C64 OS Help MText files will be written into the `help` directory.
 
 Example help.md file:
 ```markdown
@@ -49,7 +49,7 @@ This text has a <l:link f:Topic2> to Topic2 which is in another file.
 <t:strong>Topic two has bold text!<t:normal>
 ```
 ```bash
-$ python3 ptext2mtext.py --input help.md --output help
+$ python3 ptext2mtext_help.py --input help.md --output help
 ```
 
 Once this is run you will have three files in the help directory; `toc.t`, `Topic1`, and `Topic2`.
@@ -65,10 +65,10 @@ The blank line between the two topics is from the bare '#' character in the samp
 
 ### Converting a MText help directory to a PText file
 
-`mtext2ptext.py` -- Converts a C64 OS Help directory of MText files, and a table of contents, to a single PText Markdown-esque file in plaintext.  You specifiy the input *directory* and the output *file* for this direction.  The script looks in the input directory ('help' from the example above) and reads the `toc.t` file.  Since in C64 OS Help directories each topic listed in the table of contents corresponds to a file of the same name, the script can find all the components to convert.  In the example below we convert the MText output generated above back to the original PText format.
+`mtext_help2ptext.py` -- Converts a C64 OS Help directory of MText files, and a table of contents, to a single PText Markdown-esque file in plaintext.  You specifiy the input *directory* and the output *file* for this direction.  The script looks in the input directory ('help' from the example above) and reads the `toc.t` file.  Since in C64 OS Help directories each topic listed in the table of contents corresponds to a file of the same name, the script can find all the components to convert.  In the example below we convert the MText output generated above back to the original PText format.
 
 ```bash
-$ python3 mtext2ptext.py --input help --output help2.md
+$ python3 mtext_help2ptext.py --input help --output help2.md
 ```
 
 Note I called the output file `help2.md` here because the original source file in the earlier example is `help.md` and you don't want to overwrite it.  Now you can compare `help.md` and `help2.md` and see how the conversion from PText -> MText -> PText went!  The resulting `help2.md` should match the original `help.md` at this point as the rendering is reversible.
@@ -98,6 +98,11 @@ The supported formatting codes are listed in the table below.
 | <c:light blue>  | Light Blue  | \$FE             | *reserved*           |
 | <c:light grey>  | Light Grey  | \$FF             | *reserved*           |
 
+
+The link type, `fn` in the table above, can be 1-3 digits.
+The link type field is identified by a space followed by 1-3 digits and a colon character.
+The link text, which is after `l:` but before the link type field, can be multiple words but should not start with whitespace.
+For any of the tags, not just link, there should not be a space immediately after any colon.
 
 You can use 'gray' spelling as well as 'grey' and you can use the first letter of the first word and no space.  So 'lred' for 'light red'.  Also you can use the shortest unique code and longer, up to the full code of course.
 
