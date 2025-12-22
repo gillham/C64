@@ -24,8 +24,8 @@ import sys
 # with '/' or ':' allowed in link
 CODES_REGEX = r"<(.)\:(\$?\w+)?(\s?([/:\.]?)\w?)+\>"
 
-# For the paramater portion of a link.
-LINK_REGEX = r"([\w\s]+)\s(..):(.*)"
+# For the parameter portion of a link.
+LINK_REGEX = r"([\w\s]+)\s(..?.?):(.*)"
 
 COLORS = {
     "black": 0xE0,
@@ -40,10 +40,12 @@ COLORS = {
     "brown": 0xE9,
     "lred": 0xEA,
     "light red": 0xEA,
+    "d": 0xEB,
     "dgray": 0xEB,
     "dark gray": 0xEB,
     "dgrey": 0xEB,
     "dark grey": 0xEB,
+    "m": 0xEC,
     "mgray": 0xEC,
     "medium gray": 0xEC,
     "mgrey": 0xEC,
