@@ -14,8 +14,8 @@ def emit_color(color):
 
 
 # causes a line break.
-# END_DIV = "</div>"
-END_DIV = ""
+END_DIV = "</div>"
+#END_DIV = ""
 
 # maybe not needed.
 # END_SPAN = "</span>"
@@ -49,10 +49,10 @@ MTEXT = {
     # emphatic (italics?)
     0xF2: (str, "*", "*"),
     0xF3: (str, "{link_code}", ""),
-    0xF4: (str, '<div align="left">', END_DIV),
-    0xF5: (str, '<div align="right">', END_DIV),
-    0xF6: (str, '<div align="center">', END_DIV),
-    0xF7: (str, '<div align="justify">', END_DIV),
+    0xF4: (str, '<div align="left">\n', END_DIV),
+    0xF5: (str, '<div align="right">\n', END_DIV),
+    0xF6: (str, '<div align="center">\n', END_DIV),
+    0xF7: (str, '<div align="justify">\n', END_DIV),
     # horizontal rule
     0xF8: (str, "---", ""),
 }
@@ -118,16 +118,24 @@ def scan_codes(binary):
 
     for char in data:
         byte = ord(char)
+        # $0d is $0a after pet2ascii
+        if byte == 0x0a:
+            # pop any end code for previous tag at linefeed
+            # MText style persists to end of paragraph (linefeed)
+            # or to a new style marker
+            if len(end_stack) > 0:
+                #print(f"DEBUG: end_stack: {end_stack}")
+                #print(f"DEBUG: len(end_stack) {len(end_stack)}")
+                content += end_stack.pop()
         if (MTEXT_MIN <= byte <= MTEXT_MAX) or (1 < byte < 4):
             if byte in MTEXT:
-                # pop any end code for previous tag
-                if len(end_stack) > 0:
-                    # print(f"DEBUG: len(end_stack) {len(end_stack)}")
-                    content += end_stack.pop()
                 funct = MTEXT.get(byte)[0]
                 param = MTEXT.get(byte)[1]
                 endmark = MTEXT.get(byte)[2]
-                # print(f"DEBUG: calling funct {funct} with param {param}")
+                # if new code is a <div> we should pop previous
+                if param.startswith('<div') and len(end_stack) > 0:
+                    #print(f"DEBUG: before new div: end_stack: {end_stack}")
+                    content += end_stack.pop()
                 content += funct(param)
                 # push end mark for this tag/code onto stack
                 end_stack.append(endmark)
@@ -197,6 +205,7 @@ def main():
                 # print(f"DEBUG: main result: {result}")
                 output_data.append(result)
         else:
+            # this is how we get a blank line in toc.t
             output_data.append("# ")
 
     file_write(output, output_data)
