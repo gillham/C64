@@ -4,6 +4,8 @@
 %import textio
 %option no_sysinit
 %zeropage dontuse
+%zpreserved $9b,$9b
+%zpreserved $b0,$b1
 
 main {
     sub start() {
@@ -27,6 +29,8 @@ main {
             txt.print("  or: load\"tview\",8\n")
             txt.print("then: run:rem filename\n")
         }
+        ; JiffyDOS F key hack.
+        @($9b) = $00
     }
 
     ; temp buffer hack

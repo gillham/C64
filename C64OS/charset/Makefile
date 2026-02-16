@@ -36,7 +36,7 @@ EMU=$(EMU_CMD) $(EMU_BASE) $(EMU_KERNAL) $(EMU_DISK) $(EMU_REU)
 PCC=prog8c
 PCCARGSC64=-srcdirs src -asmlist -target c64 -out build
 
-PROGS	= build/custchar.prg build/hello.prg build/tview.prg
+PROGS	= build/custchar.prg build/custcharb0.prg build/hello.prg build/tview.prg
 
 all: build $(PROGS) disk
 
@@ -52,6 +52,7 @@ clean:
 disk:	build $(PROGS)
 	c1541 -format $(DISKNAME),52 $(DISKTYPE) $(DISK) > /dev/null
 	c1541 -attach $(DISK) -write build/custchar.prg custchar,p > /dev/null
+	c1541 -attach $(DISK) -write build/custcharb0.prg custcharb0,p > /dev/null
 	c1541 -attach $(DISK) -write build/tview.prg tview,p > /dev/null
 	c1541 -attach $(DISK) -write build/hello.prg hello,p > /dev/null
 	c1541 -attach $(DISK) -write test/testfile.t testfile.t,s > /dev/null
