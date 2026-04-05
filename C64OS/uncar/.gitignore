@@ -1,5 +1,7 @@
 # development files
 *.car
+dist/
 os/
 base/
+extract.sh
 go.sh
