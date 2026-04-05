@@ -7,7 +7,7 @@ c1541 -attach disk_mtext.d64 -write p2mtext.prg p2mtext,p
 c1541 -attach disk_mtext.d64 -write nova.prg nova,p
 
 DRIVE08="-8 disk_mtext.d64 -drive8type 1542"
-DRIVE10="-fs10 share -device10 1 -iecdevice10 -virtualdev10"
+DRIVE10="-fs10 share -devicebackend10 1 -busdevice10 -trapdevice10"
 
 # JiffyDOS
 KERNAL="-kernal jiffykernal"
