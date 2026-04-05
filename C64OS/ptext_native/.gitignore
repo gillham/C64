@@ -1,4 +1,6 @@
 *.d64
 *.asm
 *.vice-mon-list
+*.list
 output*
+save/
