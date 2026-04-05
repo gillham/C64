@@ -29,9 +29,15 @@ The Internet Archive has a PDF copy of the book if you don't have a physical cop
 
 The version of ALPA on the linked D64 did not include the checksum utility (lines 60000+) and had several lines that did not match the checksum once I added it.  Still the vast majority of the program was already typed in and correct which saved me a lot of work.
 
-The version in this repository is an exact match (per line checksum and total checksum) of the book and may have some bugs. I will post an updated version alongside this original version if I find some updates are needed.
+The version in this repository, `alphatape.prg`, is an exact match (per line checksum and total checksum) of the book and may have some bugs. I will post an updated version alongside this original version if I find some updates are needed.
 
 This program loads/saves to cassette tape.  I will be working on a modified version that will use drive number 8. (and you can easily change that in the ALPA source)
+
+Versions:
+ - `alpatape.prg`  Original version matching the book
+ - `alpa8.prg`  Uses device number 8
+ - `alpa.prg`  Uses the last accessed device via `PEEK(186)`
+ - `alpax16.prg`  Preliminary Commander X16 version.  Checksum (62000+) is not working.
 
 ## Usage
 
@@ -53,7 +59,7 @@ Here you can enter your program using BASIC style line numbers (as above) or iss
 
 ## Entering Machine Code
 
-You can enter your program using the format of: line #<space>HEX byte\[HEX Byte\]\[HEX Byte\]
+You can enter your program using the format of: `line#<space>HEX byte[HEX Byte][HEX Byte]`
 Here's the example from above again, but now showing one, two or three bytes.
 
 You can enter a line number alone to delete line, just like in BASIC
