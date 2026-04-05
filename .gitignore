@@ -2,3 +2,5 @@
 .idea/
 # macOS Finder files.
 .DS_Store
+# Work-in-progress directory
+working/
