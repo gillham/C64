@@ -17,11 +17,11 @@ fi
 if [ "$2" != "" ]; then
     DRIVE09="-9 $2 -drive9type 1542"
 fi
-DRIVE10="-fs10 . -device10 1 -iecdevice10 -virtualdev10"
+DRIVE10="-fs10 . -devicebackend10 1 -busdevice10 -trapdevice10"
 
 KEYMAP="-keymap 1"
 MODEL="-model ntsc"
-PRINTER="-virtualdev4 -iecdevice4 -device4 1"
+PRINTER="-trapdevice4 -busdevice4 -devicebackend4 1"
 
 #
 # Use -default to eliminate any saved config.
